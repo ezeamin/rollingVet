@@ -8,8 +8,10 @@ function App() {
     <div className="App">
       <div className="gradient__bg">
         <div className="container">
-          <Header />
-          <Main />
+          <div className="landing">
+            <Header />
+            <Main />
+          </div>
           <Info />
           <Planes />
           <Clima />

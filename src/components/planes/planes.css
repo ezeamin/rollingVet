@@ -1,0 +1,10 @@
+.card-planes{
+    display: flex;
+    justify-content: start;
+}
+
+@media screen and (max-width: 768px){
+    .card-planes{
+        flex-direction: column;
+    }   
+}
