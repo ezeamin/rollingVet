@@ -1,0 +1,31 @@
+.logo{
+    font-weight: 800;
+    font-size: 45px;
+    line-height: 75px;
+    letter-spacing: -0.04em;
+}
+
+.header__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.header__container__links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.header__container__links-links{
+    font-weight: 200;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: -0.04em;
+    text-decoration: none;
+    color: #000;
+}
