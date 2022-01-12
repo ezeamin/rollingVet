@@ -12,8 +12,7 @@ const Plan = (props) => {
           descripcion: "Mascotas de 0 a 5 años",
           precio: "$200,00",
           precioFinal: "$350,00",
-          image:
-            "img/index/planes/primeros-pasos.jpg",
+          image: "img/index/planes/primeros-pasos.jpg",
         });
         break;
       case 2:
@@ -22,8 +21,7 @@ const Plan = (props) => {
           descripcion: "Mascotas de 5 a 10 años",
           precio: "$400,00",
           precioFinal: "$700,00",
-          image:
-            "img/index/planes/madurando.jpg",
+          image: "img/index/planes/madurando.jpg",
         });
         break;
       case 3:
@@ -32,8 +30,7 @@ const Plan = (props) => {
           descripcion: "Mascotas de más de 10 años",
           precio: "$750,00",
           precioFinal: "$1000,00",
-          image:
-            "img/index/planes/adultos.jpg",
+          image: "img/index/planes/adultos.jpg",
         });
         break;
       default: {
@@ -50,12 +47,12 @@ const Plan = (props) => {
         <h3 className="card__body-title mb-0">{plan.plan}</h3>
         <p className="card__body-descripcion">{plan.descripcion}</p>
         <p className="card__body-precio mb-0">{plan.precio}</p>
-        <p className="card__body-precio-final mb-4">durante un mes , luego {plan.precioFinal}</p>
-            <div className="card__body-boton mb-4">
-                <a href="...">
-                + info
-                </a>
-            </div>
+        <p className="card__body-precio-final mb-4">
+          durante un mes , luego {plan.precioFinal}
+        </p>
+        <div className="card__body-boton mb-4">
+          <a href="...">+ info</a>
+        </div>
       </div>
     </div>
   );

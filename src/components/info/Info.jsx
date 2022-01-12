@@ -5,7 +5,7 @@ const Info = () => {
     return (
         <div className='text-center info'>
             <article>
-                <h3 className='h3__bold'>¿Por que elegirnos?</h3>
+                <h3 className='h3__bold'>¿Por qué elegirnos?</h3>
                 <ul className=''>
                     <li>Porque trabajamos con las mejores marcas</li>
                     <li>Porque contamos con profesionales de alta categoria</li>
