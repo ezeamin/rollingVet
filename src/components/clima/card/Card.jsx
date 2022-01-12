@@ -26,11 +26,11 @@ const Card = () => {
         "http://openweathermap.org/img/wn/" + datos.weather[0].icon + "@2x.png";
 
       setClima({
-        tiempo: datos.main.temp,
+        tiempo: Math.round(datos.main.temp),
         description: description,
         iconUrl: iconUrl,
-        min: datos.main.temp_min,
-        max: datos.main.temp_max,
+        min: Math.round(datos.main.temp_min),
+        max: Math.round(datos.main.temp_max),
       });
     };
 

@@ -44,14 +44,18 @@ const Plan = (props) => {
         <img src={plan.image} alt={plan.plan} />
       </div>
       <div className="card__body">
-        <h3 className="card__body-title mb-0">{plan.plan}</h3>
-        <p className="card__body-descripcion">{plan.descripcion}</p>
-        <p className="card__body-precio mb-0">{plan.precio}</p>
-        <p className="card__body-precio-final mb-4">
-          durante un mes , luego {plan.precioFinal}
-        </p>
-        <div className="card__body-boton mb-4">
-          <a href="...">+ info</a>
+        <div className="card__body-superior">
+          <h3 className="card__body-title mb-0">{plan.plan}</h3>
+          <p className="card__body-descripcion">{plan.descripcion}</p>
+        </div>
+        <div className="card__body-inferior">
+          <p className="card__body-precio mb-0">{plan.precio}</p>
+          <p className="card__body-precio-final mb-4">
+            durante un mes , luego {plan.precioFinal}
+          </p>
+          <div className="card__body-boton mb-4">
+            <a href="...">+ info</a>
+          </div>
         </div>
       </div>
     </div>

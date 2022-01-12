@@ -8,6 +8,7 @@
 
 .card__img{
     width: 100%;
+    min-height: 200px;
     height: 200px;
     margin-bottom: 1rem;
 }
@@ -21,6 +22,20 @@
 
 .card__body{
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card__body-inferior{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.card__body-superior{
+    
 }
 
 .card__body-title{
