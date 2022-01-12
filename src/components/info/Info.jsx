@@ -29,7 +29,7 @@ const Info = () => {
                     <img src='img/index/marcas/purina.png' alt='purina' style={{width: "120px"}}/>
                 </div>
             </article>
-            <p className='p__mascotas mt-4'>¡Tenemos lo que necesites para el cuidado de tu mascota!</p>
+            <p className='p__mascotas mt-4' id="planes">¡Tenemos lo que necesites para el cuidado de tu mascota!</p>
         </div>
     );
 };
