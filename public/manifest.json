@@ -1,8 +1,15 @@
 {
   "short_name": "Rolling Zoo",
   "name": "Rolling Zoo",
-  "start_url": ".",
+  "start_url": "index.html",
   "display": "standalone",
   "theme_color": "#BFBAFF",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "img/favicon.png",
+      "sizes": "1600x1600",
+      "type": "image/png"
+    }
+  ]
 }

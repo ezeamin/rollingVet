@@ -43,11 +43,12 @@ header{
     letter-spacing: -0.04em;
     text-decoration: none;
     color: #000;
-    transition: color 0.25s;
+    transition: all 0.25s;
 }
 
 .header__container__links-links:hover{
-    color: #fff;
+    color: #fff ;
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 768px){
@@ -71,7 +72,11 @@ header{
 
 .scrolling-active__links{
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; 
+}
+
+.scrolling-active__links>:hover{
+    color: var(--global-color-primary);
 }
 
 .scrolling-active__logo{
