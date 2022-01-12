@@ -1,9 +1,9 @@
 {
-  "short_name": "Rolling Zoo",
-  "name": "Rolling Zoo",
+  "short_name": "Rolling Vet",
+  "name": "Rolling Vet",
   "start_url": "index.html",
   "display": "standalone",
-  "theme_color": "#BFBAFF",
+  "theme_color": "#6780FD",
   "background_color": "#ffffff",
   "icons": [
     {

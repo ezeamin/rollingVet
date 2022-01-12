@@ -1,6 +1,5 @@
 export default function animateGallery() {
-  let imgEnUso = [1, 2, 3, 4, 5];
-  let imgDisponible = [6, 7, 8, 9, 10, 11, 12];
+  let imgEnUso = [5,2,1,4,3];
   let ultimo = 0;
 
   const cambiar = (multiplier) => {
@@ -15,11 +14,10 @@ export default function animateGallery() {
 
     ultimo = num1;
 
-    let num2, error, aleatorio;
+    let num2, error;
     do {
       error = false;
-      aleatorio = Math.floor(Math.random() * (6 + (5 - multiplier)));
-      num2 = imgDisponible[aleatorio];
+      num2 = Math.floor(Math.random() * (12))+1;
 
       if (imgEnUso.includes(num2)) error = true;
     } while (error);
@@ -31,15 +29,7 @@ export default function animateGallery() {
     imagenes.splice(index, 1);
 
     imagenes.push(num2);
-
     imgEnUso = imagenes;
-
-    imagenes = imgDisponible;
-    index = imagenes.indexOf(num2);
-    imagenes.splice(index, 1);
-    imagenes.push(valor);
-
-    imgDisponible = imagenes;
 
     elem.src = "img/index/gallery/" + num2 + ".jpg";
   };
@@ -49,11 +39,6 @@ export default function animateGallery() {
     if (window.innerWidth < 768) {
       multiplier = 3;
       if (imgEnUso.length > 3) {
-        let imgDisp = imgDisponible;
-        imgDisp.push(imgEnUso[3]);
-        imgDisp.push(imgEnUso[4]);
-        imgDisponible = imgDisp;
-
         imgEnUso.splice(-2, 3);
       }
     } else {
@@ -71,11 +56,6 @@ export default function animateGallery() {
         }
 
         imgEnUso = imagenes;
-
-        console.log(imagenes, imgEnUso);
-
-        let all = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-        imgDisponible = all.filter((e) => !imagenes.includes(e));
       }
     }
 
