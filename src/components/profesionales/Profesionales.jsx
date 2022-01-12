@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./card/Card";
 import "./profesionales.css";
+import Rombo from "./rombo/Rombo";
 
 const Profesionales = () => {
     const cards = [1,2,3,4]
@@ -15,7 +16,9 @@ const Profesionales = () => {
           atender, cuidar, y amar a tu mascota tanto como vos
         </p>
       </div>
-      <div className="pro__profesionales-max"></div>
+      <div className="pro__profesionales-max">
+        <Rombo />
+      </div>
       <div className="pro__profesionales">
           {cards.map((card,index) => {
               return(

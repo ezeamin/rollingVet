@@ -50,7 +50,7 @@ const Plan = (props) => {
         </div>
         <div className="card__body-inferior">
           <p className="card__body-precio mb-0">{plan.precio}</p>
-          <p className="card__body-precio-final mb-4">
+          <p className="card__body-precio-final mb-4 px-1">
             durante un mes, luego {plan.precioFinal}
           </p>
           <div className="card__body-boton mb-4">

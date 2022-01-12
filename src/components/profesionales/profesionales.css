@@ -1,6 +1,6 @@
 .pro__container{
     position: relative;
-    height: 70vh;
+    height: 64vh;
 }
 
 .pro__titulos{
@@ -22,11 +22,9 @@
 .pro__profesionales-max{
     width: 400px;
     height: 400px;
-    background-color: #fff;
-    transform: rotate(45deg);
     position: absolute;
     left: 5rem;
-    top: 0;
+    top: 15px;
     bottom: 0;
     margin: auto;
 }
