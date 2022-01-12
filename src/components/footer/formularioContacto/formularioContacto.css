@@ -1,0 +1,11 @@
+.input{
+    background-color: rgb(240, 240, 240) !important;
+    border-radius: 23px !important;
+    padding: 0.5rem 1rem !important;
+}
+
+#btnContacto{
+    background-color: var(--global-color-primary) !important;
+    border-radius: 23px !important;
+    border: 0 !important;
+}

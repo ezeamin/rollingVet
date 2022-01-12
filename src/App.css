@@ -1,11 +1,13 @@
 .gradient__bg {
-  background: radial-gradient(
+  /*background: radial-gradient(
     98.16% 98.16% at 50% 1.84%,
     #bfbaff 0%,
     rgba(77, 170, 236, 0.74651) 44.27%,
     #bfbaff 71.73%,
     rgba(191, 186, 255, 0.35) 88.69%
-  );
+  );*/
+
+  background: linear-gradient(360deg, rgba(249, 113, 113, 0.3) 0%, rgba(191, 186, 255, 0.3) 27.04%), radial-gradient(98.16% 98.16% at 50% 1.84%, #BFBAFF 15.1%, rgba(77, 170, 236, 0.74651) 46.87%, #BFBAFF 71.73%, rgba(191, 186, 255, 0.35) 88.69%);
 }
 
 .h3__bold {
