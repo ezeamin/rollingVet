@@ -4,7 +4,7 @@ import Index from "./pages/index/Index";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Planes from "./pages/planes/Planes";
 import scrollDetection from "./js/scroll";
-import Pag404 from "./pages/Pag404";
+import Pag404 from "./pages/pag404/Pag404";
 
 scrollDetection();
 
