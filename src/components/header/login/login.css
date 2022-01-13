@@ -1,0 +1,11 @@
+.login__modal-body{
+    padding: 2rem !important;
+}
+
+.login__title{
+    font-size: 2rem;
+}
+
+.login__description{
+    color: rgb(77, 77, 77)
+}

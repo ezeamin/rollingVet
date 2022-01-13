@@ -4,14 +4,16 @@
     padding: 0.5rem 1rem !important;
 }
 
-#btnContacto{
+.btnForm{
     background-color: var(--global-color-primary);
     border-radius: 23px;
     border: 0;
     transition: background-color 0.25s ease;
+    padding: 0.5rem;
+    color: #fff;
 }
 
-#btnContacto:hover{
+.btnForm:hover{
     background-color: var(--global-color-primary-dark) !important;
 }
 

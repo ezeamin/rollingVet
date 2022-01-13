@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../../components/index/header/Header';
+import Header from "../../components/header/Header";
 import "./pag404.css";
 
 const Pag404 = () => {

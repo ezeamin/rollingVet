@@ -1,5 +1,6 @@
 import React from "react";
-import { Clientes, Clima, Footer, Header, Info, Main, Planes, Profesionales } from "../../components/index/index";
+import { Clientes, Clima, Footer, Info, Main, Planes, Profesionales } from "../../components/index/index";
+import Header from "../../components/header/Header";
 import "./indexPage.css";
 import scrollDetection from "../../js/scroll";
 

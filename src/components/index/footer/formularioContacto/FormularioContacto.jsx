@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
 import "./formularioContacto.css";
 import Swal from "sweetalert2";
-import { init,send } from '@emailjs/browser';
+import { init, send } from "@emailjs/browser";
+import cambiarColor from "../../../../js/buttonColor";
 
 class FormularioContacto extends Component {
   state = {
@@ -120,31 +121,20 @@ class FormularioContacto extends Component {
   };
 
   componentDidMount() {
-    if(this.props.color!=="primary"){
-      //cambiar color a secundario
-      let estilo = window.getComputedStyle(document.body);
-      let secondary = estilo.getPropertyValue("--global-color-secondary");
-      let secondaryDark = estilo.getPropertyValue("--global-color-secondary-dark");
-      this.primaryDark = estilo.getPropertyValue("--global-color-primary-dark");
-      const boton = document.getElementById("btnContacto");
-      boton.style.backgroundColor = secondary;
-
-      let root = document.documentElement;
-      root.style.setProperty("--global-color-primary-dark", secondaryDark);
-    }
+    //cambiar color a secundario
+    this.primaryDark = cambiarColor(this.props.color);
   }
 
   componentWillUnmount() {
     //volver a color original
-    if(this.props.color!=="primary"){
+    if (this.props.color !== "primary") {
       let root = document.documentElement;
-      console.log(this.primaryDark);
       root.style.setProperty("--global-color-primary-dark", this.primaryDark);
     }
   }
   render() {
     return (
-      <Form onSubmit={(e)=>this.handleSubmit(e)}>
+      <Form onSubmit={(e) => this.handleSubmit(e)}>
         <Form.Group>
           <Form.Control
             type="text"
@@ -192,9 +182,9 @@ class FormularioContacto extends Component {
             Ingrese un mensaje
           </Form.Control.Feedback>
         </Form.Group>
-        <Button id="btnContacto" type="submit" className="mt-2 w-100">
+        <button id="btnContacto" type="submit" className="mt-2 w-100 btnForm">
           Enviar
-        </Button>
+        </button>
       </Form>
     );
   }

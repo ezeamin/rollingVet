@@ -1,7 +1,7 @@
 import "./planes.css";
 import React from "react";
 import { Footer } from "../../components/index";
-import Header from "../../components/index/header/Header";
+import Header from "../../components/header/Header";
 import Main from "../../components/planes/main/Main";
 import DetallePlanes from "../../components/planes/detallePlanes/DetallePlanes";
 import scrollDetection from "../../js/scroll";
