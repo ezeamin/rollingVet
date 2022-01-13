@@ -21,7 +21,7 @@ const Clientes = () => {
       <div>
         <h3 className="h3__bold">Nuestros clientes</h3>
         <p className="p__descripcion">
-        Estamos orgullosos del servicio que brindamos, y lo mismo opinan nuestros honorables clientes. ¡Algunos hasta nos dieron la pata! <i className="fas fa-bone"></i>
+        Estamos orgullosos del servicio que brindamos, y lo mismo opinan nuestros honorables clientes. ¡Algunos hasta nos dieron la pata!
         </p>
       </div>
       <div className="card-clientes">

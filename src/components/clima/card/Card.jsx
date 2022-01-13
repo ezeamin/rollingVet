@@ -6,8 +6,6 @@ const Card = () => {
     iconUrl: "",
     tiempo: "",
     description: "",
-    min: "",
-    max: "",
   };
   const [clima, setClima] = React.useState(modelo);
 
@@ -29,8 +27,6 @@ const Card = () => {
         tiempo: Math.round(datos.main.temp),
         description: description,
         iconUrl: iconUrl,
-        min: Math.round(datos.main.temp_min),
-        max: Math.round(datos.main.temp_max),
       });
     };
 
@@ -49,7 +45,7 @@ const Card = () => {
             {clima.description}
           </p>
           <p className="clima__card__texto-minmax p__clima">
-            Minima: {clima.min}° - Maxima: {clima.max}°
+            San Miguel de Tucumán
           </p>
         </div>
       </div>

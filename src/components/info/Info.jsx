@@ -14,7 +14,7 @@ const Info = () => {
             </article>
             <article className='marcas'>
                 <div className='marcas__container'>
-                    <img src='img/index/marcas/eukanuba.png' alt='eukanuba' style={{width: "140px"}}/>
+                    <img src='img/index/marcas/eukanuba.png' alt='eukanuba'/>
                 </div>
                 <div className='marcas__container'>
                     <img src='img/index/marcas/royal.png' alt='royal' />
