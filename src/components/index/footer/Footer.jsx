@@ -2,11 +2,11 @@ import React from 'react';
 import './footer.css';
 import FormularioContacto from './formularioContacto/FormularioContacto';
 
-const Footer = () => {
+const Footer = (props) => {
     return (
         <footer className='footer-index' id='footer'>
             <div className='footer__titulos'>
-                <h3 className='h3__bold'>Contacto</h3>
+                <h3 className='h3__bold'>{props.titulo}</h3>
                 <p className='p__descripcion'>Dejanos tu mensaje y nos pondremos en contacto con vos a la brevedad</p>
             </div>
             <div className='footer__contacto row'>

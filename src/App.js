@@ -1,41 +1,21 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import Swal from 'sweetalert2';
-import { Clientes, Clima, Footer, Header, Info, Main, Planes, Profesionales } from "./components";
+import Index from "./pages/index/Index";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Planes from "./pages/planes/Planes";
+import scrollDetection from "./js/scroll";
 
-function App() {
+scrollDetection();
 
-  window.addEventListener('scroll', function () {
-    let fab = document.getElementsByClassName('fab')[0];
-    let fabContacto = document.getElementsByClassName('fab-contacto')[0];
-    let windowPosition = window.scrollY > 200;
-
-    fab.classList.toggle('scrolling-active__fab', windowPosition);
-    fabContacto.classList.toggle('scrolling-active__fab-contacto', windowPosition);
-  })
-
+function App() { 
   return (
     <div className="App">
-      <a href="#" className="fab">
-        <i className="fas fa-arrow-up"></i>
-      </a>
-      <a href="#footer" className="fab-contacto">
-        <i className="far fa-comments"></i>
-      </a>
-      <div className="gradient__bg">
-        <div className="container">
-          <div className="landing">
-            <Header />
-            <Main />
-          </div>
-          <Info />
-          <Planes />
-          <Clima />
-          <Clientes />
-          <Profesionales />
-          <Footer />
-        </div>
-      </div>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Index />} />
+          <Route path="/planes" element={<Planes />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

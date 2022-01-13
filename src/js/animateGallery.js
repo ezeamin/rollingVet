@@ -1,6 +1,7 @@
 export default function animateGallery() {
-  let imgEnUso = [5,2,1,4,3];
+  let imgEnUso = [5, 2, 1, 4, 3];
   let ultimo = 0;
+  let int1, int2;
 
   const cambiar = (multiplier) => {
     let num1;
@@ -12,12 +13,19 @@ export default function animateGallery() {
     id += "-" + num1;
     const elem = document.getElementById(id);
 
+    //terminar al cambiar pagina
+    if (elem == null) {
+      clearInterval(int1);
+      clearInterval(int2);
+      return;
+    }
+
     ultimo = num1;
 
     let num2, error;
     do {
       error = false;
-      num2 = Math.floor(Math.random() * (12))+1;
+      num2 = Math.floor(Math.random() * 12) + 1;
 
       if (imgEnUso.includes(num2)) error = true;
     } while (error);
@@ -34,7 +42,7 @@ export default function animateGallery() {
     elem.src = "img/index/gallery/" + num2 + ".jpg";
   };
 
-  let int1 = setInterval(() => {
+  int1 = setInterval(() => {
     let multiplier;
     if (window.innerWidth < 768) {
       multiplier = 3;
@@ -64,7 +72,7 @@ export default function animateGallery() {
 
   setTimeout(() => {}, 1500);
 
-  let int2 = setInterval(() => {
+  int2 = setInterval(() => {
     if (window.innerWidth > 768) {
       cambiar(5);
     }

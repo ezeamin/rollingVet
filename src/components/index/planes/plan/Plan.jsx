@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./plan.css";
 
 const Plan = (props) => {
@@ -49,12 +50,12 @@ const Plan = (props) => {
           <p className="card__body-descripcion">{plan.descripcion}</p>
         </div>
         <div className="card__body-inferior">
-          <p className="card__body-precio mb-0">{plan.precio}</p>
+          <p className="card__body-precio mb-0">{plan.precio}*</p>
           <p className="card__body-precio-final mb-4 px-1">
-            durante un mes, luego {plan.precioFinal}
+            *durante un mes, luego {plan.precioFinal}
           </p>
           <div className="card__body-boton mb-4">
-            <a href="...">+ info</a>
+            <Link to="/planes">+ info</Link>
           </div>
         </div>
       </div>

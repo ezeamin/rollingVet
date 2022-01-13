@@ -1,10 +1,10 @@
 import React from "react";
 import "./main.css";
-import animateGallery from "./animateGallery";
+import animateGallery from "../../../js/animateGallery";
 
 const Main = () => {
   React.useEffect(() => {
-    animateGallery();
+    animateGallery(true);
   }, []);
 
   return (

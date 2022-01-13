@@ -76,7 +76,7 @@ header{
 }
 
 .scrolling-active__links>:hover{
-    color: var(--global-color-primary);
+    color: #000;
 }
 
 .scrolling-active__logo{

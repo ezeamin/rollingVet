@@ -8,4 +8,9 @@
     background-color: var(--global-color-primary) !important;
     border-radius: 23px !important;
     border: 0 !important;
+    transition: background-color 0.25s ease;
+}
+
+#btnContacto:hover{
+    background-color: var(--global-color-primary-dark) !important;
 }
