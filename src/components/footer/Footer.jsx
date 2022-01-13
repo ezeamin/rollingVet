@@ -4,7 +4,7 @@ import FormularioContacto from './formularioContacto/FormularioContacto';
 
 const Footer = () => {
     return (
-        <footer className='footer-index'>
+        <footer className='footer-index' id='footer'>
             <div className='footer__titulos'>
                 <h3 className='h3__bold'>Contacto</h3>
                 <p className='p__descripcion'>Dejanos tu mensaje y nos pondremos en contacto con vos a la brevedad</p>

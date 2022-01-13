@@ -7,15 +7,20 @@ function App() {
 
   window.addEventListener('scroll', function () {
     let fab = document.getElementsByClassName('fab')[0];
+    let fabContacto = document.getElementsByClassName('fab-contacto')[0];
     let windowPosition = window.scrollY > 200;
 
     fab.classList.toggle('scrolling-active__fab', windowPosition);
+    fabContacto.classList.toggle('scrolling-active__fab-contacto', windowPosition);
   })
 
   return (
     <div className="App">
       <a href="#" className="fab">
         <i className="fas fa-arrow-up"></i>
+      </a>
+      <a href="#footer" className="fab-contacto">
+        <i className="far fa-comments"></i>
       </a>
       <div className="gradient__bg">
         <div className="container">
