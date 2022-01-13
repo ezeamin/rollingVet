@@ -23,7 +23,7 @@ const Planes = () => {
           <Header />
           <Main />
           <DetallePlanes />
-          <Footer titulo="¿Aún tienes dudas?" />
+          <Footer titulo="¿Aún tienes dudas?" color="secondary"/>
         </div>
       </div>
     </div>

@@ -29,7 +29,7 @@ const Index = () => {
           <Clima />
           <Clientes />
           <Profesionales />
-          <Footer titulo="Contacto"/>
+          <Footer titulo="Contacto" color="primary"/>
         </div>
       </div>
     </div>

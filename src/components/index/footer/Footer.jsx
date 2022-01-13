@@ -11,7 +11,7 @@ const Footer = (props) => {
             </div>
             <div className='footer__contacto row'>
                 <div className="footer__form col-sm-12 col-md-6">
-                    <FormularioContacto />
+                    <FormularioContacto color={props.color}/>
                 </div>
                 <div className="footer__links col-sm-12 col-md-6">
                     <div className="footer__links__redes">

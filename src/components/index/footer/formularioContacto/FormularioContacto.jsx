@@ -14,6 +14,7 @@ class FormularioContacto extends Component {
       email: false,
       mensaje: false,
     },
+    primaryDark: "", //para guardar el valor del color primario del documento
   };
 
   handleChange = (e) => {
@@ -118,6 +119,29 @@ class FormularioContacto extends Component {
     );
   };
 
+  componentDidMount() {
+    if(this.props.color!=="primary"){
+      //cambiar color a secundario
+      let estilo = window.getComputedStyle(document.body);
+      let secondary = estilo.getPropertyValue("--global-color-secondary");
+      let secondaryDark = estilo.getPropertyValue("--global-color-secondary-dark");
+      this.primaryDark = estilo.getPropertyValue("--global-color-primary-dark");
+      const boton = document.getElementById("btnContacto");
+      boton.style.backgroundColor = secondary;
+
+      let root = document.documentElement;
+      root.style.setProperty("--global-color-primary-dark", secondaryDark);
+    }
+  }
+
+  componentWillUnmount() {
+    //volver a color original
+    if(this.props.color!=="primary"){
+      let root = document.documentElement;
+      console.log(this.primaryDark);
+      root.style.setProperty("--global-color-primary-dark", this.primaryDark);
+    }
+  }
   render() {
     return (
       <Form onSubmit={(e)=>this.handleSubmit(e)}>
@@ -132,7 +156,7 @@ class FormularioContacto extends Component {
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
           />
-          <Form.Control.Feedback type="invalid">
+          <Form.Control.Feedback className="feedback" type="invalid">
             Ingrese un nombre valido
           </Form.Control.Feedback>
         </Form.Group>
@@ -147,7 +171,7 @@ class FormularioContacto extends Component {
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
           />
-          <Form.Control.Feedback type="invalid">
+          <Form.Control.Feedback className="feedback" type="invalid">
             Ingrese un email valido
           </Form.Control.Feedback>
         </Form.Group>
@@ -164,7 +188,7 @@ class FormularioContacto extends Component {
             onBlur={(e) => this.handleBlur(e)}
             style={{ resize: "none" }}
           />
-          <Form.Control.Feedback type="invalid">
+          <Form.Control.Feedback className="feedback" type="invalid">
             Ingrese un mensaje
           </Form.Control.Feedback>
         </Form.Group>
