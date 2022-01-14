@@ -24,7 +24,7 @@ const Footer = (props) => {
                 </div>
             </div>
             <div className="footer__derechos">
-                <p>© 2020 RollingVet<br />Todos los derechos reservados.</p>
+                <p>© 2022 RollingVet<br />Todos los derechos reservados.</p>
             </div>
         </footer>
     );

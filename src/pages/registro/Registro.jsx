@@ -2,11 +2,9 @@ import React from "react";
 import FormularioRegistro from "../../components/registro/formularioRegistro/FormularioRegistro";
 import Header from "../../components/registro/header/HeaderRegistro";
 import "./registro.css";
-import { createAvatar } from "@dicebear/avatars";
-import * as style from "@dicebear/pixel-art";
 
 const Registro = () => {
-  const [avatarUrl, setAvatarUrl] = React.useState("");
+  const [avatarUrl, setAvatarUrl] = React.useState("https://avatars.dicebear.com/api/pixel-art/1234.svg");
 
   const randomSeed = Math.floor(Math.random() * 99999) + 2;
 
