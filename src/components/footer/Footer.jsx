@@ -18,7 +18,7 @@ const Footer = (props) => {
                         <p>O a través de otro medio:</p>
                         <p><i className='fas fa-phone-alt logo-redes'></i>3815123456</p>
                         <p><i className='fas fa-envelope logo-redes'></i>consultas@rollingvet.guau</p>
-                        <a className="instagram__footer" href="https://www.instagram.com/rollingvet" target="_blank"><i className="fa fa-instagram logo-redes"></i>RollingVet</a>
+                        <a className="instagram__footer" href="https://www.instagram.com/rollingvet" target="_blank" rel="noreferrer"><i className="fa fa-instagram logo-redes"></i>RollingVet</a>
                         <p><i className='fas fa-map-marker-alt logo-redes'></i>25 de mayo 512, San Miguel de Tucuman</p>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ const Header = () => {
                     <div className='header__container__links'>
                         <button onClick={handleShow} className='header__container__links-links header__button'>Login</button>
                         <Link to='/planes' className='header__container__links-links'>Planes</Link>
-                        <a href='#' className='header__container__links-links'>Registro</a>
+                        <Link to='/registro' className='header__container__links-links'>Registro</Link>
                     </div>
                 </div>
                 <Login show={show} handleClose={handleClose} />

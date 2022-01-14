@@ -2,6 +2,7 @@
 
 :root{
   --global-color-primary: #6780FD;
+  --global-color-primary-light: #8398ff;
   --global-color-primary-dark: #4a5ef3;
   --global-color-secondary: #F62C2C;
   --global-color-secondary-dark: #d42828;

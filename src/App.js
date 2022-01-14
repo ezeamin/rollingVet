@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Planes from "./pages/planes/Planes";
 import scrollDetection from "./js/scroll";
 import Pag404 from "./pages/pag404/Pag404";
+import Registro from "./pages/registro/Registro";
 
 scrollDetection();
 
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Index />} />
           <Route path="/planes" element={<Planes />} />
+          <Route path="/registro" element={<Registro />} />
           <Route path="*" element={<Pag404 />} />
         </Routes>
       </Router>

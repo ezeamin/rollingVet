@@ -1,3 +1,7 @@
+.modal-content{
+    border-radius: 23px !important;
+}
+
 .login__modal-body{
     padding: 2rem !important;
 }

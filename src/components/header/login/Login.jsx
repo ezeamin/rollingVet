@@ -12,7 +12,7 @@ const Login = (props) => {
   }, []);
 
   return (
-    <Modal show={props.show} onHide={props.handleClose} centered>
+    <Modal show={props.show} onHide={props.handleClose} centered className="login__modal">
       <Modal.Body className="login__modal-body">
         <h3 className="login__title">Log in</h3>
         <p className="login__description">Ingrese sus datos</p>

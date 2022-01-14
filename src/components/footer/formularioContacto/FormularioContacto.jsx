@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import "./formularioContacto.css";
 import Swal from "sweetalert2";
 import { init, send } from "@emailjs/browser";
-import cambiarColor from "../../../../js/buttonColor";
+import cambiarColor from "../../../js/buttonColor";
 
 class FormularioContacto extends Component {
   state = {
