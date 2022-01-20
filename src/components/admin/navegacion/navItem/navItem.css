@@ -1,0 +1,18 @@
+.admin__nav-item{
+    display:flex;
+    align-items: center;
+    background-color: var(--global-color-primary-lightest);
+    border-radius: 23px;
+    margin: 0.5rem 0;
+    text-decoration: none;
+}
+
+.admin__nav-item-icon{
+    color: rgb(124, 124, 124) ;
+    /*color: var(--global-color-primary);*/
+}
+
+.admin__nav-item__titulo{
+    color: rgb(124, 124, 124) ;
+    /*color: var(--global-color-primary);*/
+}

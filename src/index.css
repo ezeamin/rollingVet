@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;500;800&display=swap');
 
 :root{
   --global-color-primary: #6780FD;
   --global-color-primary-light: #8398ff;
+  --global-color-primary-lightest: #d7defd;
   --global-color-primary-dark: #4a5ef3;
   --global-color-secondary: #F62C2C;
   --global-color-secondary-dark: #d42828;
