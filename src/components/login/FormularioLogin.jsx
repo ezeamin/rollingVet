@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
-import cambiarColor from "../../../../js/buttonColor";
 import './formularioLogin.css';
 
 class FormularioLogin extends Component {
@@ -10,21 +9,8 @@ class FormularioLogin extends Component {
     errores: {
       email: false,
       contraseña: false,
-    },
-    primaryDark: "", //para guardar el valor del color primario del documento
-  };
-
-  componentDidMount() {
-    this.primaryDark = cambiarColor(this.props.color);
-  }
-
-  componentWillUnmount() {
-    //volver a color original
-    if(this.props.color!=="primary"){
-      let root = document.documentElement;
-      root.style.setProperty("--global-color-primary-dark", this.primaryDark);
     }
-  }
+  };
   
   handleChange = (e) => {
     this.setState({
