@@ -9,6 +9,9 @@ import Registro from "./pages/registro/Registro";
 import Admin from "./pages/admin/Admin";
 import Login from "./pages/login/Login";
 import Citas from "./pages/admin/citas/Citas";
+import Pacientes from "./pages/admin/pacientes/Pacientes";
+import Veterinarios from "./pages/admin/veterinarios/Veterinarios";
+import Precios from "./pages/admin/precios/Precios";
 
 scrollDetection();
 
@@ -23,6 +26,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/citas" element={<Citas />} />
+          <Route path="/admin/pacientes" element={<Pacientes />} />
+          <Route path="/admin/veterinarios" element={<Veterinarios />} />
+          <Route path="/admin/precios" element={<Precios />} />
           <Route path="*" element={<Pag404 />} />
         </Routes>
       </Router>

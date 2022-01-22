@@ -15,25 +15,25 @@ const Navegacion = () => {
       titulo: "Citas",
       icono: "fas fa-calendar-alt",
       enlace: "/admin/citas",
-      active: window.location.pathname === "/admin/citas",
+      active: window.location.pathname.includes("/admin/citas"),
     },
     {
       titulo: "Pacientes",
       icono: "fas fa-user-injured",
       enlace: "/admin/pacientes",
-      active: window.location.pathname === "/admin/pacientes",
+      active: window.location.pathname.includes("/admin/pacientes"),
     },
     {
-      titulo: "Médicos",
+      titulo: "Veterinarios",
       icono: "fas fa-user-md",
-      enlace: "/admin/medicos",
-      active: window.location.pathname === "/admin/medicos",
+      enlace: "/admin/veterinarios",
+      active: window.location.pathname.includes("/admin/veterinarios"),
     },
     {
       titulo: "Precios",
       icono: "fas fa-dollar-sign",
       enlace: "/admin/precios",
-      active: window.location.pathname === "/admin/precios",
+      active: window.location.pathname.includes("/admin/precios"),
     },
   ];
 

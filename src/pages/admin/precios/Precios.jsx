@@ -1,10 +1,10 @@
 import React from "react";
-import PanelCitas from "../../../components/admin/citas/PanelCitas";
 import Navegacion from "../../../components/admin/navegacion/Navegacion";
 import NavegacionResponsive from "../../../components/admin/navegacion/navegacionResponsive/NavegacionResponsive";
 import resize from "../../../js/adminResize";
+import PanelPrecios from "../../../components/admin/precios/PanelPrecios";
 
-const Citas = () => {
+const Precios = () => {
     React.useEffect(() => {
         window.addEventListener("resize", resize);
       }, []);
@@ -16,10 +16,10 @@ const Citas = () => {
           </div>
           <div className="col-xl-10 admin__panel">
             <NavegacionResponsive />
-            <PanelCitas />
+            <PanelPrecios />
           </div>
         </div>
       );
 };
 
-export default Citas;
+export default Precios;

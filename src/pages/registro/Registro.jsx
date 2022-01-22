@@ -4,29 +4,40 @@ import Header from "../../components/registro/header/HeaderRegistro";
 import "./registro.css";
 
 const Registro = () => {
-  const [avatarUrl, setAvatarUrl] = React.useState("https://avatars.dicebear.com/api/pixel-art/1234.svg");
+  const [avatarUrl, setAvatarUrl] = React.useState(
+    "https://mulder-onions.com/wp-content/uploads/2017/02/White-square.jpg"
+  );
+  //el link es una imagen en blanco para esperar el avatar
 
   const randomSeed = Math.floor(Math.random() * 99999) + 2;
 
+  //creacion del avatar
+  let gen;
+  if ((randomSeed % 10) % 2 === 0) gen = "male";
+  else gen = "female";
+  const [genero, setGenero] = React.useState(gen);
+
   React.useEffect(() => {
+    const generateAvatar = async () => {
+      const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg`;
+      
+      setAvatarUrl(url);
+    };
+    
     generateAvatar();
   }, []);
 
-  const generateAvatar = async () => {
-    let genero;
-    if ((randomSeed % 10) % 2 === 0) genero = "male";
-    else genero = "female";
+  
 
-    const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg`;
+  const changeAvatar = (nuevoGenero) => {
+    if (nuevoGenero === "Masculino") nuevoGenero = "male";
+    else if (nuevoGenero === "Femenino") nuevoGenero = "female";
+    else return;
 
-    setAvatarUrl(url);
-  };
+    if (nuevoGenero === genero) return;
 
-  const changeAvatar = (genero) => {
-    if (genero === "Masculino") genero = "male";
-    else genero = "female";
-
-    const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg`;
+    const url = `https://avatars.dicebear.com/api/${nuevoGenero}/${randomSeed}.svg`;
+    setGenero(nuevoGenero);
     setAvatarUrl(url);
   };
 
@@ -48,14 +59,14 @@ const Registro = () => {
               />
             </div>
           </div>
-        <FormularioRegistro changeAvatar={changeAvatar} seed={randomSeed} />
-        <p className="mt-3 fs-6 tyc__p">
-          Al registrarte, aceptas los{" "}
-          <a href="#" className="tyc">
-            terminos y condiciones
-          </a>{" "}
-          del sitio.
-        </p>
+          <FormularioRegistro changeAvatar={changeAvatar} seed={randomSeed} />
+          <p className="mt-3 fs-6 tyc__p">
+            Al registrarte, aceptas los{" "}
+            <a href="#" className="tyc">
+              terminos y condiciones
+            </a>{" "}
+            del sitio.
+          </p>
         </div>
       </main>
     </div>

@@ -9,7 +9,7 @@ const Panel = () => {
         cantidad: '10',
     },
     {
-        titulo: 'Médicos',
+        titulo: 'Veterinarios',
         cantidad: '2',
     },
     {
