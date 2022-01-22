@@ -27,7 +27,7 @@ const NavegacionResponsive = () => {
         </div>
         <div className="admin__logo-responsive">
           <Link to="/">
-            <img src="img/favicon.png" alt="logo RollingVet" />
+            <img src="/img/favicon.png" alt="logo RollingVet" />
           </Link>
         </div>
       </div>

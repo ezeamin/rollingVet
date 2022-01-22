@@ -8,6 +8,7 @@ import Pag404 from "./pages/pag404/Pag404";
 import Registro from "./pages/registro/Registro";
 import Admin from "./pages/admin/Admin";
 import Login from "./pages/login/Login";
+import Citas from "./pages/admin/citas/Citas";
 
 scrollDetection();
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/registro" element={<Registro />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/citas" element={<Citas />} />
           <Route path="*" element={<Pag404 />} />
         </Routes>
       </Router>

@@ -52,13 +52,13 @@ const Navegacion = () => {
       <div className="container admin__nav-container">
         <div className="admin__logo">
           <Link to="/">
-            <img src="img/favicon.png" alt="logo RollingVet" />
+            <img src="/img/favicon.png" alt="logo RollingVet" />
           </Link>
         </div>
         <div className="admin__user my-4">
           <div className="admin__user-foto">
             <img
-              src="img/index/profesionales/ezequiel.png"
+              src="/img/index/profesionales/ezequiel.png"
               alt="Ezequiel Amin"
             />
           </div>
