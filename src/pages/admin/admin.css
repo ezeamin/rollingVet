@@ -1,4 +1,25 @@
 .admin__nav{
-    border-right: 1px solid #ccc;
+    border-right: 1px solid rgba(204, 204, 204, 0.658);
+    height: 100vh;
+    display: block;
+}
+
+.admin{
     padding-right: 0 !important; 
+    margin: 0 !important;
+    max-width: 100vw;
+}
+
+@media screen and (max-width: 1200px) {
+    .admin__nav{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 0;
+    }
+
+    body{
+        overflow-x: hidden;
+    }
 }

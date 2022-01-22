@@ -1,18 +1,37 @@
 .admin__nav-item{
     display:flex;
     align-items: center;
-    background-color: var(--global-color-primary-lightest);
     border-radius: 23px;
     margin: 0.5rem 0;
     text-decoration: none;
+    transition: all 0.2s ease;
 }
 
 .admin__nav-item-icon{
     color: rgb(124, 124, 124) ;
-    /*color: var(--global-color-primary);*/
 }
 
 .admin__nav-item__titulo{
     color: rgb(124, 124, 124) ;
-    /*color: var(--global-color-primary);*/
 }
+
+/* hover */
+
+.admin__nav-item:hover{
+    background-color: rgba(235, 235, 235, 0.63);
+}
+
+/* active */
+
+.admin__nav-item-active{
+    background-color: var(--global-color-primary-lightest);
+}
+
+.admin__nav-item-icon-active{
+    color: var(--global-color-primary);
+}
+
+.admin__nav-item__titulo-active{
+    color: var(--global-color-primary);
+}
+

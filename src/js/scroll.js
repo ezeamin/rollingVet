@@ -26,16 +26,23 @@ export default function scrollDetection() {
 
 const modificar = (windowPosition, windowPosition2) => {
   let header = document.querySelector("header");
+  let headerAdmin = document.getElementsByClassName("admin__nav-navbar-responsive")[0];
   let links = document.getElementsByClassName("header__container__links")[0];
   let logo = document.getElementsByClassName("logo")[0];
   let fab = document.getElementsByClassName("fab")[0];
   let fabContacto = document.getElementsByClassName("fab-contacto")[0];
 
-  header.classList.toggle("scrolling-active", windowPosition2);
-  links.classList.toggle("scrolling-active__links", windowPosition2);
-  logo.classList.toggle("scrolling-active__logo", windowPosition2);
+  if(header!=null){
+    header.classList.toggle("scrolling-active", windowPosition2);
+    links.classList.toggle("scrolling-active__links", windowPosition2);
+    logo.classList.toggle("scrolling-active__logo", windowPosition2);
+  }
 
-  fab.classList.toggle("scrolling-active__fab", windowPosition);
+  if(headerAdmin!=null){
+    headerAdmin.classList.toggle("scrolling-active__navbar-admin", windowPosition2);
+  }
+
+  if(fab!=null) fab.classList.toggle("scrolling-active__fab", windowPosition);
   if (fabContacto != null)
     fabContacto.classList.toggle(
       "scrolling-active__fab-contacto",
