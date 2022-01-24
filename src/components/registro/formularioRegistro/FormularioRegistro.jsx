@@ -123,6 +123,21 @@ class FormularioRegistro extends Component {
     }
   };
 
+  componentDidMount() {
+    if(this.props.info === undefined) return;
+    if(Object.keys(this.props.info).length !== 0) {
+      this.setState({
+        nombre: this.props.info.nombre,
+        apellido: this.props.info.apellido,
+        dni: this.props.info.dni,
+        genero: this.props.info.genero,
+        email: this.props.info.email,
+        contraseña: this.props.info.contraseña,
+        contraseña2: this.props.info.contraseña,
+      });
+    }
+  }
+
   render() {
     return (
       <Form onSubmit={(e) => this.handleSubmit(e)}>

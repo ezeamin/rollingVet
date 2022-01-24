@@ -11,17 +11,19 @@ const PanelVeterinarios = () => {
       nombre: "Elsa",
       dni: "12345678",
       incorporacion: "12/12/2020",
+      codigo: "PyG98",
     },
     {
       apellido: "Dido",
       nombre: "Esteban",
       dni: "87654321",
       incorporacion: "26/07/2019",
+      codigo: "1RG95",
     },
   ];
 
-  const showAlert = (e) => {
-    alert("En un futuro esto va a ser una ventana modal");
+  const showAlert = () => {
+    alert("En un futuro esto permite agregar un veterinario");
   };
 
   return (

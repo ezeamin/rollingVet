@@ -1,30 +1,82 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import './tablaItem.css';
 
 const TablaItem = (props) => {
-    //detect type
+    const navigate = useNavigate();
+
+    const editarPaciente = () => {
+        navigate(`/admin/pacientes/${props.info.codigo}`);
+    }
+    const eliminarPaciente = () => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Eliminar',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if(result.isConfirmed) console.log("Eliminado");
+            else console.log("Cancelado");
+        });
+    }
+
+    const atenderCita = () => {
+        navigate(`/admin/citas/${props.info.codigo}`);
+    }
+    const cancelarCita = () => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Cancelar cita',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cerrar'
+        }).then((result) => {
+            if(result.isConfirmed) console.log("Eliminado");
+            else console.log("Cancelado");
+        });
+    }
+
+    const revisarCita = () => {
+        navigate(`/admin/citas/${props.info.codigo}-VOD`); //view only data
+    }
+
     let botones = [];
     switch (props.type) {
         case 'veterinarios':
             botones = [
-                <button key={1} className="btn btn-outline-warning">Editar</button>,
-                <button key={2} className="btn btn-outline-danger">Eliminar</button>,
+                <button key={Math.round(Math.random()*10000)} className="btn btn-outline-warning">Editar</button>,
+                <button key={Math.round(Math.random()*10000)} className="btn btn-outline-danger">Eliminar</button>,
             ];
             break;
         case 'pacientes':
             botones = [
-                <button key={1} className="btn btn-outline-warning">Editar</button>,
-                <button key={2} className="btn btn-outline-danger">Eliminar</button>,
+                <button onClick={editarPaciente} key={Math.round(Math.random()*10000)} className="btn btn-outline-warning">Editar</button>,
+                <button onClick={eliminarPaciente} key={Math.round(Math.random()*10000)} className="btn btn-outline-danger">Eliminar</button>,
             ];
             break;
         case 'citasProgramadas':
             botones = [
-                <button key={1} className="btn btn-outline-success">Atender</button>,
-                <button key={2} className="btn btn-outline-danger">Cancelar</button>,
+                <button onClick={atenderCita} key={Math.round(Math.random()*10000)} className="btn btn-outline-success">Atender</button>,
+                <button onClick={cancelarCita} key={Math.round(Math.random()*10000)} className="btn btn-outline-danger">Cancelar</button>,
             ];
             break;
         case 'citasRegistro':
             botones = [
-                <button className="btn btn-outline-secondary">Revisar</button>,
+                <button onClick={revisarCita} key={Math.round(Math.random()*10000)} className="btn btn-outline-secondary">Revisar</button>,
+            ];
+            break;
+        case 'mascotas':
+            botones = [
+                <button key={Math.round(Math.random()*10000)} className="btn btn-outline-warning">Editar</button>,
+                <button key={Math.round(Math.random()*10000)} className="btn btn-outline-danger">Eliminar</button>,
             ];
             break;
         default:
@@ -35,7 +87,9 @@ const TablaItem = (props) => {
     return (
         <tr>
             {Object.keys(props.info).map((item, index) => {
-                return <td key={index}>{props.info[item]}</td>;
+                if(item!=='codigo'){
+                    return <td key={index}>{props.info[item]}</td>
+                };
             })}
             <td className='admin__tables-btn'>
             {botones.map((boton) => {
@@ -45,12 +99,5 @@ const TablaItem = (props) => {
         </tr>
     );
 };
-
-/*
-<td>
-    <button class="btn btn-outline-warning btn-tabla my-1">Editar</button>
-    <button class="btn btn-outline-danger btn-tabla my-1">Eliminar</button>
-</td>
-*/
 
 export default TablaItem;

@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 /mockup
+/build
 .pnp.js
 
 # testing
