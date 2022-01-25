@@ -5,6 +5,8 @@
 /.pnp
 /mockup
 /build
+/server/node_modules
+/server/.env
 .pnp.js
 
 # testing

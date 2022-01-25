@@ -34,6 +34,10 @@ const CrudPacientes = () => {
     navigate(`/admin/pacientes/${codigo}/mascotas`);
   };
 
+  const navigateSuccess = () => {
+    //manejar ruta de exito
+  }
+
   if (codigo !== "new") {
     //edicion
     return (
@@ -46,7 +50,7 @@ const CrudPacientes = () => {
           <div className="admin__panel__pacientes-editarUser py-5 admin__panel__pacientes-content">
             <div className="admin__panel__pacientes-editarUser-form">
               <h1 className="mb-3 h3__bold">Editar paciente</h1>
-              <FormularioRegistro info={info} />
+              <FormularioRegistro info={info} navigateSuccess={navigateSuccess} />
             </div>
             <div className="admin__panel__pacientes-editarUser-mascotas">
               <button

@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import FormularioRegistro from "../../components/registro/formularioRegistro/FormularioRegistro";
 import Header from "../../components/registro/header/HeaderRegistro";
 import "./registro.css";
 
 const Registro = () => {
+  const navigate = useNavigate();
   const [avatarUrl, setAvatarUrl] = React.useState(
     "https://mulder-onions.com/wp-content/uploads/2017/02/White-square.jpg"
   );
@@ -41,6 +43,10 @@ const Registro = () => {
     setAvatarUrl(url);
   };
 
+  const navigateSuccess = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="registro__container">
       <Header />
@@ -59,7 +65,7 @@ const Registro = () => {
               />
             </div>
           </div>
-          <FormularioRegistro changeAvatar={changeAvatar} seed={randomSeed} />
+          <FormularioRegistro changeAvatar={changeAvatar} seed={randomSeed} navigateSuccess={navigateSuccess}/>
           <p className="mt-3 fs-6 tyc__p">
             Al registrarte, aceptas los{" "}
             <a href="#" className="tyc">

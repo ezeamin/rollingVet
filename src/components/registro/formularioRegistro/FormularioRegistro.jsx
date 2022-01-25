@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import "./formularioRegistro.css";
+import Swal from "sweetalert2";
 
 class FormularioRegistro extends Component {
   state = {
@@ -26,7 +27,7 @@ class FormularioRegistro extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
-    if(e.target.name === "genero") this.props.changeAvatar(e.target.value);
+    if (e.target.name === "genero") this.props.changeAvatar(e.target.value);
   };
 
   error = (errores, name) => {
@@ -121,12 +122,69 @@ class FormularioRegistro extends Component {
 
       //registrar
       //mandar mail
+      this.registrar(boton);
     }
   };
 
+  async registrar(boton) {
+    const res = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre: this.state.nombre,
+        apellido: this.state.apellido,
+        dni: this.state.dni,
+        genero: this.state.genero,
+        email: this.state.email,
+        password: this.state.contraseña,
+        mascotas: [],
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
+
+    if (data.code === 200) {
+      Swal.fire({
+        title: "Registro exitoso",
+        text: "Ahora puedes iniciar sesión",
+        timer: 2000,
+        showCancelButton: false,
+        showConfirmButton: false,
+      }).then(() => {
+        this.props.navigateSuccess();
+      });
+    } else {
+      if (data.code === 1) {
+        Swal.fire({
+          title: "Email en uso",
+          icon: "error",
+          timer: 2500,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+      } else {
+        Swal.fire({
+          title: "Error inesperado",
+          text: "Vuelve a intentarlo mas tarde",
+          icon: "error",
+          timer: 2500,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+      }
+      boton.disabled = false;
+
+      let estilo = window.getComputedStyle(document.body);
+      let color = estilo.getPropertyValue("--global-color-primary");
+      boton.style.backgroundColor = color;
+    }
+  }
+
   componentDidMount() {
-    if(this.props.info === undefined) return;
-    if(Object.keys(this.props.info).length !== 0) {
+    if (this.props.info === undefined) return;
+    if (Object.keys(this.props.info).length !== 0) {
       this.setState({
         nombre: this.props.info.nombre,
         apellido: this.props.info.apellido,
