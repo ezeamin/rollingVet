@@ -56,6 +56,13 @@ header{
     background: transparent;
 }
 
+.header__container__links-salir{
+    padding: 0.5rem 1.25rem;
+    background-color: red;
+    color: white;
+    border-radius: 23px;
+}
+
 @media screen and (max-width: 768px){
     .logo{
         font-size: 35px;

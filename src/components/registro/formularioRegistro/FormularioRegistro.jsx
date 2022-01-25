@@ -120,6 +120,7 @@ class FormularioRegistro extends Component {
       boton.style.backgroundColor = color;
 
       //registrar
+      //mandar mail
     }
   };
 

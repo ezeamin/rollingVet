@@ -14,6 +14,9 @@ const Login = () => {
               <h3 className="h3__bold mb-0">Bienvenido</h3>
               <p className="p__registro">Ingrese sus datos</p>
             </div>
+            <div className="titulos__registro-img">
+              <img src="/img/login/dog.jpg" alt="perro doctor" />
+            </div>
           </div>
           <FormularioLogin/>
         </div>
