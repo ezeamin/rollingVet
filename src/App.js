@@ -16,6 +16,7 @@ import Precios from "./pages/admin/precios/Precios";
 import CrudPacientes from "./pages/admin/pacientes/crudPacientes/CrudPacientes";
 import NuevaCita from "./pages/admin/citas/nuevaCita/NuevaCita";
 import CrudMascotas from "./pages/admin/pacientes/crudMascotas/CrudMascotas";
+import EditarMascota from "./pages/admin/pacientes/crudMascotas/editarMascota/EditarMascota";
 
 scrollDetection();
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/admin/pacientes" element={<Pacientes />} />
           <Route path="/admin/pacientes/:id" element={<CrudPacientes />} />
           <Route path="/admin/pacientes/:id/mascotas" element={<CrudMascotas />} />
+          <Route path="/admin/pacientes/:id/mascotas/:id" element={<EditarMascota />} />
           <Route path="/admin/veterinarios" element={<Veterinarios />} />
           <Route path="/admin/precios" element={<Precios />} />
           <Route path="*" element={<Pag404 />} />

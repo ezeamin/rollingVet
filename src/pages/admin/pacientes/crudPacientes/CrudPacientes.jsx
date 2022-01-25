@@ -12,29 +12,27 @@ const CrudPacientes = () => {
   const urlSplit = url.split("/");
   const codigo = urlSplit[urlSplit.length - 1];
 
+  let info = {
+    apellido: "Perez",
+    nombre: "Juan",
+    dni: "12345678",
+    email: "juanperez@gmail.com",
+    mascotas: [],
+    genero: "Masculino",
+    contraseña: "12345678",
+  }
+
   React.useEffect(() => {
     window.addEventListener("resize", resize);
     //CARGAR INFO
     if (codigo !== "new") {
-      setInfo({
-        //SACAR Y TRAER ESTOS DATOS DESDE PROPS
-        apellido: "Perez",
-        nombre: "Juan",
-        dni: "12345678",
-        email: "juanperez@gmail.com",
-        mascotas: [],
-        codigo: "aik98",
-        genero: "Masculino",
-        contraseña: "12345678",
-      });
+      
     }
   }, []);
 
   const redirectMascotas = () => {
     navigate(`/admin/pacientes/${codigo}/mascotas`);
   };
-
-  const [info, setInfo] = React.useState({});
 
   if (codigo !== "new") {
     //edicion
@@ -75,7 +73,7 @@ const CrudPacientes = () => {
         <NavegacionResponsive />
         <div className="admin__panel__pacientes-newUser py-5 admin__panel__pacientes-content">
           <h1 className="mb-3 h3__bold">Agregar paciente</h1>
-          <FormularioRegistro info={info} />
+          <FormularioRegistro/>
         </div>
       </div>
     </div>

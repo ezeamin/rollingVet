@@ -7,7 +7,7 @@ const TablaItem = (props) => {
     const navigate = useNavigate();
 
     const editarPaciente = () => {
-        navigate(`/admin/pacientes/${props.info.codigo}`);
+        navigate(`/admin/pacientes/${props.info.dni}`);
     }
     const eliminarPaciente = () => {
         Swal.fire({
@@ -48,6 +48,26 @@ const TablaItem = (props) => {
         navigate(`/admin/citas/${props.info.codigo}-VOD`); //view only data
     }
 
+    const editarMascota = () => {
+        const codigo = window.location.href.split("/")[window.location.href.split("/").length - 2];
+        navigate(`/admin/pacientes/${codigo}/mascotas/${props.info.codigoMascota}`);
+    }
+    const eliminarMascota = () => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Eliminar',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if(result.isConfirmed) console.log("Eliminado");
+            else console.log("Cancelado");
+        });
+    }
+
     let botones = [];
     switch (props.type) {
         case 'veterinarios':
@@ -75,8 +95,8 @@ const TablaItem = (props) => {
             break;
         case 'mascotas':
             botones = [
-                <button key={Math.round(Math.random()*10000)} className="btn btn-outline-warning">Editar</button>,
-                <button key={Math.round(Math.random()*10000)} className="btn btn-outline-danger">Eliminar</button>,
+                <button onClick={editarMascota} key={Math.round(Math.random()*10000)} className="btn btn-outline-warning">Editar</button>,
+                <button onClick={eliminarMascota} key={Math.round(Math.random()*10000)} className="btn btn-outline-danger">Eliminar</button>,
             ];
             break;
         default:
@@ -87,7 +107,7 @@ const TablaItem = (props) => {
     return (
         <tr>
             {Object.keys(props.info).map((item, index) => {
-                if(item!=='codigo'){
+                if(item!=='codigo' && item!=='codigoMascota'){
                     return <td key={index}>{props.info[item]}</td>
                 };
             })}

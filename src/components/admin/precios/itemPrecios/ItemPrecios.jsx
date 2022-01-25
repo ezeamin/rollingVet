@@ -7,6 +7,7 @@ class ItemPrecios extends Component {
     actual: 0,
     id: `precio_${this.props.plan}`,
     precio: "",
+    error: false,
   };
 
   handleChange = (e) => {
@@ -17,19 +18,30 @@ class ItemPrecios extends Component {
 
   verificar(value) {
     if(isNaN(value) || value.trim() === "" || Number.parseFloat(value) < 0) {
+      this.setState({error: true});
+      document.getElementById(this.state.id).className = "admin__precios-item-input admin__precios-item-input-invalid";
       return false;
     } 
 
+    this.setState({error: false});
+    document.getElementById(this.state.id).className = "admin__precios-item-input";
     return true;
   }
 
   handleBlur = (e) => {
     const value = e.target.value;
-    if(!this.verificar(value)){
-        document.getElementById(this.state.id).className = "admin__precios-item-input admin__precios-item-input-invalid";
-    }
-    else document.getElementById(this.state.id).className = "admin__precios-item-input";
+    this.verificar(value);
   };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    if(!this.verificar(this.state.precio)){
+      //console.log("error");
+      return;
+    }
+  };
+
 
   render() {
     return (
@@ -41,7 +53,7 @@ class ItemPrecios extends Component {
               Actual: ${this.state.actual}
             </p>
           </div>
-          <Form className="admin__precios-item-new">
+          <Form className="admin__precios-item-new" onSubmit={(e)=>this.handleSubmit(e)}>
               <input
                 type="number"
                 placeholder="Nuevo precio"
