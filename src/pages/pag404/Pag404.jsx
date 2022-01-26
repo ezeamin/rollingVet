@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import Header from "../../components/header/Header";
 import "./pag404.css";
 
-const Pag404 = () => {
+const Pag404 = (props) => {
     return (
         <div>
-            <Header />
+            <Header isAuthenticated={props.isAuthenticated} setIsAuthenticated={props.setIsAuthenticated}/>
             <article className="pagina404">
                 <h1 className='main__title main__title-404'>404</h1>
                 <h2>Página no encontrada</h2>

@@ -1,16 +1,23 @@
 import React from "react";
-import { Clientes, Clima, Info, Main, Planes, Profesionales } from "../../components/index/index";
+import {
+  Clientes,
+  Clima,
+  Info,
+  Main,
+  Planes,
+  Profesionales,
+} from "../../components/index/index";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import "./indexPage.css";
 import scrollDetection from "../../js/scroll";
+import ToastLogin from "../../components/index/toastLogin/ToastLogin";
 
-const Index = () => {
-  
+const Index = (props) => {
   React.useEffect(() => {
     scrollDetection();
     window.scrollTo(0, 0);
-    }, []);
+  }, []);
 
   return (
     <div>
@@ -23,7 +30,7 @@ const Index = () => {
       <div className="gradient__bg">
         <div className="container">
           <div className="landing">
-            <Header />
+            <Header isAuthenticated={props.isAuthenticated} setIsAuthenticated={props.setIsAuthenticated}/>
             <Main />
           </div>
           <Info />
@@ -31,7 +38,10 @@ const Index = () => {
           <Clima />
           <Clientes />
           <Profesionales />
-          <Footer titulo="Contacto" color="primary"/>
+          <Footer titulo="Contacto" color="primary" />
+          {props.isAuthenticated && props.isFirstTime ? (
+            <ToastLogin />
+          ) : null}
         </div>
       </div>
     </div>

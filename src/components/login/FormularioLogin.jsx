@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
-import './formularioLogin.css';
+import "./formularioLogin.css";
+import Swal from "sweetalert2";
 
 class FormularioLogin extends Component {
   state = {
@@ -9,9 +10,9 @@ class FormularioLogin extends Component {
     errores: {
       email: false,
       contraseña: false,
-    }
+    },
   };
-  
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -56,6 +57,15 @@ class FormularioLogin extends Component {
     this.verificar(name, value);
   };
 
+  olvidasteContraseña = () => {
+    Swal.fire({
+      title: "¿Olvidaste tu contraseña?",
+      text: "Por favor, ponte en contacto con nosotros por medio de nuestras redes sociales",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Ok",
+    });
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
 
@@ -72,13 +82,55 @@ class FormularioLogin extends Component {
     });
 
     if (!errorGeneral) {
-    //   this.enviarMail();
-
       //deshabilitar boton
-      const boton = document.getElementById("btnContacto");
+      const boton = document.getElementById("btnLogin");
       boton.disabled = true;
+
+      let estilo = window.getComputedStyle(document.body);
+      let color = estilo.getPropertyValue("--global-color-primary-light");
+      boton.style.backgroundColor = color;
+
+      this.login(boton);
     }
   };
+
+  async login(boton) {
+    const res = await fetch("/api/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.contraseña,
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
+
+    if (data.code === 200) {
+      const res = await fetch("/api/isAdmin", {
+        method: "GET",
+      }).then((res) => res.json());
+      const isAdmin = await res.isAdmin;
+      
+      this.props.navigateSuccess(isAdmin);
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "Usuario o contraseña incorrectos",
+        icon: "error",
+        timer: 3000,
+        showCancelButton: false,
+        showConfirmButton: false,
+      });
+    }
+    boton.disabled = false;
+
+    let estilo = window.getComputedStyle(document.body);
+    let color = estilo.getPropertyValue("--global-color-primary");
+    boton.style.backgroundColor = color;
+  }
 
   render() {
     return (
@@ -113,8 +165,13 @@ class FormularioLogin extends Component {
             Ingrese una contraseña
           </Form.Control.Feedback>
         </Form.Group>
-        <a href="#" className="login__olvidasteContraseña">
-            <p>¿Olvidaste tu contraseña?</p></a>
+        <button
+          onClick={this.olvidasteContraseña}
+          type="button"
+          className="login__olvidasteContraseña"
+        >
+          <p>¿Olvidaste tu contraseña?</p>
+        </button>
         <button id="btnLogin" type="submit" className="mt-2 w-100 btnForm">
           Ingresar
         </button>

@@ -1,3 +1,4 @@
+import React from 'react';
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Index from "./pages/index/Index";
@@ -21,25 +22,55 @@ import EditarMascota from "./pages/admin/pacientes/crudMascotas/editarMascota/Ed
 scrollDetection();
 
 function App() { 
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [user, setUser] = React.useState({});
+  const [isAdmin, setIsAdmin] = React.useState(false);
+  const [isFirstTime, setIsFirstTime] = React.useState(true);
+
+  const getAuthentication = async () => {
+    const res = await fetch("/api/auth", {
+      method: "GET",
+      credentials: "include",
+    }).catch(err => console.log(err));
+    const data = await res.json();
+
+    if (data.code === 200) {
+      setIsAuthenticated(true);
+      setUser(data.user);
+
+      if (sessionStorage.getItem("isFirstTime") === null) {
+        setIsFirstTime(true);
+        sessionStorage.setItem("isFirstTime", true);
+      } else {
+        setIsFirstTime(false);
+        sessionStorage.setItem("isFirstTime", false);
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    getAuthentication();
+  }, [isAuthenticated]);
+
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route exact path="/" element={<Index />} />
-          <Route path="/planes" element={<Planes />} />
-          <Route path="/registro" element={<Registro />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/citas" element={<Citas />} />
-          <Route path="/admin/citas/:id" element={<VerCitas />} />
-          <Route path="/admin/citas/new" element={<NuevaCita />} />
-          <Route path="/admin/pacientes" element={<Pacientes />} />
-          <Route path="/admin/pacientes/:id" element={<CrudPacientes />} />
-          <Route path="/admin/pacientes/:id/mascotas" element={<CrudMascotas />} />
-          <Route path="/admin/pacientes/:id/mascotas/:id" element={<EditarMascota />} />
-          <Route path="/admin/veterinarios" element={<Veterinarios />} />
-          <Route path="/admin/precios" element={<Precios />} />
-          <Route path="*" element={<Pag404 />} />
+          <Route exact path="/" element={<Index isFirstTime={isFirstTime} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/planes" element={<Planes isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/registro" element={<Registro isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/login" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/admin" element={<Admin isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/admin/citas" element={<Citas isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/admin/citas/:id" element={<VerCitas isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/admin/citas/new" element={<NuevaCita isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/admin/pacientes" element={<Pacientes isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/admin/pacientes/:id" element={<CrudPacientes isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/admin/pacientes/:id/mascotas" element={<CrudMascotas isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/admin/pacientes/:id/mascotas/:id" element={<EditarMascota isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/admin/veterinarios" element={<Veterinarios isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/admin/precios" element={<Precios isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="*" element={<Pag404 isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
         </Routes>
       </Router>
     </div>

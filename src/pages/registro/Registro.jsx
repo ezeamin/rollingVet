@@ -4,7 +4,7 @@ import FormularioRegistro from "../../components/registro/formularioRegistro/For
 import Header from "../../components/registro/header/HeaderRegistro";
 import "./registro.css";
 
-const Registro = () => {
+const Registro = (props) => {
   const navigate = useNavigate();
   const [avatarUrl, setAvatarUrl] = React.useState(
     "https://mulder-onions.com/wp-content/uploads/2017/02/White-square.jpg"
@@ -20,16 +20,14 @@ const Registro = () => {
   const [genero, setGenero] = React.useState(gen);
 
   React.useEffect(() => {
-    const generateAvatar = async () => {
+    const generateAvatar = () => {
       const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg`;
-      
+
       setAvatarUrl(url);
     };
-    
+
     generateAvatar();
   }, []);
-
-  
 
   const changeAvatar = (nuevoGenero) => {
     if (nuevoGenero === "Masculino") nuevoGenero = "male";
@@ -44,7 +42,7 @@ const Registro = () => {
   };
 
   const navigateSuccess = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -65,7 +63,14 @@ const Registro = () => {
               />
             </div>
           </div>
-          <FormularioRegistro changeAvatar={changeAvatar} seed={randomSeed} navigateSuccess={navigateSuccess}/>
+          <FormularioRegistro
+            avatar={avatarUrl}
+            changeAvatar={changeAvatar}
+            seed={randomSeed}
+            navigateSuccess={navigateSuccess}
+            setIsAuthenticated={props.setIsAuthenticated}
+            isAdmin={false}
+          />
           <p className="mt-3 fs-6 tyc__p">
             Al registrarte, aceptas los{" "}
             <a href="#" className="tyc">

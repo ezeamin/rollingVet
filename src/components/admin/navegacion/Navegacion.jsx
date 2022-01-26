@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./navegacion.css";
 import NavItem from "./navItem/Nav-item";
+import { useNavigate } from "react-router-dom";
 
-const Navegacion = () => {
+const Navegacion = (props) => {
+  const navigate = useNavigate();
+
   const opciones = [
     {
       titulo: "Resumen",
@@ -35,6 +38,12 @@ const Navegacion = () => {
       enlace: "/admin/precios",
       active: window.location.pathname.includes("/admin/precios"),
     },
+    {
+      titulo: "Salir",
+      icono: "fas fa-sign-out-alt",
+      enlace: "",
+      active: false,
+    },
   ];
 
   React.useEffect(() => {
@@ -45,6 +54,15 @@ const Navegacion = () => {
       },300);
     });
   }, []);
+
+  const handleLogout = async () => {
+    const res = await fetch("/api/logout", {
+      method: "DELETE",
+    });
+    props.setIsAuthenticated(false);
+    props.setIsAdmin(false);
+    navigate("/");
+  }
 
   return (
     <div>
@@ -70,7 +88,7 @@ const Navegacion = () => {
         <div className="admin__menu">
           <h4 className="ms-3">Menu</h4>
           {opciones.map((opcion, index) => (
-            <NavItem key={index} {...opcion} />
+            <NavItem key={index} {...opcion} handleLogout={handleLogout} />
           ))}
         </div>
       </div>

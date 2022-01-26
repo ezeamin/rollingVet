@@ -9,11 +9,11 @@ const List = (props) => {
     mascotas: "2",
   }];
 
-  if (props.content === "clientes") {
-    //clientes
+  if (props.content === "pacientes") {
+    // pacientes
     // avatar, nombre, mascotas 
   } else {
-    //citas
+    // citas
     // avatar, nombre, fecha, hora
   }
 

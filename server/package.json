@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emailjs/browser": "^3.4.0",
     "bcrypt": "^5.0.1",
     "express": "^4.17.2",
     "express-session": "^1.17.2",

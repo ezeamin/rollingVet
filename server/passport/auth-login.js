@@ -21,7 +21,7 @@ passport.use(
       if (!user.comparePassword(password, user.password)) {
         return done(null, false, { message: "Incorrect password.", code: 2 });
       }
-      return done(null, user, { message: "Correct login.", code: 0 });
+      return done(null, user, { message: "Correct login.", code: 200 });
     }
   )
 );
@@ -50,6 +50,7 @@ passport.use(
           apellido: req.body.apellido,
           genero: req.body.genero,
           dni: req.body.dni,
+          avatar: req.body.avatar,
           mascotas: [],
         });
         user.password = user.encryptPassword(password);

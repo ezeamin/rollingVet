@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import "./formularioRegistro.css";
 import Swal from "sweetalert2";
+import { init,send } from '@emailjs/browser';
 
 class FormularioRegistro extends Component {
   state = {
@@ -120,11 +121,25 @@ class FormularioRegistro extends Component {
       let color = estilo.getPropertyValue("--global-color-primary-light");
       boton.style.backgroundColor = color;
 
-      //registrar
-      //mandar mail
       this.registrar(boton);
     }
   };
+
+  async login(){
+    const res = await fetch("/api/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.contraseña,
+      }),
+    });
+    this.props.setIsAuthenticated(true);
+
+    this.props.navigateSuccess();
+  }
 
   async registrar(boton) {
     const res = await fetch("/api/signup", {
@@ -139,6 +154,7 @@ class FormularioRegistro extends Component {
         genero: this.state.genero,
         email: this.state.email,
         password: this.state.contraseña,
+        avatar: this.props.avatar,
         mascotas: [],
       }),
     });
@@ -146,14 +162,16 @@ class FormularioRegistro extends Component {
     console.log(data);
 
     if (data.code === 200) {
+      this.enviarMail();
       Swal.fire({
         title: "Registro exitoso",
-        text: "Ahora puedes iniciar sesión",
+        text: " ",
         timer: 2000,
         showCancelButton: false,
         showConfirmButton: false,
       }).then(() => {
-        this.props.navigateSuccess();
+        if(!this.props.isAdmin) this.login();
+        else this.props.navigateSuccess();
       });
     } else {
       if (data.code === 1) {
@@ -180,6 +198,17 @@ class FormularioRegistro extends Component {
       let color = estilo.getPropertyValue("--global-color-primary");
       boton.style.backgroundColor = color;
     }
+  }
+
+  enviarMail = async () => {
+    init("user_8j9LHOR1moc4XSGy8uETC");
+
+    const templateParams = {
+      name: this.state.nombre,
+      email: this.state.email,
+    };
+
+    await send("service_mvm479c", "template_v3i4f78", templateParams);
   }
 
   componentDidMount() {

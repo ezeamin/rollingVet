@@ -4,9 +4,12 @@ import List from './list/List';
 import './panel.css';
 
 const Panel = () => {
+    const [pacientes, setPacientes] = React.useState(0);
+    const [citas, setCitas] = React.useState(0);
+
     const info = [{
-        titulo: 'Clientes',
-        cantidad: '10',
+        titulo: 'Pacientes',
+        cantidad: pacientes,
     },
     {
         titulo: 'Veterinarios',
@@ -14,8 +17,20 @@ const Panel = () => {
     },
     {
         titulo: 'Citas programadas',
-        cantidad: '5',
+        cantidad: citas,
     }];
+
+    React.useEffect(() => {
+        const traerInfo = async () => {
+            const response = await fetch('/api/qty',{
+                method: 'GET',
+            });
+            const info = await response.json();
+            setPacientes(info.pacientes);
+            setCitas(info.citas);
+        }
+        traerInfo();
+    }, []);
 
     return (
         <div className='container py-5 admin__panel-content'>
@@ -26,7 +41,7 @@ const Panel = () => {
                 ))}
             </div>
             <div className="row justify-content-center">
-                <List titulo="Lista de clientes" content="clientes"/>
+                <List titulo="Lista de pacientes" content="pacientes"/>
                 <List titulo="Lista de citas" content="citas"/>
             </div>
         </div>

@@ -18,6 +18,7 @@ const userSchema = new Schema({
   apellido: String,
   genero: String,
   dni: String,
+  avatar: String,
   mascotas: [mascotaSchema],
 });
 

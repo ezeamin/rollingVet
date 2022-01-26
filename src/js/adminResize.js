@@ -1,4 +1,5 @@
-export default function resize () {
+export default function resize() {
+  if (window.location.pathname.includes("/admin")) {
     if (window.innerWidth > 1200) {
       document.getElementsByClassName("admin__nav")[0].style.display = "block";
       document.getElementsByClassName(
@@ -12,4 +13,5 @@ export default function resize () {
       )[0].style.transform = "translateX(-100%)";
       document.getElementsByClassName("admin__nav-bg")[0].style.opacity = "0";
     }
-  };
+  }
+}

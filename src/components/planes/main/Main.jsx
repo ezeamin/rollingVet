@@ -20,7 +20,7 @@ const Main = () => {
             <li className="p__descripciones">20% de descuento en accesorios</li>
         </ul>
         <div className="main-planes__divImg">
-            <img src="img/planes/perro-bañandose.jpg" alt="perro bañandose" />
+            <img src="/img/planes/perro-banandose.jpg" alt="perro bañandose" />
         </div>
       </div>
     </article>

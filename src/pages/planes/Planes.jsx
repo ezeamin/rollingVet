@@ -6,7 +6,7 @@ import Main from "../../components/planes/main/Main";
 import DetallePlanes from "../../components/planes/detallePlanes/DetallePlanes";
 import scrollDetection from "../../js/scroll";
 
-const Planes = () => {
+const Planes = (props) => {
 
   React.useEffect(() => {
     scrollDetection();
@@ -20,7 +20,7 @@ const Planes = () => {
       </a>
       <div className="gradient__bg-planes">
         <div className="container">
-          <Header />
+          <Header isAuthenticated={props.isAuthenticated} setIsAuthenticated={props.setIsAuthenticated}/>
           <Main />
           <DetallePlanes />
           <Footer titulo="¿Aún tienes dudas?" color="secondary"/>

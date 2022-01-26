@@ -2,8 +2,30 @@ import React from "react";
 import FormularioLogin from "../../components/login/FormularioLogin";
 import Header from "../../components/registro/header/HeaderRegistro";
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = (props) => {
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if(props.isAuthenticated) {
+      navigate("/");
+    }
+  }, []);
+
+  const navigateSuccess = (isAdmin) => {
+    props.setIsAuthenticated(true);
+
+    if(isAdmin){
+      props.setIsAdmin(true);
+      navigate("/admin");
+    } 
+    else {
+      props.setIsAdmin(false);
+      navigate("/");
+    }
+  };
+
   return (
     <div className="registro__container">
       <Header />
@@ -18,7 +40,7 @@ const Login = () => {
               <img src="/img/login/dog.jpg" alt="perro doctor" />
             </div>
           </div>
-          <FormularioLogin/>
+          <FormularioLogin navigateSuccess={navigateSuccess} />
         </div>
       </main>
     </div>
