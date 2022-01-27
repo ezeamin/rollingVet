@@ -15,7 +15,9 @@ const PanelPacientes = () => {
     "Acciones",
   ];
 
-  const pacientes = [
+  const [pacientes, setPacientes] = React.useState([]);
+
+  /*const pacientes = [
     {
       apellido: "Perez",
       nombre: "Juan",
@@ -24,11 +26,24 @@ const PanelPacientes = () => {
       mascotas: "2",
       codigo: "aik98",
     },
-  ];
+  ];*/
+
+  const fetchPacientes = async () => {
+    const response = await fetch("/api/pacientes",{
+      method: "GET",
+    });
+    const data = await response.json();
+
+    setPacientes(data.pacientes);
+  }
 
   const handleClick = () => {
     navigate("/admin/pacientes/new");
   };
+
+  React.useEffect(() => {
+    fetchPacientes();
+  }, []);
 
   return (
     <div className="container py-5 admin__panel-content">

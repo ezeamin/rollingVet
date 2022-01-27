@@ -68,6 +68,23 @@ const TablaItem = (props) => {
         });
     }
 
+    const citas = (botones) => {
+        return (
+            <tr>
+                <td>{props.info.apellido}, {props.info.nombre}</td>
+                <td>{props.info.mascota}</td>
+                <td>{props.info.veterinario}</td>
+                <td>{props.info.fecha}</td>
+                <td>{props.info.hora}</td>
+                <td className='admin__tables-btn'>
+                {botones.map((boton) => {
+                    return boton;
+                })}
+                </td>
+            </tr>
+        );
+    }
+
     let botones = [];
     switch (props.type) {
         case 'veterinarios':
@@ -81,18 +98,34 @@ const TablaItem = (props) => {
                 <button onClick={editarPaciente} key={Math.round(Math.random()*10000)} className="btn btn-outline-warning">Editar</button>,
                 <button onClick={eliminarPaciente} key={Math.round(Math.random()*10000)} className="btn btn-outline-danger">Eliminar</button>,
             ];
-            break;
+
+            return (
+                <tr>
+                    <td>{props.info.apellido}</td>
+                    <td>{props.info.nombre}</td>
+                    <td>{props.info.dni}</td>
+                    <td>{props.info.email}</td>
+                    <td>{props.info.mascotas.length}</td>
+                    <td className='admin__tables-btn'>
+                    {botones.map((boton) => {
+                        return boton;
+                    })}
+                    </td>
+                </tr>
+            );
         case 'citasProgramadas':
             botones = [
                 <button onClick={atenderCita} key={Math.round(Math.random()*10000)} className="btn btn-outline-success">Atender</button>,
                 <button onClick={cancelarCita} key={Math.round(Math.random()*10000)} className="btn btn-outline-danger">Cancelar</button>,
             ];
-            break;
+
+            return citas(botones);
         case 'citasRegistro':
             botones = [
                 <button onClick={revisarCita} key={Math.round(Math.random()*10000)} className="btn btn-outline-secondary">Revisar</button>,
             ];
-            break;
+
+            return citas(botones);
         case 'mascotas':
             botones = [
                 <button onClick={editarMascota} key={Math.round(Math.random()*10000)} className="btn btn-outline-warning">Editar</button>,
@@ -107,7 +140,7 @@ const TablaItem = (props) => {
     return (
         <tr>
             {Object.keys(props.info).map((item, index) => {
-                if(item!=='codigo' && item!=='codigoMascota'){
+                if(item!=='_id' && item!=='codigoMascota'){
                     return <td key={index}>{props.info[item]}</td>
                 };
             })}

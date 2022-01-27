@@ -5,16 +5,17 @@ import resize from "../../../../js/adminResize";
 import FormularioRegistro from "../../../../components/registro/formularioRegistro/FormularioRegistro";
 import "./crudPacientes.css";
 import { useNavigate } from "react-router-dom";
+import FormularioEditarPaciente from "../../../../components/admin/pacientes/formularioEditarPaciente/FormularioEditarPaciente";
 
 const CrudPacientes = (props) => {
   const navigate = useNavigate();
   const url = window.location.href;
   const urlSplit = url.split("/");
-  const codigo = urlSplit[urlSplit.length - 1];
+  const dni = urlSplit[urlSplit.length - 1];
 
   const [avatarUrl, setAvatarUrl] = React.useState("");
-
-  let info = {
+  const [info, setInfo] = React.useState({});
+  /*let info = {
     apellido: "Perez",
     nombre: "Juan",
     dni: "12345678",
@@ -22,23 +23,36 @@ const CrudPacientes = (props) => {
     mascotas: [],
     genero: "Masculino",
     contraseña: "12345678",
-  };
+  };*/
 
   React.useEffect(() => {
     if (!props.isAdmin) {
       navigate("/");
     }
     window.addEventListener("resize", resize);
-    //CARGAR INFO
-    if (codigo !== "new") {
+
+    if (dni !== "new") {
+      fetch(`/api/pacientes/${dni}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setInfo(data.paciente);
+        });
     }
   }, []);
 
   const redirectMascotas = () => {
-    navigate(`/admin/pacientes/${codigo}/mascotas`);
+    navigate(`/admin/pacientes/${dni}/mascotas`);
   };
 
-  if (codigo !== "new") {
+  const navigateSuccess = () => {
+    navigate("/admin/pacientes");
+  };
+  
+  const changeAvatar = (genero) => {
+    setAvatarUrl(`https://avatars.dicebear.com/api/${genero}/1111.svg`);
+  };
+
+  if (dni !== "new") {
     //edicion
     return (
       <div className="row admin">
@@ -50,10 +64,9 @@ const CrudPacientes = (props) => {
           <div className="admin__panel__pacientes-editarUser py-5 admin__panel__pacientes-content">
             <div className="admin__panel__pacientes-editarUser-form">
               <h1 className="mb-3 h3__bold">Editar paciente</h1>
-              <FormularioRegistro
+              <FormularioEditarPaciente
                 info={info}
                 navigateSuccess={navigateSuccess}
-                isAdmin={true}
                 changeAvatar={changeAvatar}
               />
             </div>
@@ -72,14 +85,6 @@ const CrudPacientes = (props) => {
       </div>
     );
   }
-
-  const changeAvatar = (genero) => {
-    setAvatarUrl(`https://avatars.dicebear.com/api/${genero}/1111.svg`);
-  };
-
-  const navigateSuccess = () => {
-    navigate("/admin/pacientes");
-  };
 
   return (
     <div className="row admin">

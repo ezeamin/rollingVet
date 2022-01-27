@@ -1,26 +1,22 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
-import "./formularioRegistro.css";
+import "../../../registro/formularioRegistro/formularioRegistro.css";
 import Swal from "sweetalert2";
-import { init,send } from '@emailjs/browser';
+import { init, send } from "@emailjs/browser";
 
-class FormularioRegistro extends Component {
+class FormularioEditarPaciente extends Component {
   state = {
     nombre: "",
     apellido: "",
     dni: "",
     genero: "",
     email: "",
-    contraseña: "",
-    contraseña2: "",
     errores: {
       nombre: false,
       apellido: false,
       dni: false,
       genero: false,
       email: false,
-      contraseña: false,
-      contraseña2: false,
     },
   };
 
@@ -70,11 +66,6 @@ class FormularioRegistro extends Component {
             return this.error(errores, name);
           }
           break;
-        case "contraseña2":
-          if (this.state.contraseña !== value) {
-            return this.error(errores, name);
-          }
-          break;
         case "genero":
           if (value === "0") {
             return this.error(errores, name);
@@ -96,7 +87,7 @@ class FormularioRegistro extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    let error = [false, false, false, false, false, false];
+    let error = [false, false, false, false];
     let errorGeneral = false;
 
     error[0] = this.verificar("nombre", this.state.nombre);
@@ -104,8 +95,6 @@ class FormularioRegistro extends Component {
     error[2] = this.verificar("dni", this.state.dni);
     error[3] = this.verificar("genero", this.state.genero);
     error[4] = this.verificar("email", this.state.email);
-    error[5] = this.verificar("contraseña", this.state.contraseña);
-    error[6] = this.verificar("contraseña2", this.state.contraseña2);
 
     error.forEach((element) => {
       if (element) {
@@ -121,29 +110,13 @@ class FormularioRegistro extends Component {
       let color = estilo.getPropertyValue("--global-color-primary-light");
       boton.style.backgroundColor = color;
 
-      this.registrar(boton);
+      this.editar(boton);
     }
   };
 
-  async login(){
-    const res = await fetch("/api/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.contraseña,
-      }),
-    });
-    this.props.setIsAuthenticated(true);
-
-    this.props.navigateSuccess();
-  }
-
-  async registrar(boton) {
-    const res = await fetch("/api/signup", {
-      method: "POST",
+  async editar(boton) {
+    const res = await fetch("/api/pacientes/editar", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -153,45 +126,32 @@ class FormularioRegistro extends Component {
         dni: this.state.dni,
         genero: this.state.genero,
         email: this.state.email,
-        password: this.state.contraseña,
         avatar: this.props.avatar,
-        mascotas: [],
       }),
     });
     const data = await res.json();
     console.log(data);
 
-    if (data.code === 200) {
-      this.enviarMail();
+    if (data.ok) {
       Swal.fire({
-        title: "Registro exitoso",
+        title: "Edicion exitosa",
         text: " ",
         timer: 2000,
         showCancelButton: false,
         showConfirmButton: false,
       }).then(() => {
-        if(!this.props.isAdmin) this.login();
-        else this.props.navigateSuccess();
+        this.props.navigateSuccess();
       });
     } else {
-      if (data.code === 1) {
-        Swal.fire({
-          title: "Email en uso",
-          icon: "error",
-          timer: 2500,
-          showCancelButton: false,
-          showConfirmButton: false,
-        });
-      } else {
-        Swal.fire({
-          title: "Error inesperado",
-          text: "Vuelve a intentarlo mas tarde",
-          icon: "error",
-          timer: 2500,
-          showCancelButton: false,
-          showConfirmButton: false,
-        });
-      }
+      Swal.fire({
+        title: "Error",
+        text: "Vuelve a intentarlo mas tarde",
+        icon: "error",
+        timer: 2500,
+        showCancelButton: false,
+        showConfirmButton: false,
+      });
+
       boton.disabled = false;
 
       let estilo = window.getComputedStyle(document.body);
@@ -200,19 +160,8 @@ class FormularioRegistro extends Component {
     }
   }
 
-  enviarMail = async () => {
-    init("user_8j9LHOR1moc4XSGy8uETC");
-
-    const templateParams = {
-      name: this.state.nombre,
-      email: this.state.email,
-    };
-
-    await send("service_mvm479c", "template_v3i4f78", templateParams);
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.info !== this.props.info){
+    if (prevProps.info !== this.props.info) {
       if (Object.keys(this.props.info).length !== 0) {
         this.setState({
           nombre: this.props.info.nombre,
@@ -226,7 +175,7 @@ class FormularioRegistro extends Component {
       }
     }
   }
-  
+
   render() {
     return (
       <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -313,36 +262,6 @@ class FormularioRegistro extends Component {
             Ingrese un email valido
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group className="mt-2">
-          <Form.Control
-            type="password"
-            placeholder="Contraseña"
-            name="contraseña"
-            className="input"
-            isInvalid={this.state.errores.contraseña}
-            value={this.state.contraseña}
-            onChange={(e) => this.handleChange(e)}
-            onBlur={(e) => this.handleBlur(e)}
-          />
-          <Form.Control.Feedback className="feedback" type="invalid">
-            Ingrese una contraseña
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="mt-2">
-          <Form.Control
-            type="password"
-            placeholder="Repetir contraseña"
-            name="contraseña2"
-            className="input"
-            isInvalid={this.state.errores.contraseña2}
-            value={this.state.contraseña2}
-            onChange={(e) => this.handleChange(e)}
-            onBlur={(e) => this.handleBlur(e)}
-          />
-          <Form.Control.Feedback className="feedback" type="invalid">
-            Las contraseñas no coinciden
-          </Form.Control.Feedback>
-        </Form.Group>
         <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">
           Guardar
         </button>
@@ -351,4 +270,4 @@ class FormularioRegistro extends Component {
   }
 }
 
-export default FormularioRegistro;
+export default FormularioEditarPaciente;

@@ -6,6 +6,8 @@ import BotonCrear from "../botonCrear/BotonCrear";
 
 const PanelCitas = () => {
   const navigate = useNavigate();
+  const [citasProgramadas, setCitasProgramadas] = React.useState([]);
+  const [citasRegistro, setCitasRegistro] = React.useState([]);
 
   const opciones = [
     "Nombre",
@@ -16,7 +18,25 @@ const PanelCitas = () => {
     "Acciones",
   ];
 
-  const citasProgramadas = [{
+  const fetchCitasProgramadas = async () => {
+    const response = await fetch("/api/citasProgramadas", {
+      method: "GET",
+    });
+    const data = await response.json();
+    console.log(data);
+    setCitasProgramadas(data.citas);
+  };
+
+  const fetchCitasRegistro = async () => {
+    const response = await fetch("/api/citasRegistro", {
+      method: "GET",
+    });
+    const data = await response.json();
+    console.log(data);
+    setCitasRegistro(data.citas);
+  };
+
+  /*const citasProgramadas = [{
     nombre: "Juan Perez",
     mascota: "Geru",
     veterinario: "-",
@@ -32,11 +52,16 @@ const PanelCitas = () => {
     dia: "21/01/2022",
     horario: "10:00",
     codigo: "3Tk2i",
-  }];
+  }];*/
 
   const handleClick = () => {
     navigate("/admin/citas/new");
   };
+
+  React.useEffect(() => {
+    fetchCitasProgramadas();
+    fetchCitasRegistro();
+  }, []);
 
   return (
     <div className="container py-5 admin__panel-content">
