@@ -23,7 +23,6 @@ const PanelCitas = () => {
       method: "GET",
     });
     const data = await response.json();
-    console.log(data);
     setCitasProgramadas(data.citas);
   };
 
@@ -32,7 +31,6 @@ const PanelCitas = () => {
       method: "GET",
     });
     const data = await response.json();
-    console.log(data);
     setCitasRegistro(data.citas);
   };
 

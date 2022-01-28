@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 class FormularioCitaPaciente extends Component {
   state = {
@@ -29,9 +30,9 @@ class FormularioCitaPaciente extends Component {
         return;
     }
 
-    //guardar en la base de datos
-    this.props.setDesbloquear(true);
-    this.props.setPaciente({
+    this.buscarPaciente();
+
+    /*this.props.setPaciente({
       dni: this.state.dni,
       nombre: "Juan",
       apellido: "Perez",
@@ -41,8 +42,41 @@ class FormularioCitaPaciente extends Component {
         fechaNac: "12/12/2020",
         sexo: "Macho",
       }]
-    })
+    })*/
   };
+
+  buscarPaciente = async () => {
+    const response = await fetch(`/api/pacientes/${this.state.dni}`,{
+      method: "GET",
+    });
+    const data = await response.json();
+
+    if (data.paciente === null) {
+      Swal.fire({
+        title: "Paciente no encontrado",
+        text: "El paciente no se encuentra registrado en el sistema",
+        icon: "error",
+        timer: 2500,
+        showConfirmButton: false,
+        showCloseButton: false,
+      });
+      this.props.setDesbloquear(false);
+      this.props.setPaciente({
+        nombre: "",
+        apellido: "",
+        mascotas:[{
+          nombre: "",
+          raza: "",
+          fechaNac: "",
+          sexo: "",
+        }]
+      });
+      return;
+    }
+
+    this.props.setPaciente(data.paciente);
+    this.props.setDesbloquear(true);
+  }
 
   render() {
     return (

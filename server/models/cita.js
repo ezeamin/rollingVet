@@ -6,7 +6,7 @@ const citaSchema = new Schema({
   codigoMascota: String,
   nombre: String,
   apellido: String,
-  nombreMascota: String,
+  mascota: String,
   veterinario: String,
   fecha: String,
   hora: String,

@@ -3,10 +3,15 @@ import FormularioCita from "./formularioCita/FormularioCita";
 import FormularioCitaPaciente from "./formularioCitaPaciente/FormularioCitaPaciente";
 import './panelNuevaCita.css';
 import ListaHorarios from "./listaHorarios/ListaHorarios";
+import { useNavigate } from "react-router-dom";
 
 const PanelNuevaCita = () => {
+  const navigate = useNavigate();
+
   const [desbloquear, setDesbloquear] = React.useState(false);
   const [paciente, setPaciente] = React.useState({
+    nombre: "",
+    apellido: "",
     mascotas:[{
       nombre: "",
       raza: "",
@@ -17,10 +22,15 @@ const PanelNuevaCita = () => {
 
   const [horarios, setHorarios] = React.useState([]);
 
+  const navigateSuccess = () => {
+    navigate("/admin/citas")
+  }
+
   React.useEffect(() => {
     if(desbloquear){
       document.getElementsByClassName("admin__panel__nuevaCita-forms-cita__disabled")[0].style.display = "none";
     }
+    else document.getElementsByClassName("admin__panel__nuevaCita-forms-cita__disabled")[0].style.display = "block";
   },[desbloquear]);
 
   return (
@@ -33,7 +43,7 @@ const PanelNuevaCita = () => {
           <p className="mb-0">Paciente: <span className="fw-bold">{paciente.nombre} {paciente.apellido}</span></p>
           <div className="admin__panel__nuevaCita-forms-cita position-relative">
             <div className="admin__panel__nuevaCita-forms-cita__disabled"></div>
-            <FormularioCita desbloquear={desbloquear} paciente={paciente} setHorarios={setHorarios}/>
+            <FormularioCita desbloquear={desbloquear} paciente={paciente} setHorarios={setHorarios} navigateSuccess={navigateSuccess}/>
           </div>
         </div>
         <div className="admin__panel__nuevaCita-tabla col-sm-12 col-md-4">

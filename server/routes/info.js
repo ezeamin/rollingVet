@@ -125,15 +125,6 @@ router.put("/api/pacientes/mascota/:dni", (req, res) => {
         err,
       });
     } else {
-      /*let mascota = {
-        codigoMascota: req.body.codigoMascota,
-        nombre: req.body.nombre,
-        raza: req.body.raza,
-        fechaNacimiento: req.body.fechaNacimiento,
-        sexo: req.body.sexo,
-        especie: req.body.especie,
-      };*/
-
       let mascota = req.body;
 
       if (mascota.codigoMascota === "") {
@@ -183,6 +174,23 @@ router.get("/api/citasRegistro", (req, res) => {
       res.status(200).json({
         ok: true,
         citas,
+      });
+    }
+  });
+});
+
+router.post("/api/citas", (req, res) => {
+  DbCitas.create(req.body, (err, cita) => {
+    if(err){
+      res.status(500).json({
+        ok: false,
+        err,
+      });
+    }
+    else{
+      res.status(200).json({
+        ok: true,
+        cita,
       });
     }
   });

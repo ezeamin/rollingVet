@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import './formularioCita.css';
+import Swal from "sweetalert2";
 
 class FormularioCita extends Component {
   state = {
@@ -99,9 +100,57 @@ class FormularioCita extends Component {
     });
 
     if (!errorGeneral) {
-      //registrar
+      this.registrarCita();
     }
   };
+
+  registrarCita = async () => {
+    const codigoMascota = this.props.paciente.mascotas.find(
+      (mascota) => mascota.nombre === this.state.mascota
+    ).codigoMascota;
+
+    const response = await fetch(`/api/citas`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        dni: this.props.paciente.dni,
+        nombre: this.props.paciente.nombre,
+        apellido: this.props.paciente.apellido,
+        mascota: this.state.mascota,
+        codigoMascota: codigoMascota,
+        fecha: this.state.fecha,
+        hora: this.state.hora,
+        atendido: false,
+        veterinario: "-",
+      }),
+    });
+    const data = await response.json();
+
+    if (data.ok) {
+      Swal.fire({
+        title: "Cita registrada",
+        text: "La cita se ha registrado correctamente",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+        showCloseButton: false,
+      }).then(() => {
+        this.props.navigateSuccess();
+      });
+    }
+    else{
+      Swal.fire({
+        title: "Error",
+        text: "No se ha podido registrar la cita",
+        icon: "error",
+        timer: 2500,
+        showConfirmButton: false,
+        showCloseButton: false,
+      })
+    }
+  }
 
   render() {
     return (
