@@ -13,11 +13,14 @@ const CrudMascotas = (props) => {
   const navigate = useNavigate();
   
   React.useEffect(() => {
-    if(!props.isAdmin) {
-      navigate("/");
-    }
     window.addEventListener("resize", resize);
   }, []);
+  
+  React.useEffect(() => {
+    if (!props.isAdmin) {
+      navigate("/");
+    }
+  }, [props.isAdmin]);
 
   return (
     <div className="row admin">

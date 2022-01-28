@@ -12,12 +12,21 @@ import Footer from "../../components/footer/Footer";
 import "./indexPage.css";
 import scrollDetection from "../../js/scroll";
 import ToastLogin from "../../components/index/toastLogin/ToastLogin";
+import { useNavigate } from "react-router-dom";
 
 const Index = (props) => {
+  const navigate = useNavigate();
+
   React.useEffect(() => {
     scrollDetection();
     window.scrollTo(0, 0);
   }, []);
+
+  React.useEffect(() => {
+    if (props.isAdmin) {
+      navigate("/admin");
+    }
+  }, [props.isAdmin]);
 
   return (
     <div>
@@ -30,7 +39,10 @@ const Index = (props) => {
       <div className="gradient__bg">
         <div className="container">
           <div className="landing">
-            <Header isAuthenticated={props.isAuthenticated} setIsAuthenticated={props.setIsAuthenticated}/>
+            <Header
+              isAuthenticated={props.isAuthenticated}
+              setIsAuthenticated={props.setIsAuthenticated}
+            />
             <Main />
           </div>
           <Info />
@@ -39,9 +51,7 @@ const Index = (props) => {
           <Clientes />
           <Profesionales />
           <Footer titulo="Contacto" color="primary" />
-          {props.isAuthenticated && props.isFirstTime ? (
-            <ToastLogin />
-          ) : null}
+          {props.isAuthenticated && props.isFirstTime ? <ToastLogin /> : null}
         </div>
       </div>
     </div>

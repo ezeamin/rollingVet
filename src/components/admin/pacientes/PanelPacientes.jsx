@@ -2,6 +2,7 @@ import React from "react";
 import Tabla from "../tabla/Tabla";
 import BotonCrear from "../botonCrear/BotonCrear";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const PanelPacientes = () => {
   const navigate = useNavigate();
@@ -18,16 +19,44 @@ const PanelPacientes = () => {
   const [pacientes, setPacientes] = React.useState([]);
 
   const fetchPacientes = async () => {
-    const response = await fetch("/api/pacientes",{
+    const response = await fetch("/api/pacientes", {
       method: "GET",
     });
     const data = await response.json();
 
     setPacientes(data.pacientes);
-  }
+  };
 
   const handleClick = () => {
     navigate("/admin/pacientes/new");
+  };
+
+  const eliminar = async (dni) => {
+    const response = await fetch(`/api/pacientes/${dni}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+
+    if (data.ok) {
+      setPacientes(pacientes.filter((paciente) => paciente.dni !== dni));
+      Swal.fire({
+        title: "Paciente eliminado",
+        text: "El paciente ha sido eliminado correctamente",
+        icon: "success",
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "El paciente no pudo ser eliminado",
+        icon: "error",
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
   };
 
   React.useEffect(() => {
@@ -43,6 +72,7 @@ const PanelPacientes = () => {
           opciones={opciones}
           info={pacientes}
           type="pacientes"
+          eliminar={eliminar}
         />
         <BotonCrear titulo="Agregar paciente" accion={handleClick} />
       </div>

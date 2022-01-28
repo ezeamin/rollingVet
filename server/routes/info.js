@@ -52,6 +52,22 @@ router.get("/api/pacientes/:dni", (req, res) => {
   });
 });
 
+router.delete("/api/pacientes/:dni", (req, res) => {
+  DbPacientes.findOneAndDelete({ dni: req.params.dni }, (err, paciente) => {
+    if (err) {
+      res.status(500).json({
+        ok: false,
+        err,
+      });
+    } else {
+      res.status(200).json({
+        ok: true,
+        paciente,
+      });
+    }
+  });
+});
+
 router.put("/api/pacientes/editar", (req, res) => {
   DbPacientes.findOneAndUpdate(
     { dni: req.body.dni },

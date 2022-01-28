@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 class FormularioMascota extends Component {
   state = {
-    //AGREGAR CODIGOMASCOTA
     nombre: "",
     especie: "",
     raza: "",
@@ -125,6 +125,26 @@ class FormularioMascota extends Component {
     });
     const data = await response.json();
     console.log(data);
+    if(data.code === 200){
+      Swal.fire({
+        title: "Mascota guardada",
+        text: " ",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        this.props.navigateSuccess();
+      })
+    }
+    else{
+      Swal.fire({
+        title: "Error",
+        text: " ",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      })
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {

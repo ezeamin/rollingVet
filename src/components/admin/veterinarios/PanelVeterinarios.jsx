@@ -35,6 +35,7 @@ const PanelVeterinarios = () => {
           opciones={opciones}
           info={veterinarios}
           type="veterinarios"
+          eliminar={() => {}}
         />
         <BotonCrear titulo="Agregar veterinario" accion={showAlert} />
       </div>

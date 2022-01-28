@@ -26,9 +26,9 @@ const NavegacionResponsive = () => {
           <i className="fas fa-bars fa-2x"></i>
         </div>
         <div className="admin__logo-responsive">
-          <Link to="/">
+          <div to="/">
             <img src="/img/favicon.png" alt="logo RollingVet" />
-          </Link>
+          </div>
         </div>
       </div>
     </div>

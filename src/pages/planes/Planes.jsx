@@ -5,13 +5,21 @@ import Header from "../../components/header/Header";
 import Main from "../../components/planes/main/Main";
 import DetallePlanes from "../../components/planes/detallePlanes/DetallePlanes";
 import scrollDetection from "../../js/scroll";
+import { useNavigate } from "react-router-dom";
 
 const Planes = (props) => {
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     scrollDetection();
     window.scrollTo(0, 0);
-    }, []);
+  }, []);
+
+  React.useEffect(() => {
+    if (props.isAuthenticated) {
+      navigate("/");
+    }
+  }, [props.isAuthenticated]);
 
   return (
     <div>
@@ -20,10 +28,13 @@ const Planes = (props) => {
       </a>
       <div className="gradient__bg-planes">
         <div className="container">
-          <Header isAuthenticated={props.isAuthenticated} setIsAuthenticated={props.setIsAuthenticated}/>
+          <Header
+            isAuthenticated={props.isAuthenticated}
+            setIsAuthenticated={props.setIsAuthenticated}
+          />
           <Main />
           <DetallePlanes />
-          <Footer titulo="¿Aún tienes dudas?" color="secondary"/>
+          <Footer titulo="¿Aún tienes dudas?" color="secondary" />
         </div>
       </div>
     </div>

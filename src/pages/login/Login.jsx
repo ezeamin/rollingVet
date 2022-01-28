@@ -8,19 +8,18 @@ const Login = (props) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if(props.isAuthenticated) {
+    if (props.isAuthenticated) {
       navigate("/");
     }
-  }, []);
+  }, [props.isAuthenticated]);
 
   const navigateSuccess = (isAdmin) => {
     props.setIsAuthenticated(true);
 
-    if(isAdmin){
+    if (isAdmin) {
       props.setIsAdmin(true);
       navigate("/admin");
-    } 
-    else {
+    } else {
       props.setIsAdmin(false);
       navigate("/");
     }

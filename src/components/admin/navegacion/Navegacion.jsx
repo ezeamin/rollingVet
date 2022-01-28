@@ -69,9 +69,9 @@ const Navegacion = (props) => {
       <div className="admin__nav-bg"></div>
       <div className="container admin__nav-container">
         <div className="admin__logo">
-          <Link to="/">
+          <div to="/">
             <img src="/img/favicon.png" alt="logo RollingVet" />
-          </Link>
+          </div>
         </div>
         <div className="admin__user my-4">
           <div className="admin__user-foto">

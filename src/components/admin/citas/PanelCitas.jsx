@@ -72,6 +72,7 @@ const PanelCitas = () => {
           opciones={opciones}
           info={citasProgramadas}
           type="citasProgramadas"
+          eliminar={() => {}} //MODIFICAR
         />
       </div>
       <BotonCrear titulo="Agregar cita" accion={handleClick} />
@@ -82,6 +83,7 @@ const PanelCitas = () => {
           opciones={opciones}
           info={citasRegistro}
           type="citasRegistro"
+          eliminar={() => {}} //MODIFICAR
         />
       </div>
     </div>

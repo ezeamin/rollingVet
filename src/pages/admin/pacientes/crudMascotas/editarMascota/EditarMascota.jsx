@@ -14,11 +14,14 @@ const EditarMascota = (props) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
+    window.addEventListener("resize", resize);
+  }, []);
+  
+  React.useEffect(() => {
     if (!props.isAdmin) {
       navigate("/");
     }
-    window.addEventListener("resize", resize);
-  }, []);
+  }, [props.isAdmin]);
 
   return (
     <div className="row admin">

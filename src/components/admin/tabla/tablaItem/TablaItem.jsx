@@ -35,8 +35,7 @@ const TablaItem = (props) => {
             cancelButtonColor: '#6c757d',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
-            if(result.isConfirmed) console.log("Eliminado");
-            else console.log("Cancelado");
+            if(result.isConfirmed) props.eliminar(props.info.dni);
         });
     }
 
@@ -54,8 +53,7 @@ const TablaItem = (props) => {
             cancelButtonColor: '#6c757d',
             cancelButtonText: 'Cerrar'
         }).then((result) => {
-            if(result.isConfirmed) console.log("Eliminado");
-            else console.log("Cancelado");
+            if(result.isConfirmed) props.eliminar(props.info.codigo);
         });
     }
 
@@ -78,8 +76,7 @@ const TablaItem = (props) => {
             cancelButtonColor: '#6c757d',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
-            if(result.isConfirmed) console.log("Eliminado");
-            else console.log("Cancelado");
+            if(result.isConfirmed) props.eliminar(props.info.codigoMascota);
         });
     }
 

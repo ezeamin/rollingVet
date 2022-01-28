@@ -76,7 +76,6 @@ class PanelVerCita extends React.Component {
             </div>
             <div className="col-sm-12 col-md-4">
               <p className="p__descripciones mb-1">Veterinario: </p>
-
               <Form.Group>
                 <Form.Select
                   as="select"

@@ -34,7 +34,10 @@ const PanelMascotas = (props) => {
     "Fecha de nacimiento",
     "Edad (años)",
     "Sexo",
+    "Acciones"
   ];
+
+  const eliminar = async (codigoMascota) => {}
 
   const handleClick = () => {
     navigate(`/admin/pacientes/${props.dni}/mascotas/new`);
@@ -48,6 +51,7 @@ const PanelMascotas = (props) => {
         opciones={opciones}
         info={info.mascotas}
         type="mascotas"
+        eliminar={eliminar}
       />
       <BotonCrear titulo="Agregar mascota" accion={handleClick} />
     </div>

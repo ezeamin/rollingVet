@@ -38,6 +38,12 @@ function App() {
       setIsAuthenticated(true);
       setUser(data.user);
 
+      const res2 = await fetch("/api/isAdmin", {
+        method: "GET",
+      });
+      const data2 = await res2.json();
+      if(data2.isAdmin) setIsAdmin(true);
+
       if (sessionStorage.getItem("isFirstTime") === null) {
         setIsFirstTime(true);
         sessionStorage.setItem("isFirstTime", true);
@@ -45,6 +51,9 @@ function App() {
         setIsFirstTime(false);
         sessionStorage.setItem("isFirstTime", false);
       }
+    }
+    else{
+      setIsAuthenticated(false); //pomer en true para empezar, como isAdmin
     }
   };
 

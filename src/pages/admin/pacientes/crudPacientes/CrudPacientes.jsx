@@ -26,9 +26,6 @@ const CrudPacientes = (props) => {
   };*/
 
   React.useEffect(() => {
-    if (!props.isAdmin) {
-      navigate("/");
-    }
     window.addEventListener("resize", resize);
 
     if (dni !== "new") {
@@ -39,6 +36,12 @@ const CrudPacientes = (props) => {
         });
     }
   }, []);
+  
+  React.useEffect(() => {
+    if (!props.isAdmin) {
+      navigate("/");
+    }
+  }, [props.isAdmin]);
 
   const redirectMascotas = () => {
     navigate(`/admin/pacientes/${dni}/mascotas`);

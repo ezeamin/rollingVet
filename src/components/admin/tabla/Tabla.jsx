@@ -26,7 +26,7 @@ const Tabla = (props) => {
         </thead>
         <tbody>
           {props.info.map((item,index) => {
-            return <TablaItem key={index} info={item} type={props.type}/>;
+            return <TablaItem eliminar={props.eliminar} key={index} info={item} type={props.type}/>;
           })}
         </tbody>
       </Table>

@@ -29,6 +29,12 @@ const Registro = (props) => {
     generateAvatar();
   }, []);
 
+  React.useEffect(() => {
+    if(props.isAuthenticated){
+      navigate("/");
+    }
+  }, [props.isAuthenticated]);
+
   const changeAvatar = (nuevoGenero) => {
     if (nuevoGenero === "Masculino") nuevoGenero = "male";
     else if (nuevoGenero === "Femenino") nuevoGenero = "female";
