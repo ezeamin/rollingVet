@@ -6,6 +6,21 @@ import './tablaItem.css';
 const TablaItem = (props) => {
     const navigate = useNavigate();
 
+    const getEdad = (fecha) => {
+        const fechaActual = new Date();
+        const fechaNacimiento = new Date(fecha);
+
+        let edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+        let mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
+        let dia = fechaActual.getDate() - fechaNacimiento.getDate();
+
+        if (mes < 0 || mes === 0 && dia < 0) {
+            edad--;
+        }
+
+        return edad;
+    }
+
     const editarPaciente = () => {
         navigate(`/admin/pacientes/${props.info.dni}`);
     }
@@ -131,7 +146,24 @@ const TablaItem = (props) => {
                 <button onClick={editarMascota} key={Math.round(Math.random()*10000)} className="btn btn-outline-warning">Editar</button>,
                 <button onClick={eliminarMascota} key={Math.round(Math.random()*10000)} className="btn btn-outline-danger">Eliminar</button>,
             ];
-            break;
+
+            let edad = getEdad(props.info.fechaNac)
+
+            return (
+                <tr>
+                    <td>{props.info.nombre}</td>
+                    <td>{props.info.especie}</td>
+                    <td>{props.info.raza}</td>
+                    <td>{props.info.fechaNac}</td>
+                    <td>{edad}</td>
+                    <td>{props.info.sexo}</td>
+                    <td className='admin__tables-btn'>
+                    {botones.map((boton) => {
+                        return boton;
+                    })}
+                    </td>
+                </tr>
+            );
         default:
             break;
     }

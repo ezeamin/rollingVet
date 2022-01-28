@@ -17,17 +17,6 @@ const PanelPacientes = () => {
 
   const [pacientes, setPacientes] = React.useState([]);
 
-  /*const pacientes = [
-    {
-      apellido: "Perez",
-      nombre: "Juan",
-      dni: "12345678",
-      email: "juanperez@gmail.com",
-      mascotas: "2",
-      codigo: "aik98",
-    },
-  ];*/
-
   const fetchPacientes = async () => {
     const response = await fetch("/api/pacientes",{
       method: "GET",

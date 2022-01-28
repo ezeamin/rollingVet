@@ -9,31 +9,22 @@ const PanelMascotas = (props) => {
   const [titulo, setTitulo] = React.useState("");
 
   React.useEffect(() => {
-    //CARGAR INFO
-    setInfo({
-      //SACAR Y TRAER ESTOS DATOS DESDE EL CODIGO DE PROPS
-      apellido: "Perez",
-      nombre: "Juan",
-      dni: "12345678",
-      email: "juanperez@gmail.com",
-      mascotas: [
-        {
-          nombre: "Mascota 1",
-          especie: "Perro",
-          raza: "Labrador",
-          fechaNacimiento: "01/01/2020",
-          edad: "1", //CALCULAR EDAD
-          sexo: "Macho",
-          codigoMascota: "pp3A4",
-        },
-      ],
-      genero: "Masculino",
-      contraseña: "12345678",
-    });
+    const fetchPaciente = async () => {
+      const response = await fetch(`/api/pacientes/${props.dni}`, {
+        method: "GET",
+      });
+      const data = await response.json();
+
+      setInfo(data.paciente);
+    };
+
+    fetchPaciente();
   }, []);
 
   React.useEffect(() => {
-    setTitulo("Mascotas de " + info.nombre);
+    if(info.nombre!==undefined){
+      setTitulo("Mascotas de " + info.nombre);
+    }
   }, [info]);
 
   const opciones = [
@@ -46,7 +37,7 @@ const PanelMascotas = (props) => {
   ];
 
   const handleClick = () => {
-    navigate(`/admin/pacientes/${props.codigo}/mascotas/new`);
+    navigate(`/admin/pacientes/${props.dni}/mascotas/new`);
   };
 
   return (

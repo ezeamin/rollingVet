@@ -33,6 +33,8 @@
   transition: all 0.5s;
 }
 
+/* Triangulo */
+
 .rombo__item-triangle {
   position: absolute;
   width: 0;
@@ -58,6 +60,8 @@
   transition: all 0.5s;
 }
 
+/* Hover */
+
 .rombo__item:hover {
   filter: grayscale(0);
 }
@@ -72,9 +76,11 @@
   font-size: 1.30rem;
 }
 
+/* Posicionamiento */
+
 .rombo__item:nth-child(1) {
   top: calc(50% - 282px);
-  left: calc(50%-141px);
+  left: calc(50% - 100px);
 }
 .rombo__item:nth-child(2) {
   top: calc(50% - 135px);

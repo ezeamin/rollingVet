@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const CrudMascotas = (props) => {
   const url = window.location.href;
   const urlSplit = url.split("/");
-  const codigo = urlSplit[urlSplit.length - 2];
+  const dni = urlSplit[urlSplit.length - 2];
 
   const navigate = useNavigate();
   
@@ -26,7 +26,7 @@ const CrudMascotas = (props) => {
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />
-        <PanelMascotas codigo={codigo} />
+        <PanelMascotas dni={dni} />
       </div>
     </div>
   );

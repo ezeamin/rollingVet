@@ -104,19 +104,40 @@ class FormularioMascota extends Component {
 
     if (!errorGeneral) {
       //guardar
+      this.guardarMascota();
     }
   };
 
-  componentDidMount() {
-    if (this.props.info === undefined) return;
-    if (Object.keys(this.props.info).length !== 0) {
-      this.setState({
-        nombre: this.props.info.nombre,
-        especie: this.props.info.especie,
-        raza: this.props.info.raza,
-        fechaNac: this.props.info.fechaNac,
-        sexo: this.props.info.sexo,
-      });
+  guardarMascota = async () => {
+    const response = await fetch(`/api/pacientes/mascota/${this.props.dni}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre: this.state.nombre,
+        especie: this.state.especie,
+        raza: this.state.raza,
+        fechaNac: this.state.fechaNac,
+        sexo: this.state.sexo,
+        codigoMascota: this.props.codigoMascota, //cambiar si no es nuevo
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.info !== this.props.info) {
+      if (Object.keys(this.props.info).length !== 0) {
+        this.setState({
+          nombre: this.props.info.nombre,
+          especie: this.props.info.especie,
+          raza: this.props.info.raza,
+          fechaNac: this.props.info.fechaNac,
+          sexo: this.props.info.sexo,
+        });
+      }
     }
   }
 
