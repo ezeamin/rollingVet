@@ -1,6 +1,8 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import "./panelVerCita.css";
+import Swal from "sweetalert2";
+import Carga from "../../carga/Carga";
 
 class PanelVerCita extends React.Component {
   state = {
@@ -8,23 +10,34 @@ class PanelVerCita extends React.Component {
     comentarios: "",
     errorVet: false,
     VOD: false,
-  };
-
-  info = {
-    //traer con codigo
-    nombre: "Juan",
-    apellido: "Perez",
-    mascota: "Firulais",
-    fecha: "12/12/2020",
-    hora: "12:00",
-    codigo: "aik98",
+    info: {},
+    cargando: true,
   };
 
   componentDidMount() {
-    if (window.location.href.includes("VOD")) {
-      //solo ver
-      this.setState({ VOD: true });
-      document.getElementsByClassName("admin__panel__cita-btnGuardar")[0].style.display = "none";
+    fetch(`/api/citas/${this.props.codigoCita}`).then((res) => {
+      if (res.ok) {
+        res.json().then((data) => {
+          this.setState({ info: data.cita });
+          if (window.location.href.includes("VOD")) {
+            //lectura de cita
+            this.setState({
+              VOD: true,
+              veterinario: this.state.info.veterinario,
+              comentarios: this.state.info.comentarios,
+            });
+          }
+          this.setState({ cargando: false });
+        });
+      }
+    });
+  }
+
+  componentDidUpdate() {
+    if(!this.state.cargando && this.state.VOD) {
+      document.getElementsByClassName(
+        "admin__panel__cita-btnGuardar"
+      )[0].style.display = "none";
     }
   }
 
@@ -54,10 +67,41 @@ class PanelVerCita extends React.Component {
 
     if (!this.validarVet()) return;
 
-    //guardar en la base de datos
+    this.guardar();
   };
 
+  async guardar() {
+    const data = {
+      veterinario: this.state.veterinario,
+      comentarios: this.state.comentarios.trim(),
+      atendido: true,
+    };
+
+    const res = await fetch(`/api/citas/${this.props.codigoCita}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok) {
+      Swal.fire({
+        title: "Cita guardada",
+        icon: "success",
+        text: " ",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        this.props.navigateSuccess();
+      });
+    } else {
+      alert("Error al guardar");
+    }
+  }
+
   render() {
+    if (this.state.cargando) return <Carga />;
     return (
       <div className="admin__panel-content py-5 container">
         <h1 className="h3__bold admin__panel__cita-title">Cita</h1>
@@ -65,14 +109,16 @@ class PanelVerCita extends React.Component {
           <div className="admin__panel__cita-info row">
             <div className="col-sm-12 col-md-8">
               <h3 className="h3__bold mb-0 lh-100">
-                {this.info.apellido},{" "}
-                <span className="h3__bold-light">{this.info.nombre}</span>
+                {this.state.info.apellido},{" "}
+                <span className="h3__bold-light">{this.state.info.nombre}</span>
               </h3>
               <p className="p__descripciones mb-5">
-                Mascota: {this.info.mascota}
+                Mascota: {this.state.info.mascota}
               </p>
-              <p className="p__descripciones mb-0">Fecha: {this.info.fecha}</p>
-              <p className="p__descripciones">Hora: {this.info.hora}</p>
+              <p className="p__descripciones mb-0">
+                Fecha: {this.state.info.fecha}
+              </p>
+              <p className="p__descripciones">Hora: {this.state.info.hora}</p>
             </div>
             <div className="col-sm-12 col-md-4">
               <p className="p__descripciones mb-1">Veterinario: </p>
@@ -90,8 +136,9 @@ class PanelVerCita extends React.Component {
                 >
                   <option value="0">Seleccionar</option>
                   {this.veterinarios.map((veterinario, index) => {
+                    const nombre = `${veterinario.apellido}, ${veterinario.nombre}`;
                     return (
-                      <option key={index} value={veterinario.codigo}>
+                      <option key={index} value={nombre}>
                         {veterinario.apellido}, {veterinario.nombre}
                       </option>
                     );

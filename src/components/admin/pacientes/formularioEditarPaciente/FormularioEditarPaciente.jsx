@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import "../../../registro/formularioRegistro/formularioRegistro.css";
 import Swal from "sweetalert2";
-import { init, send } from "@emailjs/browser";
+import Carga from "../../carga/Carga";
 
 class FormularioEditarPaciente extends Component {
   state = {
@@ -18,6 +18,7 @@ class FormularioEditarPaciente extends Component {
       genero: false,
       email: false,
     },
+    cargando: true,
   };
 
   handleChange = (e) => {
@@ -171,101 +172,106 @@ class FormularioEditarPaciente extends Component {
           email: this.props.info.email,
           contraseña: this.props.info.password,
           contraseña2: this.props.info.password,
+          cargando: false,
         });
       }
     }
   }
 
   render() {
+    if (this.state.cargando) return <Carga />;
     return (
-      <Form onSubmit={(e) => this.handleSubmit(e)}>
-        <div className="nombre-y-apellido">
-          <Form.Group className="form__nombre">
+      <>
+        <h1 className="mb-3 h3__bold">Editar paciente</h1>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
+          <div className="nombre-y-apellido">
+            <Form.Group className="form__nombre">
+              <Form.Control
+                type="text"
+                placeholder="Nombre"
+                name="nombre"
+                className="input"
+                isInvalid={this.state.errores.nombre}
+                value={this.state.nombre}
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              />
+              <Form.Control.Feedback className="feedback" type="invalid">
+                Ingrese un nombre
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mt-2 w-100">
+              <Form.Control
+                type="text"
+                placeholder="Apellido"
+                name="apellido"
+                className="input"
+                isInvalid={this.state.errores.apellido}
+                value={this.state.apellido}
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              />
+              <Form.Control.Feedback className="feedback" type="invalid">
+                Ingrese un apellido
+              </Form.Control.Feedback>
+            </Form.Group>
+          </div>
+          <div className="nombre-y-apellido">
+            <Form.Group className="form__nombre">
+              <Form.Control
+                type="text"
+                placeholder="DNI"
+                name="dni"
+                className="input"
+                isInvalid={this.state.errores.dni}
+                value={this.state.dni}
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              />
+              <Form.Control.Feedback className="feedback" type="invalid">
+                Ingrese un DNI valido
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mt-2 w-100">
+              <Form.Select
+                type="select"
+                placeholder="Genero"
+                name="genero"
+                className="input"
+                isInvalid={this.state.errores.genero}
+                value={this.state.genero}
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              >
+                <option value="0">Genero</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+              </Form.Select>
+              <Form.Control.Feedback className="feedback" type="invalid">
+                Seleccione su genero
+              </Form.Control.Feedback>
+            </Form.Group>
+          </div>
+          <Form.Group className="mt-2">
             <Form.Control
               type="text"
-              placeholder="Nombre"
-              name="nombre"
+              placeholder="E-mail"
+              name="email"
               className="input"
-              isInvalid={this.state.errores.nombre}
-              value={this.state.nombre}
+              isInvalid={this.state.errores.email}
+              value={this.state.email}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
             />
             <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese un nombre
+              Ingrese un email valido
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group className="mt-2 w-100">
-            <Form.Control
-              type="text"
-              placeholder="Apellido"
-              name="apellido"
-              className="input"
-              isInvalid={this.state.errores.apellido}
-              value={this.state.apellido}
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
-            />
-            <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese un apellido
-            </Form.Control.Feedback>
-          </Form.Group>
-        </div>
-        <div className="nombre-y-apellido">
-          <Form.Group className="form__nombre">
-            <Form.Control
-              type="text"
-              placeholder="DNI"
-              name="dni"
-              className="input"
-              isInvalid={this.state.errores.dni}
-              value={this.state.dni}
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
-            />
-            <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese un DNI valido
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group className="mt-2 w-100">
-            <Form.Select
-              type="select"
-              placeholder="Genero"
-              name="genero"
-              className="input"
-              isInvalid={this.state.errores.genero}
-              value={this.state.genero}
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
-            >
-              <option value="0">Genero</option>
-              <option value="Masculino">Masculino</option>
-              <option value="Femenino">Femenino</option>
-            </Form.Select>
-            <Form.Control.Feedback className="feedback" type="invalid">
-              Seleccione su genero
-            </Form.Control.Feedback>
-          </Form.Group>
-        </div>
-        <Form.Group className="mt-2">
-          <Form.Control
-            type="text"
-            placeholder="E-mail"
-            name="email"
-            className="input"
-            isInvalid={this.state.errores.email}
-            value={this.state.email}
-            onChange={(e) => this.handleChange(e)}
-            onBlur={(e) => this.handleBlur(e)}
-          />
-          <Form.Control.Feedback className="feedback" type="invalid">
-            Ingrese un email valido
-          </Form.Control.Feedback>
-        </Form.Group>
-        <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">
-          Guardar
-        </button>
-      </Form>
+          <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">
+            Guardar
+          </button>
+        </Form>
+      </>
     );
   }
 }

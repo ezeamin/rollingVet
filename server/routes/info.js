@@ -180,7 +180,23 @@ router.get("/api/citasRegistro", (req, res) => {
 });
 
 router.post("/api/citas", (req, res) => {
-  DbCitas.create(req.body, (err, cita) => {
+  const codigoCita = generarCodigo();
+
+  const cita = new DbCitas({
+    codigoCita: codigoCita,
+    dni: req.body.dni,
+    fecha: req.body.fecha,
+    hora: req.body.hora,
+    atendido: false,
+    codigoMascota: req.body.codigoMascota,
+    nombre: req.body.nombre,
+    apellido: req.body.apellido,
+    mascota: req.body.mascota,
+    veterinario: req.body.veterinario,
+    comentarios: req.body.comentarios,
+  });
+
+  DbCitas.create(cita, (err, cita) => {
     if(err){
       res.status(500).json({
         ok: false,
@@ -191,6 +207,37 @@ router.post("/api/citas", (req, res) => {
       res.status(200).json({
         ok: true,
         cita,
+      });
+    }
+  });
+});
+
+router.get("/api/citas/:codigoCita", (req, res) => {
+  DbCitas.find({ codigoCita: req.params.codigoCita }, (err, cita) => {
+    if (err) {
+      res.status(500).json({
+        ok: false,
+        err,
+      });
+    } else {
+      res.status(200).json({
+        ok: true,
+        cita: cita[0],
+      });
+    }
+  });
+});
+
+router.put("/api/citas/:codigoCita", (req, res) => {
+  DbCitas.findOneAndUpdate( { codigoCita: req.params.codigoCita }, req.body, { new: true }, (err, cita) => {
+    if (err) {
+      res.status(500).json({
+        ok: false,
+        err,
+      });
+    } else {
+      res.status(200).json({
+        ok: true,
       });
     }
   });

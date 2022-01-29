@@ -124,6 +124,8 @@ class FormularioCita extends Component {
         hora: this.state.hora,
         atendido: false,
         veterinario: "-",
+        comentarios: "",
+        codigoCita: "",
       }),
     });
     const data = await response.json();

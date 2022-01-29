@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Swal from "sweetalert2";
+import Carga from "../../../carga/Carga";
 
 class FormularioMascota extends Component {
   state = {
@@ -16,6 +17,8 @@ class FormularioMascota extends Component {
       fechaNac: false,
       sexo: false,
     },
+    cargando: true,
+    titulo: this.props.titulo,
   };
 
   handleChange = (e) => {
@@ -55,16 +58,17 @@ class FormularioMascota extends Component {
           }
           break;
         case "fechaNac":
-            if(!/^\d{4}-\d{2}-\d{2}$/i.test(value)) return this.error(errores, name);
-          
-            let splitFecha = value.split("-");
-            let fecha = new Date(splitFecha[0], splitFecha[1] - 1, splitFecha[2]);
-            let fechaActual = new Date();
-  
-            if(fechaActual.getTime() < fecha.getTime()){
-              return this.error(errores, name);
-            }
-            break;
+          if (!/^\d{4}-\d{2}-\d{2}$/i.test(value))
+            return this.error(errores, name);
+
+          let splitFecha = value.split("-");
+          let fecha = new Date(splitFecha[0], splitFecha[1] - 1, splitFecha[2]);
+          let fechaActual = new Date();
+
+          if (fechaActual.getTime() < fecha.getTime()) {
+            return this.error(errores, name);
+          }
+          break;
         case "sexo":
           if (value === "0") {
             return this.error(errores, name);
@@ -94,7 +98,6 @@ class FormularioMascota extends Component {
     error[2] = this.verificar("raza", this.state.raza);
     error[3] = this.verificar("fechaNac", this.state.fechaNac);
     error[4] = this.verificar("sexo", this.state.sexo);
-    
 
     error.forEach((element) => {
       if (element) {
@@ -125,7 +128,7 @@ class FormularioMascota extends Component {
     });
     const data = await response.json();
     console.log(data);
-    if(data.code === 200){
+    if (data.code === 200) {
       Swal.fire({
         title: "Mascota guardada",
         text: " ",
@@ -134,18 +137,17 @@ class FormularioMascota extends Component {
         timer: 1500,
       }).then(() => {
         this.props.navigateSuccess();
-      })
-    }
-    else{
+      });
+    } else {
       Swal.fire({
         title: "Error",
         text: " ",
         icon: "error",
         showConfirmButton: false,
         timer: 1500,
-      })
+      });
     }
-  }
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.info !== this.props.info) {
@@ -157,100 +159,111 @@ class FormularioMascota extends Component {
           fechaNac: this.props.info.fechaNac,
           sexo: this.props.info.sexo,
         });
+        this.setState({cargando: false});
+      }
+    }
+    if(prevProps.titulo !== this.props.titulo){
+      this.setState({titulo: this.props.titulo});
+      if(this.props.new){
+        this.setState({cargando: false});
       }
     }
   }
 
   render() {
+    if (this.state.cargando) return <Carga />;
     return (
-      <Form onSubmit={(e) => this.handleSubmit(e)} className="text-start">
-        <div className="nombre-y-apellido">
-          <Form.Group className="form__nombre">
+      <>
+        <h1 className="h3__bold">{this.state.titulo}</h1>
+        <Form onSubmit={(e) => this.handleSubmit(e)} className="text-start">
+          <div className="nombre-y-apellido">
+            <Form.Group className="form__nombre">
+              <Form.Control
+                type="text"
+                placeholder="Nombre"
+                name="nombre"
+                className="input"
+                isInvalid={this.state.errores.nombre}
+                value={this.state.nombre}
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              />
+              <Form.Control.Feedback className="feedback" type="invalid">
+                Ingrese un nombre
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mt-2 w-100">
+              <Form.Control
+                type="text"
+                placeholder="Especie"
+                name="especie"
+                className="input"
+                isInvalid={this.state.errores.especie}
+                value={this.state.especie}
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              />
+              <Form.Control.Feedback className="feedback" type="invalid">
+                Ingrese una especie
+              </Form.Control.Feedback>
+            </Form.Group>
+          </div>
+          <div className="nombre-y-apellido">
+            <Form.Group className="form__nombre">
+              <Form.Control
+                type="text"
+                placeholder="Raza"
+                name="raza"
+                className="input"
+                isInvalid={this.state.errores.raza}
+                value={this.state.raza}
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              />
+              <Form.Control.Feedback className="feedback" type="invalid">
+                Ingrese una raza
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mt-2 w-100">
+              <Form.Select
+                type="select"
+                placeholder="Sexo"
+                name="sexo"
+                className="input"
+                isInvalid={this.state.errores.sexo}
+                value={this.state.sexo}
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              >
+                <option value="0">Sexo</option>
+                <option value="Macho">Macho</option>
+                <option value="Hembra">Hembra</option>
+              </Form.Select>
+              <Form.Control.Feedback className="feedback" type="invalid">
+                Seleccione el sexo
+              </Form.Control.Feedback>
+            </Form.Group>
+          </div>
+          <Form.Group className="mt-2 nuevaCita-input">
             <Form.Control
-              type="text"
-              placeholder="Nombre"
-              name="nombre"
+              type="date"
+              placeholder="E-mail"
+              name="fechaNac"
               className="input"
-              isInvalid={this.state.errores.nombre}
-              value={this.state.nombre}
+              isInvalid={this.state.errores.fechaNac}
+              value={this.state.fechaNac}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
             />
             <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese un nombre
+              Ingrese una fecha valida
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group className="mt-2 w-100">
-            <Form.Control
-              type="text"
-              placeholder="Especie"
-              name="especie"
-              className="input"
-              isInvalid={this.state.errores.especie}
-              value={this.state.especie}
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
-            />
-            <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese una especie
-            </Form.Control.Feedback>
-          </Form.Group>
-        </div>
-        <div className="nombre-y-apellido">
-          <Form.Group className="form__nombre">
-            <Form.Control
-              type="text"
-              placeholder="Raza"
-              name="raza"
-              className="input"
-              isInvalid={this.state.errores.raza}
-              value={this.state.raza}
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
-            />
-            <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese una raza
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group className="mt-2 w-100">
-            <Form.Select
-              type="select"
-              placeholder="Sexo"
-              name="sexo"
-              className="input"
-              isInvalid={this.state.errores.sexo}
-              value={this.state.sexo}
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
-            >
-              <option value="0">Sexo</option>
-              <option value="Macho">Macho</option>
-              <option value="Hembra">Hembra</option>
-            </Form.Select>
-            <Form.Control.Feedback className="feedback" type="invalid">
-              Seleccione el sexo
-            </Form.Control.Feedback>
-          </Form.Group>
-        </div>
-        <Form.Group className="mt-2 nuevaCita-input">
-          <Form.Control
-            type="date"
-            placeholder="E-mail"
-            name="fechaNac"
-            className="input"
-            isInvalid={this.state.errores.fechaNac}
-            value={this.state.fechaNac}
-            onChange={(e) => this.handleChange(e)}
-            onBlur={(e) => this.handleBlur(e)}
-          />
-          <Form.Control.Feedback className="feedback" type="invalid">
-            Ingrese una fecha valida
-          </Form.Control.Feedback>
-        </Form.Group>
-        <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">
-          Guardar
-        </button>
-      </Form>
+          <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">
+            Guardar
+          </button>
+        </Form>
+      </>
     );
   }
 }

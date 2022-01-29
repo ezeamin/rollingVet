@@ -3,9 +3,12 @@ import Tabla from "../tabla/Tabla";
 import BotonCrear from "../botonCrear/BotonCrear";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import Carga from "../carga/Carga";
 
 const PanelPacientes = () => {
   const navigate = useNavigate();
+
+  const [cargando, setCargando] = React.useState(true);
 
   const opciones = [
     "Apellido",
@@ -25,6 +28,7 @@ const PanelPacientes = () => {
     const data = await response.json();
 
     setPacientes(data.pacientes);
+    setCargando(false);
   };
 
   const handleClick = () => {
@@ -63,6 +67,7 @@ const PanelPacientes = () => {
     fetchPacientes();
   }, []);
 
+  if(cargando) return <Carga />
   return (
     <div className="container py-5 admin__panel-content">
       <div className="admin__panel__pacientes">

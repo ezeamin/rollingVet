@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const citaSchema = new Schema({
+  codigoCita: String,
   dni: String,
   codigoMascota: String,
   nombre: String,
@@ -10,7 +11,8 @@ const citaSchema = new Schema({
   veterinario: String,
   fecha: String,
   hora: String,
-  atendido: Boolean
+  atendido: Boolean,
+  comentarios: String,
 });
 
 module.exports = mongoose.model('Citas', citaSchema);

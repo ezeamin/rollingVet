@@ -4,6 +4,7 @@ import FormularioMascota from "./formularioMascota/FormularioMascota";
 
 const PanelEditarMascota = (props) => {
   const [info, setInfo] = React.useState({});
+  const [titulo, setTitulo] = React.useState("");
   const isNew = (props.codigoMascota === "new");
   const navigate = useNavigate();
 
@@ -16,10 +17,12 @@ const PanelEditarMascota = (props) => {
         const data = await response.json();
 
         setInfo(data.mascota);
+        setTitulo("Editar mascota")
       };
 
       fetchMascota();
     }
+    else setTitulo("Nueva mascota");
   }, []);
 
   const navigateSuccess = () => {
@@ -29,16 +32,14 @@ const PanelEditarMascota = (props) => {
   if(isNew){
     return (
       <div className="admin__panel__pacientes-newUser py-5 admin__panel__pacientes-content">
-        <h1 className="h3__bold">Nueva mascota</h1>
-        <FormularioMascota info={info} dni={props.dni} codigoMascota={""} navigateSuccess={navigateSuccess}/>
+        <FormularioMascota new={true} titulo={titulo} info={info} dni={props.dni} codigoMascota={""} navigateSuccess={navigateSuccess}/>
       </div>
     );
   }
   else{
     return (
       <div className="admin__panel__pacientes-newUser py-5 admin__panel__pacientes-content">
-        <h1 className="h3__bold">Editar mascota</h1>
-        <FormularioMascota info={info} dni={props.dni} codigoMascota={props.codigoMascota} navigateSuccess={navigateSuccess}/>
+        <FormularioMascota new={false} titulo={titulo} info={info} dni={props.dni} codigoMascota={props.codigoMascota} navigateSuccess={navigateSuccess}/>
       </div>
     );
   }

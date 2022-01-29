@@ -2,11 +2,13 @@ import React from "react";
 import BotonCrear from "../../botonCrear/BotonCrear";
 import Tabla from "../../tabla/Tabla";
 import { useNavigate } from "react-router";
+import Carga from "../../carga/Carga";
 
 const PanelMascotas = (props) => {
   const navigate = useNavigate();
   const [info, setInfo] = React.useState({ mascotas: [] });
   const [titulo, setTitulo] = React.useState("");
+  const [cargando, setCargando] = React.useState(true);
 
   React.useEffect(() => {
     const fetchPaciente = async () => {
@@ -16,6 +18,7 @@ const PanelMascotas = (props) => {
       const data = await response.json();
 
       setInfo(data.paciente);
+      setCargando(false);
     };
 
     fetchPaciente();
@@ -43,6 +46,7 @@ const PanelMascotas = (props) => {
     navigate(`/admin/pacientes/${props.dni}/mascotas/new`);
   };
 
+  if(cargando) return <Carga />;
   return (
     <div className="admin__panel-content container py-5">
       <Tabla

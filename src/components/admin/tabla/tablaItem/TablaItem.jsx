@@ -40,7 +40,7 @@ const TablaItem = (props) => {
     }
 
     const atenderCita = () => {
-        navigate(`/admin/citas/${props.info.codigo}`);
+        navigate(`/admin/citas/${props.info.codigoCita}`);
     }
     const cancelarCita = () => {
         Swal.fire({
@@ -58,7 +58,7 @@ const TablaItem = (props) => {
     }
 
     const revisarCita = () => {
-        navigate(`/admin/citas/${props.info.codigo}-VOD`); //view only data
+        navigate(`/admin/citas/${props.info.codigoCita}-VOD`); //view only data
     }
 
     const editarMascota = () => {

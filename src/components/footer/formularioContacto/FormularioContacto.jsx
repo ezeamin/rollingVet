@@ -79,9 +79,9 @@ class FormularioContacto extends Component {
     });
 
     if (!errorGeneral) {
-      this.enviarMail();
+      //this.enviarMail();
 
-      //deshabilitar boton
+      //deshabilitar boton - no cambia color
       const boton = document.getElementById("btnContacto");
       boton.disabled = true;
     }
@@ -98,7 +98,6 @@ class FormularioContacto extends Component {
 
     send("service_mvm479c", "template_q3a26mw", templateParams).then(
       function (response) {
-        console.log("SUCCESS!", response.status, response.text);
         Swal.fire({
           icon: "success",
           title: "¡Gracias!",
@@ -106,11 +105,15 @@ class FormularioContacto extends Component {
         });
 
         //habilitar boton
+        this.setState({
+          nombre: "",
+          email: "",
+          mensaje: "",
+        });
         const boton = document.getElementById("btnContacto");
         boton.disabled = false;
       },
       function (error) {
-        console.log("FAILED...", error);
         Swal.fire({
           icon: "error",
           title: "Error",

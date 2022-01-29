@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import "./panelCitas.css";
 import Tabla from "../tabla/Tabla";
 import BotonCrear from "../botonCrear/BotonCrear";
+import Carga from "../carga/Carga";
 
 const PanelCitas = () => {
   const navigate = useNavigate();
   const [citasProgramadas, setCitasProgramadas] = React.useState([]);
   const [citasRegistro, setCitasRegistro] = React.useState([]);
+  const [cargando, setCargando] = React.useState(true);
 
   const opciones = [
     "Nombre",
@@ -32,25 +34,8 @@ const PanelCitas = () => {
     });
     const data = await response.json();
     setCitasRegistro(data.citas);
+    setCargando(false);
   };
-
-  /*const citasProgramadas = [{
-    nombre: "Juan Perez",
-    mascota: "Geru",
-    veterinario: "-",
-    dia: "24/01/2022",
-    horario: "10:00",
-    codigo: "10ao6",
-  }];
-
-  const citasRegistro = [{
-    nombre: "Pepe Dominguez",
-    mascota: "Firulais",
-    veterinario: "Capunta",
-    dia: "21/01/2022",
-    horario: "10:00",
-    codigo: "3Tk2i",
-  }];*/
 
   const handleClick = () => {
     navigate("/admin/citas/new");
@@ -61,6 +46,7 @@ const PanelCitas = () => {
     fetchCitasRegistro();
   }, []);
 
+  if(cargando) return <Carga />
   return (
     <div className="container py-5 admin__panel-content">
       <div className="admin__panel__citas-prog">

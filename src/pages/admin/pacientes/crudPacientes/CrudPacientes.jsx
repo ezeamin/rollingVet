@@ -15,15 +15,6 @@ const CrudPacientes = (props) => {
 
   const [avatarUrl, setAvatarUrl] = React.useState("");
   const [info, setInfo] = React.useState({});
-  /*let info = {
-    apellido: "Perez",
-    nombre: "Juan",
-    dni: "12345678",
-    email: "juanperez@gmail.com",
-    mascotas: [],
-    genero: "Masculino",
-    contraseña: "12345678",
-  };*/
 
   React.useEffect(() => {
     window.addEventListener("resize", resize);
@@ -66,7 +57,6 @@ const CrudPacientes = (props) => {
           <NavegacionResponsive />
           <div className="admin__panel__pacientes-editarUser py-5 admin__panel__pacientes-content">
             <div className="admin__panel__pacientes-editarUser-form">
-              <h1 className="mb-3 h3__bold">Editar paciente</h1>
               <FormularioEditarPaciente
                 info={info}
                 navigateSuccess={navigateSuccess}
