@@ -53,7 +53,7 @@ const TablaItem = (props) => {
             cancelButtonColor: '#6c757d',
             cancelButtonText: 'Cerrar'
         }).then((result) => {
-            if(result.isConfirmed) props.eliminar(props.info.codigo);
+            if(result.isConfirmed) props.eliminar(props.info.codigoCita);
         });
     }
 

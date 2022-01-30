@@ -16,10 +16,10 @@ const Planes = (props) => {
   }, []);
 
   React.useEffect(() => {
-    if (props.isAuthenticated) {
-      navigate("/");
+    if (props.isAdmin) {
+      navigate("/admin");
     }
-  }, [props.isAuthenticated]);
+  }, [props.isAdmin]);
 
   return (
     <div>

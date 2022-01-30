@@ -27,7 +27,7 @@ const PanelPacientes = () => {
     });
     const data = await response.json();
 
-    setPacientes(data.pacientes);
+    setPacientes(data.pacientes.sort());
     setCargando(false);
   };
 

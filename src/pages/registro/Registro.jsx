@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Carga from "../../components/admin/carga/Carga";
 import FormularioRegistro from "../../components/registro/formularioRegistro/FormularioRegistro";
 import Header from "../../components/registro/header/HeaderRegistro";
 import "./registro.css";
@@ -19,16 +18,12 @@ const Registro = (props) => {
   if ((randomSeed % 10) % 2 === 0) gen = "male";
   else gen = "female";
   const [genero, setGenero] = React.useState(gen);
-  const [cargando, setCargando] = React.useState(true);
 
   React.useEffect(() => {
     const generateAvatar = () => {
       const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg`;
 
       setAvatarUrl(url);
-      setTimeout(() => {
-        setCargando(false);
-      }, 1000);
     };
 
     generateAvatar();
@@ -56,7 +51,6 @@ const Registro = (props) => {
     navigate("/");
   };
 
-  if (cargando) return <Carga />;
   return (
     <div className="registro__container">
       <Header />

@@ -4,6 +4,7 @@ import "./panelCitas.css";
 import Tabla from "../tabla/Tabla";
 import BotonCrear from "../botonCrear/BotonCrear";
 import Carga from "../carga/Carga";
+import Swal from "sweetalert2";
 
 const PanelCitas = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const PanelCitas = () => {
       method: "GET",
     });
     const data = await response.json();
-    setCitasRegistro(data.citas);
+    setCitasRegistro(data.citas.reverse());
     setCargando(false);
   };
 
@@ -46,6 +47,24 @@ const PanelCitas = () => {
     fetchCitasRegistro();
   }, []);
 
+  const eliminarCita = async (codigoCita) => {
+    const response = await fetch(`/api/citas/${codigoCita}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    if (data.ok) {
+      Swal.fire({
+        title: "Cita eliminada",
+        text: " ",
+        icon: "success",
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      fetchCitasProgramadas();
+    }
+  }
+
   if(cargando) return <Carga />
   return (
     <div className="container py-5 admin__panel-content">
@@ -56,7 +75,7 @@ const PanelCitas = () => {
           opciones={opciones}
           info={citasProgramadas}
           type="citasProgramadas"
-          eliminar={() => {}} //MODIFICAR
+          eliminar={eliminarCita} //MODIFICAR
         />
       </div>
       <BotonCrear titulo="Agregar cita" accion={handleClick} />
@@ -67,7 +86,7 @@ const PanelCitas = () => {
           opciones={opciones}
           info={citasRegistro}
           type="citasRegistro"
-          eliminar={() => {}} //MODIFICAR
+          eliminar={() => {}}
         />
       </div>
     </div>

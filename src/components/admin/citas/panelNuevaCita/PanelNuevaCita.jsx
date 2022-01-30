@@ -20,11 +20,25 @@ const PanelNuevaCita = () => {
     }]
   });
 
-  const [horarios, setHorarios] = React.useState([]);
-
   const navigateSuccess = () => {
     navigate("/admin/citas")
   }
+
+  const horariosFull = [
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00"
+  ];
+
+  const [horarios, setHorarios] = React.useState([]);
+  const [fecha, setFecha] = React.useState("");
 
   React.useEffect(() => {
     if(desbloquear){
@@ -32,6 +46,27 @@ const PanelNuevaCita = () => {
     }
     else document.getElementsByClassName("admin__panel__nuevaCita-forms-cita__disabled")[0].style.display = "block";
   },[desbloquear]);
+
+  React.useEffect(() => {
+    //actualizar horarios
+    const fetchHorarios = async () => {
+      const response = await fetch(`/api/fechas/${fecha}`,{
+        method: "GET",
+      });
+      const data = await response.json();
+
+      console.log(data);
+      if(data.datos === null){
+        setHorarios(horariosFull);
+      }
+      else {
+        //eliminar de horariosFull los horarios que ya estan en data
+        const horariosFullFiltrados = horariosFull.filter(hora => !data.datos.includes(hora));
+        setHorarios(horariosFullFiltrados);
+      }
+    }
+    if(fecha) fetchHorarios();
+  },[fecha]);
 
   return (
     <div className="container py-5 admin__panel-content">
@@ -43,7 +78,7 @@ const PanelNuevaCita = () => {
           <p className="mb-0">Paciente: <span className="fw-bold">{paciente.nombre} {paciente.apellido}</span></p>
           <div className="admin__panel__nuevaCita-forms-cita position-relative">
             <div className="admin__panel__nuevaCita-forms-cita__disabled"></div>
-            <FormularioCita desbloquear={desbloquear} paciente={paciente} setHorarios={setHorarios} navigateSuccess={navigateSuccess}/>
+            <FormularioCita desbloquear={desbloquear} paciente={paciente} setHorarios={setHorarios} horarios={horarios} setFecha={setFecha} navigateSuccess={navigateSuccess}/>
           </div>
         </div>
         <div className="admin__panel__nuevaCita-tabla col-sm-12 col-md-4">

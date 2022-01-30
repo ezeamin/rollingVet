@@ -13,7 +13,7 @@ class FormularioCita extends Component {
       fecha: false,
       hora: false,
     },
-    horarios: [],
+    horarios: this.props.horarios,
   };
 
   handleChange = (e) => {
@@ -60,6 +60,11 @@ class FormularioCita extends Component {
           if(fechaActual.getTime() > fecha.getTime()){
             return this.error(errores, name);
           }
+
+          //detectar fin de semana
+          if(fecha.getDay() === 6 || fecha.getDay() === 0){
+            return this.error(errores, name);
+          }
           break;
         }
         default:{
@@ -76,10 +81,7 @@ class FormularioCita extends Component {
     this.verificar(name, value);
 
     if(name==="fecha" && !this.state.errores.fecha){
-      //actualizar horarios
-      this.setState({horarios: ["10:00"]});
-      
-      this.props.setHorarios(this.state.horarios); 
+      this.props.setFecha(value);
     }
   };
 
@@ -131,6 +133,20 @@ class FormularioCita extends Component {
     const data = await response.json();
 
     if (data.ok) {
+      const res= await fetch(`/api/fechas`,{
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fecha: this.state.fecha,
+          hora: this.state.hora,
+        })
+      });
+      const data = await res.json();
+
+      console.log(data);
+
       Swal.fire({
         title: "Cita registrada",
         text: "La cita se ha registrado correctamente",
@@ -150,6 +166,14 @@ class FormularioCita extends Component {
         timer: 2500,
         showConfirmButton: false,
         showCloseButton: false,
+      })
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.horarios !== this.state.horarios){
+      this.setState({
+        horarios: this.props.horarios,
       })
     }
   }

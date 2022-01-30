@@ -3,6 +3,7 @@ const router = express.Router();
 
 const DbPacientes = require("../models/paciente");
 const DbCitas = require("../models/cita");
+const DbFechas = require("../models/fechas");
 
 router.get("/api/qty", (req, res) => {
   DbPacientes.countDocuments({}, (err, count) => {
@@ -241,6 +242,55 @@ router.put("/api/citas/:codigoCita", (req, res) => {
       });
     }
   });
+});
+
+router.delete("/api/citas/:codigoCita", (req, res) => {
+  DbCitas.findOneAndDelete({ codigoCita: req.params.codigoCita }, (err, cita) => {
+    if (err) {
+      res.status(500).json({
+        ok: false,
+        err,
+      });
+    } else {
+      res.status(200).json({
+        ok: true,
+      });
+    }
+  });
+});
+
+router.get("/api/fechas/:fecha", (req, res) => {
+  DbFechas.find({ fecha: req.params.fecha }, (err, fecha) => {
+    if (err) {
+      res.status(500).json({
+        ok: false,
+        err,
+      });
+    } else {
+      res.status(200).json({
+        ok: true,
+        datos: fecha[0] ? fecha[0].ocupados : null,
+      });
+    }
+  });
+})
+
+router.put("/api/fechas", (req, res) => {
+  DbFechas.findOne({fecha: req.body.fecha}, (err, doc) => {
+    if(doc){
+      doc.ocupados.push(req.body.hora);
+      doc.save();
+    }
+    else{
+      let doc = new DbFechas({
+        fecha: req.body.fecha,
+        ocupados: [req.body.hora],
+      });
+      doc.save();
+    }
+  });
+
+  res.status(200).json({ok: true, datos: req.body});
 });
 
 module.exports = router;
