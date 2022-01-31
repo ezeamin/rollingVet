@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./tablaItem.css";
+import convertir from "../../../../js/convertirFecha";
 
 const TablaItem = (props) => {
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ const TablaItem = (props) => {
         </td>
         <td>{props.info.mascota}</td>
         <td>{props.info.veterinario}</td>
-        <td>{props.info.fecha}</td>
+        <td>{convertir(props.info.fecha)}</td>
         <td>{props.info.hora}</td>
         <td className="admin__tables-btn">
           {botones.map((boton) => {

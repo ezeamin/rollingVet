@@ -12,13 +12,14 @@
     margin: 1rem 0
 }
 
+/*
 .admin__tables-btn{
     height: 100% !important;
 }
+*/
 
 .admin__tables-avatar{
     height: 50px;
-    width: 100%;
 }
 
 .admin__tables-avatar img{

@@ -1,6 +1,7 @@
 import React from "react";
 import "./list.css";
 import ListItem from "./listItem/ListItem";
+import convertir from "../../../../js/convertirFecha";
 
 const comparar = (a, b) => {
   let fechaA = a.fecha.split("-");
@@ -77,7 +78,7 @@ const List = (props) => {
         datos.push({
           avatar: cita.paciente.avatar,
           nombre: nombre,
-          fecha: cita.fecha,
+          fecha: convertir(cita.fecha),
           hora: cita.hora,
         });
       });
