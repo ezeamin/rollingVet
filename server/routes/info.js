@@ -4,6 +4,7 @@ const router = express.Router();
 const DbPacientes = require("../models/paciente");
 const DbCitas = require("../models/cita");
 const DbFechas = require("../models/fechas");
+const DbPrecios = require("../models/precios");
 
 router.get("/api/qty", (req, res) => {
   DbPacientes.countDocuments({}, (err, count) => {
@@ -295,5 +296,38 @@ router.put("/api/fechas", (req, res) => {
 
   res.status(200).json({ok: true, datos: req.body});
 });
+
+//precios
+
+router.get("/api/precios", (req, res) => {
+  DbPrecios.find({}, (err, precios) => {
+    if (err) {
+      res.status(500).json({
+        ok: false,
+        err,
+      });
+    } else {
+      res.status(200).json({
+        ok: true,
+        precios,
+      });
+    }
+  });
+})
+
+router.put("/api/precios", (req, res) => {
+  DbPrecios.findOneAndUpdate({plan: req.body.plan}, req.body, { new: true }, (err, precios) => {
+    if (err) {
+      res.status(500).json({
+        ok: false,
+        err,
+      });
+    } else {
+      res.status(200).json({
+        ok: true,
+      });
+    }
+  });
+})
 
 module.exports = router;

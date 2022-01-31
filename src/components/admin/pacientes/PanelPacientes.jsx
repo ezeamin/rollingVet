@@ -5,20 +5,31 @@ import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import Carga from "../carga/Carga";
 
+const comparar = (a, b) => {
+  if (a.apellido === b.apellido) {
+    return a.nombre > b.nombre ? 1 : -1;
+  }
+  else if (a.apellido > b.apellido) {
+    return 1;
+  } else if (a.apellido  < b.apellido) {
+    return -1;
+  }
+};
+
+const opciones = [
+  "Avatar",
+  "Apellido",
+  "Nombre",
+  "DNI",
+  "E-mail",
+  "Mascotas",
+  "Acciones",
+];
+
 const PanelPacientes = () => {
   const navigate = useNavigate();
 
   const [cargando, setCargando] = React.useState(true);
-
-  const opciones = [
-    "Apellido",
-    "Nombre",
-    "DNI",
-    "E-mail",
-    "Mascotas",
-    "Acciones",
-  ];
-
   const [pacientes, setPacientes] = React.useState([]);
 
   const fetchPacientes = async () => {
@@ -27,7 +38,7 @@ const PanelPacientes = () => {
     });
     const data = await response.json();
 
-    setPacientes(data.pacientes.sort());
+    setPacientes(data.pacientes.sort((a, b) => comparar(a, b)));
     setCargando(false);
   };
 

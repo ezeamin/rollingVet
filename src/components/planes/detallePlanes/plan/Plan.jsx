@@ -1,33 +1,41 @@
 import React from "react";
 import "./plan.css";
 
-const planes = [
-  {
-    titulo: "Primeros pasos",
-    descripcion: "Para mascotas de entre 0 y 5 años",
-    precio: "$ 200,00",
-    precioFinal: "$350,00"
-  },
-  {
-    titulo: "Madurando",
-    descripcion: "Para mascotas de entre 5 y 10 años",
-    precio: "$ 450,00",
-    precioFinal: "$700,00"
-  },
-  {
-    titulo: "Adultos",
-    descripcion: "Para mascotas de más de 10 años",
-    precio: "$ 700,00",
-    precioFinal: "$1,000,00"
-  }
-];
-
 const Plan = (props) => {
+  const [plan, setPlan] = React.useState({});	
 
-  let plan;
-  if(props.index===1) plan=planes[0];
-  else if(props.index===2) plan=planes[1];
-  else plan=planes[2];
+  React.useEffect(() => {
+    const precioString = props.precio + ",00";
+    const precioTotalString = props.precioTotal + ",00";
+    switch (props.index) {
+      case 1:
+        setPlan({
+          titulo: "Primeros pasos",
+          descripcion: "Mascotas de 0 a 5 años",
+          precio: precioString,
+          precioFinal: precioTotalString,
+        });
+        break;
+      case 2:
+        setPlan({
+          titulo: "Madurando",
+          descripcion: "Mascotas de 5 a 10 años",
+          precio: precioString,
+          precioFinal: precioTotalString,
+        });
+        break;
+      case 3:
+        setPlan({
+          titulo: "Adultos",
+          descripcion: "Mascotas de más de 10 años",
+          precio: precioString,
+          precioFinal: precioTotalString,
+        });
+        break;
+      default: {
+      }
+    }
+  }, [props.index]);
 
   return (
     <section className="plan__seccion">
@@ -37,9 +45,9 @@ const Plan = (props) => {
           <p className="p__descripciones">{plan.descripcion}</p>
         </div>
         <div>
-          <h4 className="plan__precio">{plan.precio}*</h4>
+          <h4 className="plan__precio">${plan.precio}*</h4>
           <p className="p__descripciones p__precioFinal">
-            *durante el primer mes, luego {plan.precioFinal}
+            *durante el primer mes, luego ${plan.precioFinal}
           </p>
         </div>
       </div>

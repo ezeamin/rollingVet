@@ -6,20 +6,21 @@ import BotonCrear from "../botonCrear/BotonCrear";
 import Carga from "../carga/Carga";
 import Swal from "sweetalert2";
 
+const opciones = [
+  "Avatar",
+  "Nombre",
+  "Mascota",
+  "Veterinario",
+  "Dia",
+  "Horario",
+  "Acciones",
+];
+
 const PanelCitas = () => {
   const navigate = useNavigate();
   const [citasProgramadas, setCitasProgramadas] = React.useState([]);
   const [citasRegistro, setCitasRegistro] = React.useState([]);
   const [cargando, setCargando] = React.useState(true);
-
-  const opciones = [
-    "Nombre",
-    "Mascota",
-    "Veterinario",
-    "Dia",
-    "Horario",
-    "Acciones",
-  ];
 
   const fetchCitasProgramadas = async () => {
     const response = await fetch("/api/citasProgramadas", {

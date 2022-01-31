@@ -2,9 +2,35 @@ import React from "react";
 import Plan from "./plan/Plan";
 import "./planes.css";
 
-const planes = [1, 2, 3];
-
 const Planes = () => {
+  const [planes,setPlanes] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchPrecios = async () => {
+      const response = await fetch("/api/precios",{
+        method: "GET",
+      });
+      const data = await response.json();
+      
+      setPlanes([{
+        num: 1,
+        precio: data.precios[0].precio,
+        precioTotal: data.precios[0].precioTotal,
+      },
+      {
+        num: 2,
+        precio: data.precios[1].precio,
+        precioTotal: data.precios[1].precioTotal,
+      },
+      {
+        num: 3,
+        precio: data.precios[2].precio,
+        precioTotal: data.precios[2].precioTotal,
+      }]);
+    }
+    fetchPrecios();
+  }, []);
+
   return (
     <div className="mt-5">
       <div>
@@ -18,7 +44,7 @@ const Planes = () => {
       </div>
       <div className="card-planes">
         {planes.map((plan, index) => {
-          return <Plan categoria={plan} key={index} />;
+          return <Plan categoria={plan.num} key={index} precio={plan.precio} precioTotal={plan.precioTotal}/>;
         })}
       </div>
     </div>

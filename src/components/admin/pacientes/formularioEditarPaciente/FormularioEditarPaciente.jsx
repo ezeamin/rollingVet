@@ -11,12 +11,14 @@ class FormularioEditarPaciente extends Component {
     dni: "",
     genero: "",
     email: "",
+    plan: "",
     errores: {
       nombre: false,
       apellido: false,
       dni: false,
       genero: false,
       email: false,
+      plan: false,
     },
     cargando: true,
   };
@@ -67,6 +69,7 @@ class FormularioEditarPaciente extends Component {
             return this.error(errores, name);
           }
           break;
+        case "plan":
         case "genero":
           if (value === "0") {
             return this.error(errores, name);
@@ -88,7 +91,7 @@ class FormularioEditarPaciente extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    let error = [false, false, false, false];
+    let error = [false, false, false, false, false];
     let errorGeneral = false;
 
     error[0] = this.verificar("nombre", this.state.nombre);
@@ -96,6 +99,7 @@ class FormularioEditarPaciente extends Component {
     error[2] = this.verificar("dni", this.state.dni);
     error[3] = this.verificar("genero", this.state.genero);
     error[4] = this.verificar("email", this.state.email);
+    error[5] = this.verificar("plan", this.state.plan);
 
     error.forEach((element) => {
       if (element) {
@@ -128,10 +132,10 @@ class FormularioEditarPaciente extends Component {
         genero: this.state.genero,
         email: this.state.email,
         avatar: this.props.avatar,
+        plan: this.state.plan,
       }),
     });
     const data = await res.json();
-    console.log(data);
 
     if (data.ok) {
       Swal.fire({
@@ -172,6 +176,7 @@ class FormularioEditarPaciente extends Component {
           email: this.props.info.email,
           contraseña: this.props.info.password,
           contraseña2: this.props.info.password,
+          plan: this.props.info.plan,
           cargando: false,
         });
       }
@@ -265,6 +270,27 @@ class FormularioEditarPaciente extends Component {
             />
             <Form.Control.Feedback className="feedback" type="invalid">
               Ingrese un email valido
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group className="mt-2 w-100">
+            <Form.Select
+              type="select"
+              placeholder="Plan"
+              name="plan"
+              className="input"
+              isInvalid={this.state.errores.plan}
+              value={this.state.plan}
+              onChange={(e) => this.handleChange(e)}
+              onBlur={(e) => this.handleBlur(e)}
+            >
+              <option value="0">Plan</option>
+              <option value="Sin plan">Sin plan</option>
+              <option value="Primeros pasos">Primeros pasos</option>
+              <option value="Madurando">Madurando</option>
+              <option value="Adultos">Adultos</option>
+            </Form.Select>
+            <Form.Control.Feedback className="feedback" type="invalid">
+              Seleccione un plan
             </Form.Control.Feedback>
           </Form.Group>
           <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">

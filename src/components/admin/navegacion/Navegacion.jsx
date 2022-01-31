@@ -1,7 +1,7 @@
 import React from "react";
 import "./navegacion.css";
 import NavItem from "./navItem/Nav-item";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 const Navegacion = (props) => {
   const navigate = useNavigate();
@@ -68,9 +68,9 @@ const Navegacion = (props) => {
       <div className="admin__nav-bg"></div>
       <div className="container admin__nav-container">
         <div className="admin__logo">
-          <div to="/">
+          <Link to="/admin">
             <img src="/img/favicon.png" alt="logo RollingVet" />
-          </div>
+          </Link>
         </div>
         <div className="admin__user my-4">
           <div className="admin__user-foto">

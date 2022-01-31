@@ -6,13 +6,15 @@ const Plan = (props) => {
   const [plan, setPlan] = React.useState({});
 
   React.useEffect(() => {
+    const precioString = props.precio + ",00";
+    const precioTotalString = props.precioTotal + ",00";
     switch (props.categoria) {
       case 1:
         setPlan({
           plan: "Primeros pasos",
           descripcion: "Mascotas de 0 a 5 años",
-          precio: "$200,00",
-          precioFinal: "$350,00",
+          precio: precioString,
+          precioFinal: precioTotalString,
           image: "img/index/planes/primeros-pasos.jpg",
         });
         break;
@@ -20,8 +22,8 @@ const Plan = (props) => {
         setPlan({
           plan: "Madurando",
           descripcion: "Mascotas de 5 a 10 años",
-          precio: "$400,00",
-          precioFinal: "$700,00",
+          precio: precioString,
+          precioFinal: precioTotalString,
           image: "img/index/planes/madurando.jpg",
         });
         break;
@@ -29,8 +31,8 @@ const Plan = (props) => {
         setPlan({
           plan: "Adultos",
           descripcion: "Mascotas de más de 10 años",
-          precio: "$750,00",
-          precioFinal: "$1000,00",
+          precio: precioString,
+          precioFinal: precioTotalString,
           image: "img/index/planes/adultos.jpg",
         });
         break;
@@ -50,9 +52,9 @@ const Plan = (props) => {
           <p className="card__body-descripcion">{plan.descripcion}</p>
         </div>
         <div className="card__body-inferior">
-          <p className="card__body-precio mb-0">{plan.precio}*</p>
+          <p className="card__body-precio mb-0">${plan.precio}*</p>
           <p className="card__body-precio-final mb-4 px-1">
-            *durante un mes, luego {plan.precioFinal}
+            *durante un mes, luego ${plan.precioFinal}
           </p>
           <div className="card__body-boton mb-4">
             <Link to="/planes">+ info</Link>
