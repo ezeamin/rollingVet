@@ -3,10 +3,13 @@ const { Schema } = mongoose;
 
 const citaSchema = new Schema({
   codigoCita: String,
-  dni: String,
+  paciente: {
+    dni: String,
+    nombre: String,
+    apellido: String,
+    avatar: String,
+  },
   codigoMascota: String,
-  nombre: String,
-  apellido: String,
   mascota: String,
   veterinario: String,
   fecha: String,

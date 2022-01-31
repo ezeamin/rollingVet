@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import FormularioRegistro from "../../components/registro/formularioRegistro/FormularioRegistro";
@@ -33,7 +34,7 @@ const Registro = (props) => {
     if (props.isAuthenticated) {
       navigate("/");
     }
-  }, [props.isAuthenticated]);
+  }, [props.isAuthenticated, navigate]);
 
   const changeAvatar = (nuevoGenero) => {
     if (nuevoGenero === "Masculino") nuevoGenero = "male";
@@ -79,9 +80,9 @@ const Registro = (props) => {
           />
           <p className="mt-3 fs-6 tyc__p">
             Al registrarte, aceptas los{" "}
-            <a href="#" className="tyc">
+            <Link to="#" className="tyc">
               terminos y condiciones
-            </a>{" "}
+            </Link>{" "}
             del sitio.
           </p>
         </div>

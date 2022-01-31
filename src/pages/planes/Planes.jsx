@@ -19,11 +19,11 @@ const Planes = (props) => {
     if (props.isAdmin) {
       navigate("/admin");
     }
-  }, [props.isAdmin]);
+  }, [props.isAdmin, navigate]);
 
   return (
     <div>
-      <a href="#" className="fab" id="fab__arrow-a">
+      <a href="#landing" className="fab" id="fab__arrow-a">
         <i className="fas fa-arrow-up" id="fab__arrow"></i>
       </a>
       <div className="gradient__bg-planes">

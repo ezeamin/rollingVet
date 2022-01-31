@@ -7,7 +7,7 @@ const Header = (props) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    const res = fetch("/api/logout", {
+    await fetch("/api/logout", {
       method: "DELETE",
       credentials: "include",
     });

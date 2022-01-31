@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./navegacion.css";
 import NavItem from "./navItem/Nav-item";
 import { useNavigate } from "react-router-dom";
@@ -56,7 +55,7 @@ const Navegacion = (props) => {
   }, []);
 
   const handleLogout = async () => {
-    const res = await fetch("/api/logout", {
+    await fetch("/api/logout", {
       method: "DELETE",
     });
     props.setIsAuthenticated(false);

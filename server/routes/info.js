@@ -185,13 +185,16 @@ router.post("/api/citas", (req, res) => {
 
   const cita = new DbCitas({
     codigoCita: codigoCita,
-    dni: req.body.dni,
     fecha: req.body.fecha,
     hora: req.body.hora,
     atendido: false,
     codigoMascota: req.body.codigoMascota,
-    nombre: req.body.nombre,
-    apellido: req.body.apellido,
+    paciente:{
+      dni: req.body.paciente.dni,
+      nombre: req.body.paciente.nombre,
+      apellido: req.body.paciente.apellido,
+      avatar: req.body.paciente.avatar,
+    },
     mascota: req.body.mascota,
     veterinario: req.body.veterinario,
     comentarios: req.body.comentarios,

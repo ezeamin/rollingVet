@@ -17,7 +17,7 @@ const Admin = (props) => {
     if (!props.isAdmin) {
       navigate("/");
     }
-  }, [props.isAdmin]);
+  }, [props.isAdmin,navigate]);
 
   return (
     <div className="row admin">

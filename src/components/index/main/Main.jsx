@@ -8,7 +8,7 @@ const Main = () => {
   }, []);
 
   return (
-    <article className="text-center main">
+    <article className="text-center main" id="landing">
       <h1 className="main__title">Donde el cuidado animal importa.</h1>
       <div className="main__grid">
         <div

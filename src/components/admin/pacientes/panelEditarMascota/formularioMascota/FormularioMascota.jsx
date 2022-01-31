@@ -127,7 +127,7 @@ class FormularioMascota extends Component {
       }),
     });
     const data = await response.json();
-    console.log(data);
+    
     if (data.code === 200) {
       Swal.fire({
         title: "Mascota guardada",
@@ -193,8 +193,8 @@ class FormularioMascota extends Component {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mt-2 w-100">
-              <Form.Control
-                type="text"
+              <Form.Select
+                type="select"
                 placeholder="Especie"
                 name="especie"
                 className="input"
@@ -202,7 +202,13 @@ class FormularioMascota extends Component {
                 value={this.state.especie}
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
-              />
+              >
+              <option value="0">Especie</option>
+              <option value="Perro">Perro</option>
+              <option value="Gato">Gato</option>
+              <option value="Hamster">Hamster</option>
+              <option value="Carpincho">Carpincho</option>
+              </Form.Select>
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese una especie
               </Form.Control.Feedback>
@@ -247,7 +253,7 @@ class FormularioMascota extends Component {
           <Form.Group className="mt-2 nuevaCita-input">
             <Form.Control
               type="date"
-              placeholder="E-mail"
+              placeholder="Fecha de nacimiento"
               name="fechaNac"
               className="input"
               isInvalid={this.state.errores.fechaNac}

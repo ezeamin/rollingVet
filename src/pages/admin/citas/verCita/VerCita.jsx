@@ -4,7 +4,6 @@ import Navegacion from "../../../../components/admin/navegacion/Navegacion";
 import NavegacionResponsive from "../../../../components/admin/navegacion/navegacionResponsive/NavegacionResponsive";
 import resize from "../../../../js/adminResize";
 import { useNavigate } from "react-router-dom";
-import Carga from "../../../../components/admin/carga/Carga";
 
 const VerCita = (props) => {
   const navigate = useNavigate();
@@ -21,7 +20,7 @@ const VerCita = (props) => {
     if (!props.isAdmin) {
       navigate("/");
     }
-  }, [props.isAdmin]);
+  }, [props.isAdmin, navigate]);
 
   const navigateSuccess = () => {
     navigate("/admin/citas");

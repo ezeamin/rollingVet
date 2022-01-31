@@ -11,7 +11,7 @@ const Login = (props) => {
     if (props.isAuthenticated) {
       navigate("/");
     }
-  }, [props.isAuthenticated]);
+  }, [props.isAuthenticated,navigate]);
 
   const navigateSuccess = (isAdmin) => {
     props.setIsAuthenticated(true);

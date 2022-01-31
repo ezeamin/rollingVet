@@ -126,7 +126,7 @@ class FormularioRegistro extends Component {
   };
 
   async login(){
-    const res = await fetch("/api/signin", {
+    await fetch("/api/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -156,10 +156,10 @@ class FormularioRegistro extends Component {
         password: this.state.contraseña,
         avatar: this.props.avatar,
         mascotas: [],
+        plan: "Sin plan",
       }),
     });
     const data = await res.json();
-    console.log(data);
 
     if (data.code === 200) {
       this.enviarMail();

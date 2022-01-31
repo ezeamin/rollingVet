@@ -2,10 +2,14 @@ import React from 'react';
 import CardAdmin from './card/CardAdmin';
 import List from './list/List';
 import './panel.css';
+import Carga from '../carga/Carga';
+import { useNavigate } from 'react-router-dom';
 
 const Panel = () => {
     const [pacientes, setPacientes] = React.useState(0);
     const [citas, setCitas] = React.useState(0);
+    const [cargando, setCargando] = React.useState(true);
+    const navigate = useNavigate();
 
     const info = [{
         titulo: 'Pacientes',
@@ -28,10 +32,20 @@ const Panel = () => {
             const info = await response.json();
             setPacientes(info.pacientes);
             setCitas(info.citas);
+            setCargando(false);
         }
         traerInfo();
     }, []);
 
+    const btnPacientesClick = () => {
+        navigate('/admin/pacientes');
+    }
+
+    const btnCitasClick = () => {
+        navigate('/admin/citas');
+    }
+
+    if (cargando) return <Carga />;
     return (
         <div className='container py-5 admin__panel-content'>
             <h1 className='mb-3 h3__bold'>Panel de administracion</h1>
@@ -41,8 +55,8 @@ const Panel = () => {
                 ))}
             </div>
             <div className="row justify-content-center">
-                <List titulo="Lista de pacientes" content="pacientes"/>
-                <List titulo="Lista de citas" content="citas"/>
+                <List titulo="Lista de pacientes" content="pacientes" handleClick={btnPacientesClick}/>
+                <List titulo="Lista de citas" content="citas" handleClick={btnCitasClick}/>
             </div>
         </div>
     );

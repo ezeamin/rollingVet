@@ -36,7 +36,7 @@ const Card = (props) => {
             }
             default:{}
         }
-    },[]);
+    },[props.profesional]);
 
     return (
         <div className='card__container'>

@@ -26,13 +26,13 @@ const CrudPacientes = (props) => {
           setInfo(data.paciente);
         });
     }
-  }, []);
+  }, [dni]);
   
   React.useEffect(() => {
     if (!props.isAdmin) {
       navigate("/");
     }
-  }, [props.isAdmin]);
+  }, [props.isAdmin,navigate]);
 
   const redirectMascotas = () => {
     navigate(`/admin/pacientes/${dni}/mascotas`);
@@ -42,8 +42,17 @@ const CrudPacientes = (props) => {
     navigate("/admin/pacientes");
   };
   
-  const changeAvatar = (genero) => {
-    setAvatarUrl(`https://avatars.dicebear.com/api/${genero}/1111.svg`);
+  const changeAvatar = (gen) => {
+    let genero;
+    if (gen === "Masculino") {
+      genero = "male";
+    } else {
+      genero = "female";
+    }
+
+    const randomSeed = Math.floor(Math.random() * 99999) + 2;
+
+    setAvatarUrl(`https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg`);
   };
 
   if (dni !== "new") {
@@ -88,7 +97,9 @@ const CrudPacientes = (props) => {
         <NavegacionResponsive />
         <div className="admin__panel__pacientes-newUser py-5 admin__panel__pacientes-content">
           <h1 className="mb-3 h3__bold">Agregar paciente</h1>
-          <FormularioRegistro avatar={avatarUrl} changeAvatar={changeAvatar} navigateSuccess={navigateSuccess} setIsAuthenticated={()=>{}} isAdmin={true}/>
+          <div className="admin__panel__pacientes-newUser-form">
+            <FormularioRegistro avatar={avatarUrl} changeAvatar={changeAvatar} navigateSuccess={navigateSuccess} setIsAuthenticated={()=>{}} isAdmin={true}/>
+          </div>
         </div>
       </div>
     </div>

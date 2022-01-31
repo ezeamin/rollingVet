@@ -5,37 +5,31 @@ import './panelNuevaCita.css';
 import ListaHorarios from "./listaHorarios/ListaHorarios";
 import { useNavigate } from "react-router-dom";
 
+const horariosFull = [
+  "08:00",
+  "09:00",
+  "10:00",
+  "11:00",
+  "12:00",
+  "13:00",
+  "14:00",
+  "15:00",
+  "16:00",
+  "17:00"
+];
+
 const PanelNuevaCita = () => {
   const navigate = useNavigate();
 
   const [desbloquear, setDesbloquear] = React.useState(false);
   const [paciente, setPaciente] = React.useState({
-    nombre: "",
-    apellido: "",
     mascotas:[{
-      nombre: "",
-      raza: "",
-      fechaNac: "",
-      sexo: "",
     }]
   });
 
   const navigateSuccess = () => {
     navigate("/admin/citas")
   }
-
-  const horariosFull = [
-    "08:00",
-    "09:00",
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00"
-  ];
 
   const [horarios, setHorarios] = React.useState([]);
   const [fecha, setFecha] = React.useState("");
@@ -55,7 +49,6 @@ const PanelNuevaCita = () => {
       });
       const data = await response.json();
 
-      console.log(data);
       if(data.datos === null){
         setHorarios(horariosFull);
       }

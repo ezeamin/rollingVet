@@ -43,6 +43,10 @@
     margin: auto;
 }
 
+.admin__panel__pacientes-newUser-form{
+    text-align: start;
+}
+
 .admin__panel__pacientes-editarUser-btnMascotas:hover{
     background-color: rgb(218, 218, 218);
 }

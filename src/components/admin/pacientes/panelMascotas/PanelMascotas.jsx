@@ -22,7 +22,7 @@ const PanelMascotas = (props) => {
     };
 
     fetchPaciente();
-  }, []);
+  }, [props.dni]);
 
   React.useEffect(() => {
     if(info.nombre!==undefined){

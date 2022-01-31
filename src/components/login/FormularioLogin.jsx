@@ -135,8 +135,6 @@ class FormularioLogin extends Component {
       boton.style.backgroundColor = color;
     } else {
       //datos correctos
-      const data = await res.json();
-
       const res2 = await fetch("/api/isAdmin", {
         method: "GET",
       });

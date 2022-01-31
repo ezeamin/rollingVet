@@ -117,9 +117,12 @@ class FormularioCita extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        dni: this.props.paciente.dni,
-        nombre: this.props.paciente.nombre,
-        apellido: this.props.paciente.apellido,
+        paciente: {
+          dni: this.props.paciente.dni,
+          nombre: this.props.paciente.nombre,
+          apellido: this.props.paciente.apellido,
+          avatar: this.props.paciente.avatar,
+        },
         mascota: this.state.mascota,
         codigoMascota: codigoMascota,
         fecha: this.state.fecha,
@@ -133,7 +136,7 @@ class FormularioCita extends Component {
     const data = await response.json();
 
     if (data.ok) {
-      const res= await fetch(`/api/fechas`,{
+      await fetch(`/api/fechas`,{
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -143,9 +146,6 @@ class FormularioCita extends Component {
           hora: this.state.hora,
         })
       });
-      const data = await res.json();
-
-      console.log(data);
 
       Swal.fire({
         title: "Cita registrada",

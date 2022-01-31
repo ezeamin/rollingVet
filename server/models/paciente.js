@@ -19,6 +19,7 @@ const userSchema = new Schema({
   genero: String,
   dni: String,
   avatar: String,
+  plan: String,
   mascotas: [mascotaSchema],
 });
 

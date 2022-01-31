@@ -26,11 +26,11 @@ const Index = (props) => {
     if (props.isAdmin) {
       navigate("/admin");
     }
-  }, [props.isAdmin]);
+  }, [props.isAdmin, navigate]);
 
   return (
     <div>
-      <a href="#" className="fab">
+      <a href="#landing" className="fab">
         <i className="fas fa-arrow-up"></i>
       </a>
       <a href="#footer" className="fab-contacto">

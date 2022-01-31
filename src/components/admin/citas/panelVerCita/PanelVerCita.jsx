@@ -109,8 +109,8 @@ class PanelVerCita extends React.Component {
           <div className="admin__panel__cita-info row">
             <div className="col-sm-12 col-md-8">
               <h3 className="h3__bold mb-0 lh-100">
-                {this.state.info.apellido},{" "}
-                <span className="h3__bold-light">{this.state.info.nombre}</span>
+                {this.state.info.paciente.apellido},{" "}
+                <span className="h3__bold-light">{this.state.info.paciente.nombre}</span>
               </h3>
               <p className="p__descripciones mb-5">
                 Mascota: {this.state.info.mascota}

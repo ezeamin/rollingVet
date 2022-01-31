@@ -23,7 +23,7 @@ const PanelEditarMascota = (props) => {
       fetchMascota();
     }
     else setTitulo("Nueva mascota");
-  }, []);
+  }, [isNew,props.codigoMascota,props.dni]);
 
   const navigateSuccess = () => {
     navigate(`/admin/pacientes/${props.dni}/mascotas`);

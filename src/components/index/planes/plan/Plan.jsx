@@ -37,7 +37,7 @@ const Plan = (props) => {
       default: {
       }
     }
-  }, []);
+  }, [props.categoria]);
 
   return (
     <div className="card">

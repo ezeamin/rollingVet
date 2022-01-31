@@ -3,7 +3,7 @@ import "./main.css";
 
 const Main = () => {
   return (
-    <article className="main">
+    <article className="main" id="landing">
       <h1 className="main-planes__title">Nuestros planes</h1>
       <p className="p__descripciones">
         Pensamos en vos y tu mascota, y sabemos que se merecen lo mejor. A raiz

@@ -14,7 +14,7 @@ const TablaItem = (props) => {
         let mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
         let dia = fechaActual.getDate() - fechaNacimiento.getDate();
 
-        if (mes < 0 || mes === 0 && dia < 0) {
+        if (mes < 0 || (mes === 0 && dia < 0)) {
             edad--;
         }
 
@@ -83,7 +83,7 @@ const TablaItem = (props) => {
     const citas = (botones) => {
         return (
             <tr>
-                <td>{props.info.apellido}, {props.info.nombre}</td>
+                <td>{props.info.paciente.apellido}, {props.info.paciente.nombre}</td>
                 <td>{props.info.mascota}</td>
                 <td>{props.info.veterinario}</td>
                 <td>{props.info.fecha}</td>
@@ -104,7 +104,20 @@ const TablaItem = (props) => {
                 <button key={Math.round(Math.random()*10000)} className="btn btn-outline-warning">Editar</button>,
                 <button key={Math.round(Math.random()*10000)} className="btn btn-outline-danger">Eliminar</button>,
             ];
-            break;
+
+            return (
+                <tr>
+                    <td>{props.info.apellido}</td>
+                    <td>{props.info.nombre}</td>
+                    <td>{props.info.dni}</td>
+                    <td>{props.info.incorporacion}</td>
+                    <td className='admin__tables-btn'>
+                    {botones.map((boton) => {
+                        return boton;
+                    })}
+                    </td>
+                </tr>
+            );
         case 'pacientes':
             botones = [
                 <button onClick={editarPaciente} key={Math.round(Math.random()*10000)} className="btn btn-outline-warning">Editar</button>,
@@ -164,22 +177,6 @@ const TablaItem = (props) => {
         default:
             break;
     }
-
-    
-    return (
-        <tr>
-            {Object.keys(props.info).map((item, index) => {
-                if(item!=='_id' && item!=='codigoMascota'){
-                    return <td key={index}>{props.info[item]}</td>
-                };
-            })}
-            <td className='admin__tables-btn'>
-            {botones.map((boton) => {
-                return boton;
-            })}
-            </td>
-        </tr>
-    );
 };
 
 export default TablaItem;
