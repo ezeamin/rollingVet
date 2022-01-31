@@ -16,7 +16,7 @@ require('./passport/auth-login');
 app.set('port', process.env.PORT || 5000);
 
 //middlewares
-// app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
