@@ -55,11 +55,19 @@ const List = (props) => {
       setContent("pacientes");
     };
 
-    const fetchCitas = async () => {
-      const response = await fetch("api/citasProgramadas", {
-        method: "GET",
-      });
-      let data = await response.json();
+    const fetchCitas = async (modo) => {
+      let data;
+      if (modo === "todas") {
+        const response = await fetch("api/citasProgramadas", {
+          method: "GET",
+        });
+        data = await response.json();
+      } else {
+        const response = await fetch(`api/citasProgramadas/${props.dni}`, {
+          method: "GET",
+        });
+        data = await response.json();
+      }
 
       if (data.citas.length === 0) {
         setDatos([""]);
@@ -78,51 +86,94 @@ const List = (props) => {
         datos.push({
           avatar: cita.paciente.avatar,
           nombre: nombre,
+          mascota: cita.mascota,
           fecha: convertir(cita.fecha),
           hora: cita.hora,
         });
       });
       setDatos(datos);
       setCargando(false);
-      setContent("citas");
+      if (modo === "todas") setContent("citas");
+      else setContent("citasPropias");
     };
 
-    if (props.content === "pacientes") {
-      fetchPacientes();
-    } else {
-      fetchCitas();
+    switch (props.content) {
+      case "pacientes":
+        fetchPacientes();
+        break;
+      case "citas":
+        fetchCitas("todas");
+        break;
+      case "citasPropias":
+        fetchCitas("propias");
+      default:
+        break;
     }
   }, [props.content]);
 
   if (cargando)
+    if (props.content === "citasPropias") {
+      return (
+        <div className="col-lg-12 col-xl-6">
+          <div className="admin__card admin__list">
+            <div className="admin__list-titulo">
+              <h3 className="mb-0 p-3">{props.titulo}</h3>
+            </div>
+            <ListItem key={0} {...datos} content={"loading"} />
+          </div>
+          <button className="btnForm px-3" onClick={props.handleClick}>
+            Ver mas
+          </button>
+        </div>
+      );
+    } else
+      return (
+        <div className="col-md-12 col-lg-6">
+          <div className="admin__card admin__list">
+            <div className="admin__list-titulo">
+              <h3 className="mb-0 p-3">{props.titulo}</h3>
+            </div>
+            <ListItem key={0} {...datos} content={"loading"} />
+          </div>
+          <button className="btnForm px-3" onClick={props.handleClick}>
+            Ver mas
+          </button>
+        </div>
+      );
+  if (props.content === "citasPropias") {
+    return (
+      <div className="col-lg-12 col-xl-6">
+        <div className="admin__card admin__list">
+          <div className="admin__list-titulo">
+            <h3 className="mb-0 p-3">{props.titulo}</h3>
+          </div>
+          {datos.map((datos, index) => {
+            return <ListItem key={index} {...datos} content={content} />;
+          })}
+        </div>
+        <div className="text-center">
+          <button className="btnForm px-3" onClick={props.handleClick}>
+            Ver mas
+          </button>
+        </div>
+      </div>
+    );
+  } else
     return (
       <div className="col-md-12 col-lg-6">
         <div className="admin__card admin__list">
           <div className="admin__list-titulo">
             <h3 className="mb-0 p-3">{props.titulo}</h3>
           </div>
-            <ListItem key={0} {...datos} content={"loading"} />
+          {datos.map((datos, index) => {
+            return <ListItem key={index} {...datos} content={content} />;
+          })}
         </div>
         <button className="btnForm px-3" onClick={props.handleClick}>
           Ver mas
         </button>
       </div>
     );
-  return (
-    <div className="col-md-12 col-lg-6">
-      <div className="admin__card admin__list">
-        <div className="admin__list-titulo">
-          <h3 className="mb-0 p-3">{props.titulo}</h3>
-        </div>
-        {datos.map((datos, index) => {
-          return <ListItem key={index} {...datos} content={content} />;
-        })}
-      </div>
-      <button className="btnForm px-3" onClick={props.handleClick}>
-        Ver mas
-      </button>
-    </div>
-  );
 };
 
 export default List;

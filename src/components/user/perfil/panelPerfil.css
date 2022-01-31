@@ -1,0 +1,33 @@
+.user__panel__editarUser-botones{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-evenly;
+    margin-top: 1rem;
+}
+
+.user__panel__pacientes-editarUser{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+@media screen and (min-width: 1400px){
+    .user__panel__editarUser-botones{
+        margin-left: 3rem;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .user__panel__editarUser-botones{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    .user__panel__pacientes-editarUser{
+        padding-top: 3rem;
+        padding-bottom: 0;
+    }
+}

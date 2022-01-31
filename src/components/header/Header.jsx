@@ -39,7 +39,7 @@ const Header = (props) => {
               Planes
             </Link>
             <Link
-              to="/cuenta"
+              to="/user"
               className="header__container__links-links header__button"
             >
               Mi cuenta

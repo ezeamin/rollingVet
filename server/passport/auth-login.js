@@ -52,6 +52,7 @@ passport.use(
           dni: req.body.dni,
           avatar: req.body.avatar,
           mascotas: [],
+          plan: req.body.plan,
         });
         user.password = user.encryptPassword(password);
         await user.save();

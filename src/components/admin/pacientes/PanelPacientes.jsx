@@ -23,6 +23,7 @@ const opciones = [
   "DNI",
   "E-mail",
   "Mascotas",
+  "Plan",
   "Acciones",
 ];
 

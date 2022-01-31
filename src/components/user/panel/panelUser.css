@@ -1,0 +1,27 @@
+.admin__panel-content-cards{
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.user__panel-content{
+    display: flex;
+}
+
+@media screen and (max-width: 992px) {
+    .admin__panel-content-cards{
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    .user__panel-content{
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .admin__panel-content-cards{
+        align-items: center;
+        margin-left: 0px !important;
+    }
+}

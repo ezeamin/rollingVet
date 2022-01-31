@@ -1,24 +1,25 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
-import "../../../registro/formularioRegistro/formularioRegistro.css";
 import Swal from "sweetalert2";
-import Carga from "../../carga/Carga";
+import Carga from "../../../admin/carga/Carga";
 
-class FormularioEditarPaciente extends Component {
+class FormularioPerfil extends Component {
   state = {
     nombre: "",
     apellido: "",
     dni: "",
     genero: "",
     email: "",
-    plan: "",
+    contraseña: "",
+    contraseña2: "",
     errores: {
       nombre: false,
       apellido: false,
       dni: false,
       genero: false,
       email: false,
-      plan: false,
+      contraseña: false,
+      contraseña2: false,
     },
     cargando: true,
   };
@@ -75,6 +76,11 @@ class FormularioEditarPaciente extends Component {
             return this.error(errores, name);
           }
           break;
+        case "contraseña2":
+          if (this.state.contraseña !== this.state.contraseña2) {
+            return this.error(errores, name);
+          }
+          break;
         default:
           break;
       }
@@ -91,7 +97,7 @@ class FormularioEditarPaciente extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    let error = [false, false, false, false, false];
+    let error = [false, false, false, false, false, false, false];
     let errorGeneral = false;
 
     error[0] = this.verificar("nombre", this.state.nombre);
@@ -99,7 +105,8 @@ class FormularioEditarPaciente extends Component {
     error[2] = this.verificar("dni", this.state.dni);
     error[3] = this.verificar("genero", this.state.genero);
     error[4] = this.verificar("email", this.state.email);
-    error[5] = this.verificar("plan", this.state.plan);
+    error[5] = this.verificar("contraseña", this.state.contraseña);
+    error[6] = this.verificar("contraseña2", this.state.contraseña2);
 
     error.forEach((element) => {
       if (element) {
@@ -120,7 +127,7 @@ class FormularioEditarPaciente extends Component {
   };
 
   async editar(boton) {
-    const res = await fetch("/api/pacientes/editar", {
+    const res = await fetch("/api/user/editar", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -132,7 +139,7 @@ class FormularioEditarPaciente extends Component {
         genero: this.state.genero,
         email: this.state.email,
         avatar: this.props.avatar,
-        plan: this.state.plan,
+        contraseña: this.state.contraseña,
       }),
     });
     const data = await res.json();
@@ -165,6 +172,17 @@ class FormularioEditarPaciente extends Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({
+        nombre: this.props.info.nombre,
+        apellido: this.props.info.apellido,
+        dni: this.props.info.dni,
+        genero: this.props.info.genero,
+        email: this.props.info.email,
+        cargando: false,
+      });
+    }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.info !== this.props.info) {
       if (Object.keys(this.props.info).length !== 0) {
@@ -174,9 +192,6 @@ class FormularioEditarPaciente extends Component {
           dni: this.props.info.dni,
           genero: this.props.info.genero,
           email: this.props.info.email,
-          contraseña: this.props.info.password,
-          contraseña2: this.props.info.password,
-          plan: this.props.info.plan,
           cargando: false,
         });
       }
@@ -187,7 +202,7 @@ class FormularioEditarPaciente extends Component {
     if (this.state.cargando) return <Carga />;
     return (
       <>
-        <h1 className="mb-3 h3__bold">Editar perfil</h1>
+        <h1 className="mb-3 h3__bold">{this.props.titulo}</h1>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <div className="nombre-y-apellido">
             <Form.Group className="form__nombre">
@@ -272,25 +287,34 @@ class FormularioEditarPaciente extends Component {
               Ingrese un email valido
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group className="mt-2 w-100">
-            <Form.Select
-              type="select"
-              placeholder="Plan"
-              name="plan"
+          <Form.Group className="mt-2">
+            <Form.Control
+              type="password"
+              placeholder="Contraseña"
+              name="contraseña"
               className="input"
-              isInvalid={this.state.errores.plan}
-              value={this.state.plan}
+              isInvalid={this.state.errores.contraseña}
+              value={this.state.contraseña}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
-            >
-              <option value="0">Plan</option>
-              <option value="Sin plan">Sin plan</option>
-              <option value="Primeros pasos">Primeros pasos</option>
-              <option value="Madurando">Madurando</option>
-              <option value="Adultos">Adultos</option>
-            </Form.Select>
+            />
             <Form.Control.Feedback className="feedback" type="invalid">
-              Seleccione un plan
+              Ingrese una contraseña
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group className="mt-2">
+            <Form.Control
+              type="password"
+              placeholder="Repetir contraseña"
+              name="contraseña2"
+              className="input"
+              isInvalid={this.state.errores.contraseña2}
+              value={this.state.contraseña2}
+              onChange={(e) => this.handleChange(e)}
+              onBlur={(e) => this.handleBlur(e)}
+            />
+            <Form.Control.Feedback className="feedback" type="invalid">
+              Las contraseñas no coinciden
             </Form.Control.Feedback>
           </Form.Group>
           <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">
@@ -302,4 +326,4 @@ class FormularioEditarPaciente extends Component {
   }
 }
 
-export default FormularioEditarPaciente;
+export default FormularioPerfil;

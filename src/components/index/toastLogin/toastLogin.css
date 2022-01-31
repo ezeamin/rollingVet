@@ -1,8 +1,0 @@
-.toastLogin__img img{
-    max-height: 40px;
-}
-
-.toastLogin{
-    z-index: 5000;
-    position: fixed !important;
-}

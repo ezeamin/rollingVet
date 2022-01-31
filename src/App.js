@@ -18,6 +18,8 @@ import CrudPacientes from "./pages/admin/pacientes/crudPacientes/CrudPacientes";
 import NuevaCita from "./pages/admin/citas/nuevaCita/NuevaCita";
 import CrudMascotas from "./pages/admin/pacientes/crudMascotas/CrudMascotas";
 import EditarMascota from "./pages/admin/pacientes/crudMascotas/editarMascota/EditarMascota";
+import User from './pages/user/User';
+import Perfil from './pages/user/perfil/Perfil';
 
 scrollDetection();
 
@@ -25,7 +27,6 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [user, setUser] = React.useState({});
   const [isAdmin, setIsAdmin] = React.useState(false);
-  const [isFirstTime, setIsFirstTime] = React.useState(true);
 
   const getAuthentication = async () => {
     const res = await fetch("/api/auth", {
@@ -43,14 +44,6 @@ function App() {
       });
       const data2 = await res2.json();
       if(data2.isAdmin) setIsAdmin(true);
-
-      if (sessionStorage.getItem("isFirstTime") === null) {
-        setIsFirstTime(true);
-        sessionStorage.setItem("isFirstTime", true);
-      } else {
-        setIsFirstTime(false);
-        sessionStorage.setItem("isFirstTime", false);
-      }
     }
     else{
       setIsAuthenticated(false); //pomer en true para empezar, como isAdmin
@@ -65,7 +58,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route exact path="/" element={<Index isFirstTime={isFirstTime} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route exact path="/" element={<Index isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
           <Route path="/planes" element={<Planes isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
           <Route path="/registro" element={<Registro isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
           <Route path="/login" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
@@ -79,6 +72,8 @@ function App() {
           <Route path="/admin/pacientes/:id/mascotas/:id" element={<EditarMascota isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
           <Route path="/admin/veterinarios" element={<Veterinarios isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
           <Route path="/admin/precios" element={<Precios isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/user" element={<User isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/user/perfil" element={<Perfil isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
           <Route path="*" element={<Pag404 isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
         </Routes>
       </Router>

@@ -11,7 +11,6 @@ import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import "./indexPage.css";
 import scrollDetection from "../../js/scroll";
-import ToastLogin from "../../components/index/toastLogin/ToastLogin";
 import { useNavigate } from "react-router-dom";
 
 const Index = (props) => {
@@ -23,10 +22,15 @@ const Index = (props) => {
   }, []);
 
   React.useEffect(() => {
-    if (props.isAdmin) {
-      navigate("/admin");
+    if(props.isAuthenticated) {
+      if (props.isAdmin) {
+        navigate("/admin");
+      }
+      else {
+        navigate("/user");
+      }
     }
-  }, [props.isAdmin, navigate]);
+  }, [props.isAdmin, props.isAuthenticated, navigate]);
 
   return (
     <div>
@@ -51,7 +55,6 @@ const Index = (props) => {
           <Clientes />
           <Profesionales />
           <Footer titulo="Contacto" color="primary" />
-          {props.isAuthenticated && props.isFirstTime ? <ToastLogin /> : null}
         </div>
       </div>
     </div>

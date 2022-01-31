@@ -49,7 +49,7 @@ const Registro = (props) => {
   };
 
   const navigateSuccess = () => {
-    navigate("/");
+    navigate("/user");
   };
 
   return (

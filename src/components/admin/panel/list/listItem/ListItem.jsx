@@ -32,6 +32,17 @@ const ListItem = (props) => {
         </div>
       );
     }
+    case "citasPropias": {
+      return (
+        <div className="py-2 admin__list__item align-items-center">
+          <div className="admin__list__item-info-mascotas text-center">
+            <h4 className="mb-1">Cita para {props.mascota}</h4>
+            <p className="my-0">Fecha: {props.fecha}</p>
+            <p className="my-0">Hora: {props.hora}</p>
+          </div>
+        </div>
+      );
+    }
     case "loading": {
       return (
         <div className="py-2 row admin__list__item align-items-center admin__list__item-loading">

@@ -1,12 +1,12 @@
 import React from "react";
 import Navegacion from "../../components/admin/navegacion/Navegacion";
 import NavegacionResponsive from "../../components/admin/navegacion/navegacionResponsive/NavegacionResponsive";
-import Panel from "../../components/admin/panel/Panel";
-import "./admin.css";
+import PanelUser from "../../components/user/panel/PanelUser";
+import "./user.css";
 import resize from "../../js/adminResize";
 import { useNavigate } from "react-router-dom";
 
-const Admin = (props) => {
+const User = (props) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -14,10 +14,13 @@ const Admin = (props) => {
   }, []);
 
   React.useEffect(() => {
-    if (!props.isAdmin) {
+    if (!props.isAuthenticated) {
       navigate("/");
     }
-  }, [props.isAdmin,navigate]);
+    else if(props.isAdmin) {
+      navigate("/admin");
+    }
+  }, [props.isAuthenticated, props.isAdmin, navigate]);
 
   return (
     <div className="row admin">
@@ -25,15 +28,16 @@ const Admin = (props) => {
         <Navegacion
           setIsAuthenticated={props.setIsAuthenticated}
           setIsAdmin={props.setIsAdmin}
-          isAdmin={true}
+          user={props.user}
+          isAdmin={false}
         />
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />
-        <Panel />
+        <PanelUser user={props.user} />
       </div>
     </div>
   );
 };
 
-export default Admin;
+export default User;

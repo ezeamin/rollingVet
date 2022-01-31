@@ -69,6 +69,10 @@
     .admin__panel__pacientes-newUser{
         height: calc(100vh - 72px);
     }
+
+    .admin__panel__pacientes-editarUser{
+        height: 100%;
+    }
 }
 
 @media screen and (max-width: 992px) {

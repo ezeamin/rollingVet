@@ -51,7 +51,7 @@ const Panel = () => {
             <h1 className='mb-3 h3__bold'>Panel de administracion</h1>
             <div className="row justify-content-center">
                 {info.map((info, index) => (
-                    <CardAdmin key={index} {...info} />
+                    <CardAdmin key={index} {...info} isAdmin={true}/>
                 ))}
             </div>
             <div className="row justify-content-center">

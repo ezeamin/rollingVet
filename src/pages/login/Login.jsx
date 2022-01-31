@@ -21,7 +21,7 @@ const Login = (props) => {
       navigate("/admin");
     } else {
       props.setIsAdmin(false);
-      navigate("/");
+      navigate("/user");
     }
   };
 

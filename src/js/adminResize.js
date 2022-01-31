@@ -1,5 +1,5 @@
 export default function resize() {
-  if (window.location.pathname.includes("/admin")) {
+  if (window.location.pathname.includes("/admin") || window.location.pathname.includes("/user")) {
     if (window.innerWidth > 1200) {
       document.getElementsByClassName("admin__nav")[0].style.display = "block";
       document.getElementsByClassName(

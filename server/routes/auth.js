@@ -51,6 +51,7 @@ router.get("/api/auth", isAuthenticated, (req, res) => {
       genero: req.user.genero,
       dni: req.user.dni,
       mascotas: req.user.mascotas,
+      avatar: req.user.avatar,
     },
     code: 200,
   });

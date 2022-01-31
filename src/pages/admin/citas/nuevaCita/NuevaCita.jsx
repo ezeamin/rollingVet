@@ -21,7 +21,7 @@ const NuevaCita = (props) => {
   return (
     <div className="row admin">
       <div className="col-xl-2 admin__nav">
-        <Navegacion setIsAuthenticated={props.setIsAuthenticated} setIsAdmin={props.setIsAdmin}/>
+        <Navegacion setIsAuthenticated={props.setIsAuthenticated} setIsAdmin={props.setIsAdmin} isAdmin={props.isAdmin}/>
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />

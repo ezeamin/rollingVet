@@ -4,7 +4,7 @@ import "./navItem.css";
 
 const NavItem = (props) => {
   let icono = props.icono;
-  if (props.titulo === "Salir"){
+  if (props.titulo === "Salir") {
     icono += " admin__nav-item-icon";
     return (
       <button
@@ -13,13 +13,10 @@ const NavItem = (props) => {
         className="admin__nav-item admin__nav-item-exit ps-3 py-2"
       >
         <i className={icono}></i>
-        <p className="my-0 ms-2 admin__nav-item__titulo">
-          {props.titulo}
-        </p>
+        <p className="my-0 ms-2 admin__nav-item__titulo">{props.titulo}</p>
       </button>
     );
-  }
-  else if (props.active) {
+  } else if (props.active) {
     icono += " admin__nav-item-icon-active";
     return (
       <Link
