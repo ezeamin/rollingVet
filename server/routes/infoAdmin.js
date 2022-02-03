@@ -11,10 +11,16 @@ router.get("/api/qty", (req, res) => {
     let pacientes = count;
     if (pacientes != 0) pacientes--;
 
+    if(err){
+      res.status(500).json({ok: false})
+      return;
+    }
+
     DbCitas.countDocuments({ atendido: false }, (err, count) => {
       let citas = count;
 
       res.status(200).json({
+        ok: true,
         pacientes: pacientes,
         citas: citas,
       });

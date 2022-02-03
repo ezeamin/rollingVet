@@ -165,7 +165,6 @@ const TablaItem = (props) => {
           <td>{props.info.dni}</td>
           <td>{props.info.email}</td>
           <td>{props.info.mascotas.length}</td>
-          <td>{props.info.plan}</td>
           <td className="admin__tables-btn">
             {botones.map((boton) => {
               return boton;
@@ -232,6 +231,7 @@ const TablaItem = (props) => {
           <td>{props.info.fechaNac}</td>
           <td>{edad}</td>
           <td>{props.info.sexo}</td>
+          <td>{props.info.plan}</td>
           <td className="admin__tables-btn">
             {botones.map((boton) => {
               return boton;

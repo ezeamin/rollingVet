@@ -59,11 +59,11 @@ const Main = () => {
           />
         </div>
       </div>
-      <div className="main__scrollDown mt-2">
+      <a href="#info" className="main__scrollDown mt-2">
         <p className="">
           <i className="fas fa-angle-double-down"></i>
         </p>
-      </div>
+      </a>
     </article>
   );
 };

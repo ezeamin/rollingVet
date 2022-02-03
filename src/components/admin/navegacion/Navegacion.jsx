@@ -106,7 +106,7 @@ const Navegacion = (props) => {
             "none";
         }, 300);
       });
-  }, [props.isAdmin]);
+  }, [props.isAdmin, props.user]);
 
   const handleLogout = async () => {
     await fetch("/api/logout", {

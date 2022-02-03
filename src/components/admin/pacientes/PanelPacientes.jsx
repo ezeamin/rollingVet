@@ -1,7 +1,7 @@
 import React from "react";
 import Tabla from "../tabla/Tabla";
 import BotonCrear from "../botonCrear/BotonCrear";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Carga from "../carga/Carga";
 
@@ -23,7 +23,6 @@ const opciones = [
   "DNI",
   "E-mail",
   "Mascotas",
-  "Plan",
   "Acciones",
 ];
 

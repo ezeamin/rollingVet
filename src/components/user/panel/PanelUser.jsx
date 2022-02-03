@@ -32,8 +32,10 @@ const PanelUser = (props) => {
       setCitas(info.citas);
       setCargando(false);
     };
-    traerInfo();
-  }, []);
+    if(props.user.dni !== undefined){
+      traerInfo();
+    }
+  }, [props.user.dni]);
 
   const btnCitas = () => {
     navigate("/user/citas");

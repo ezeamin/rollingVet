@@ -10,12 +10,14 @@ class FormularioMascota extends Component {
     raza: "",
     fechaNac: "",
     sexo: "",
+    plan: "",
     errores: {
       nombre: false,
       especie: false,
       raza: false,
       fechaNac: false,
       sexo: false,
+      plan: false,
     },
     cargando: true,
     titulo: this.props.titulo,
@@ -69,6 +71,7 @@ class FormularioMascota extends Component {
             return this.error(errores, name);
           }
           break;
+        case "plan":
         case "sexo":
           if (value === "0") {
             return this.error(errores, name);
@@ -90,7 +93,7 @@ class FormularioMascota extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    let error = [false, false, false, false, false];
+    let error = [false, false, false, false, false, false];
     let errorGeneral = false;
 
     error[0] = this.verificar("nombre", this.state.nombre);
@@ -98,6 +101,7 @@ class FormularioMascota extends Component {
     error[2] = this.verificar("raza", this.state.raza);
     error[3] = this.verificar("fechaNac", this.state.fechaNac);
     error[4] = this.verificar("sexo", this.state.sexo);
+    error[5] = this.verificar("plan", this.state.plan);
 
     error.forEach((element) => {
       if (element) {
@@ -124,10 +128,11 @@ class FormularioMascota extends Component {
         fechaNac: this.state.fechaNac,
         sexo: this.state.sexo,
         codigoMascota: this.props.codigoMascota, //cambiar si no es nuevo
+        plan: this.state.plan,
       }),
     });
     const data = await response.json();
-    
+
     if (data.code === 200) {
       Swal.fire({
         title: "Mascota guardada",
@@ -158,14 +163,15 @@ class FormularioMascota extends Component {
           raza: this.props.info.raza,
           fechaNac: this.props.info.fechaNac,
           sexo: this.props.info.sexo,
+          plan: this.state.plan,
         });
-        this.setState({cargando: false});
+        this.setState({ cargando: false });
       }
     }
-    if(prevProps.titulo !== this.props.titulo){
-      this.setState({titulo: this.props.titulo});
-      if(this.props.new){
-        this.setState({cargando: false});
+    if (prevProps.titulo !== this.props.titulo) {
+      this.setState({ titulo: this.props.titulo });
+      if (this.props.new) {
+        this.setState({ cargando: false });
       }
     }
   }
@@ -203,11 +209,11 @@ class FormularioMascota extends Component {
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
               >
-              <option value="0">Especie</option>
-              <option value="Perro">Perro</option>
-              <option value="Gato">Gato</option>
-              <option value="Hamster">Hamster</option>
-              <option value="Carpincho">Carpincho</option>
+                <option value="0">Especie</option>
+                <option value="Perro">Perro</option>
+                <option value="Gato">Gato</option>
+                <option value="Hamster">Hamster</option>
+                <option value="Carpincho">Carpincho</option>
               </Form.Select>
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese una especie
@@ -263,6 +269,27 @@ class FormularioMascota extends Component {
             />
             <Form.Control.Feedback className="feedback" type="invalid">
               Ingrese una fecha valida
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group className="mt-2 w-100">
+            <Form.Select
+              type="select"
+              placeholder="Plan"
+              name="plan"
+              className="input"
+              isInvalid={this.state.errores.plan}
+              value={this.state.plan}
+              onChange={(e) => this.handleChange(e)}
+              onBlur={(e) => this.handleBlur(e)}
+            >
+              <option value="0">Plan</option>
+              <option value="Sin plan">Sin plan</option>
+              <option value="Primeros pasos">Primeros pasos</option>
+              <option value="Madurando">Madurando</option>
+              <option value="Adultos">Adultos</option>
+            </Form.Select>
+            <Form.Control.Feedback className="feedback" type="invalid">
+              Seleccione un plan
             </Form.Control.Feedback>
           </Form.Group>
           <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">

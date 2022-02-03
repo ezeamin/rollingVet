@@ -4,6 +4,17 @@ import Tabla from "../../tabla/Tabla";
 import { useNavigate } from "react-router";
 import Carga from "../../carga/Carga";
 
+const opciones = [
+  "Nombre",
+  "Especie",
+  "Raza",
+  "Fecha de nacimiento",
+  "Edad (años)",
+  "Sexo",
+  "Plan",
+  "Acciones"
+];
+
 const PanelMascotas = (props) => {
   const navigate = useNavigate();
   const [info, setInfo] = React.useState({ mascotas: [] });
@@ -29,16 +40,6 @@ const PanelMascotas = (props) => {
       setTitulo("Mascotas de " + info.nombre);
     }
   }, [info]);
-
-  const opciones = [
-    "Nombre",
-    "Especie",
-    "Raza",
-    "Fecha de nacimiento",
-    "Edad (años)",
-    "Sexo",
-    "Acciones"
-  ];
 
   const eliminar = async (codigoMascota) => {}
 

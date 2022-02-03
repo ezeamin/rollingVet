@@ -9,6 +9,7 @@ const mascotaSchema = new Schema({
   nombre: String,
   fechaNac: String,
   sexo: String,
+  plan: String,
 });
 
 const userSchema = new Schema({
@@ -19,7 +20,6 @@ const userSchema = new Schema({
   genero: String,
   dni: String,
   avatar: String,
-  plan: String,
   mascotas: [mascotaSchema],
 });
 

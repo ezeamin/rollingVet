@@ -3,7 +3,7 @@ import './info.css';
 
 const Info = () => {
     return (
-        <div className='text-center info'>
+        <div className='text-center info' id='info'>
             <article>
                 <h3 className='h3__bold'>¿Por qué elegirnos?</h3>
                 <ul className=''>

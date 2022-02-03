@@ -4,11 +4,13 @@ import List from './list/List';
 import './panel.css';
 import Carga from '../carga/Carga';
 import { useNavigate } from 'react-router-dom';
+import Error from '../error/Error'
 
 const Panel = () => {
     const [pacientes, setPacientes] = React.useState(0);
     const [citas, setCitas] = React.useState(0);
     const [cargando, setCargando] = React.useState(true);
+    const [error, setError] = React.useState(false)
     const navigate = useNavigate();
 
     const info = [{
@@ -29,7 +31,15 @@ const Panel = () => {
             const response = await fetch('/api/qty',{
                 method: 'GET',
             });
+            
+            if(!response.ok){
+                setCargando(false);
+                setError(true);
+                return;
+            }
+
             const info = await response.json();
+
             setPacientes(info.pacientes);
             setCitas(info.citas);
             setCargando(false);
@@ -46,6 +56,9 @@ const Panel = () => {
     }
 
     if (cargando) return <Carga />;
+    if (error) return(
+        <Error />
+    )
     return (
         <div className='container py-5 admin__panel-content'>
             <h1 className='mb-3 h3__bold'>Panel de administracion</h1>

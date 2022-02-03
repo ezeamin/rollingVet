@@ -11,13 +11,29 @@
     padding-bottom: 3rem;
 }
 
+@media screen and (min-width: 1700px){
+    .user__panel__pacientes-editarUser{
+        padding: 3rem 30rem !important;
+    }
+}
+
 @media screen and (min-width: 1400px){
     .user__panel__editarUser-botones{
         margin-left: 3rem;
     }
+
+    .user__panel__pacientes-editarUser{
+        padding: 3rem 20rem;
+    }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (min-width: 992px) and (max-width: 1200px){
+    .user__panel__pacientes-editarUser{
+        height: 100vh !important;
+    }
+}
+
+@media screen and (max-width: 992px){
     .user__panel__editarUser-botones{
         display: flex;
         flex-direction: row;
