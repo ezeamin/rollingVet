@@ -21,6 +21,13 @@
   padding-left: 0 !important;
 }
 
+.admin__list__item-info-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 0 !important;
+}
+
 .admin__list__item-info-mascotas {
   display: flex;
   flex-direction: column;

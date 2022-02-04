@@ -17,10 +17,10 @@ const VerCita = (props) => {
   }, []);
   
   React.useEffect(() => {
-    if (!props.isAdmin) {
+    if (!props.isAuthenticated) {
       navigate("/");
     }
-  }, [props.isAdmin, navigate]);
+  }, [props.isAuthenticated, navigate]);
 
   const navigateSuccess = () => {
     navigate("/admin/citas");
@@ -29,7 +29,7 @@ const VerCita = (props) => {
   return (
     <div className="row admin">
       <div className="col-xl-2 admin__nav">
-        <Navegacion setIsAuthenticated={props.setIsAuthenticated} setIsAdmin={props.setIsAdmin} isAdmin={props.isAdmin}/>
+        <Navegacion setIsAuthenticated={props.setIsAuthenticated} setIsAdmin={props.setIsAdmin} isAdmin={props.isAdmin} user={props.user}/>
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />

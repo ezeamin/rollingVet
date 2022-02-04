@@ -8,8 +8,14 @@ import { useNavigate } from "react-router-dom";
 const EditarMascota = (props) => {
   const url = window.location.href;
   const urlSplit = url.split("/");
-  const dni = urlSplit[urlSplit.length - 3];
+  let dni;
   const codigoMascota = urlSplit[urlSplit.length - 1];
+  if(url.includes("admin")){
+    dni = urlSplit[urlSplit.length - 3];
+  }
+  else{
+    dni = props.user.dni
+  }
 
   const navigate = useNavigate();
 
@@ -18,10 +24,10 @@ const EditarMascota = (props) => {
   }, []);
   
   React.useEffect(() => {
-    if (!props.isAdmin) {
+    if (!props.isAuthenticated) {
       navigate("/");
     }
-  }, [props.isAdmin,navigate]);
+  }, [props.isAuthenticated,navigate]);
 
   return (
     <div className="row admin">
@@ -29,11 +35,13 @@ const EditarMascota = (props) => {
         <Navegacion
           setIsAuthenticated={props.setIsAuthenticated}
           setIsAdmin={props.setIsAdmin}
+          isAdmin={props.isAdmin}
+          user={props.user}
         />
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />
-        <PanelEditarMascota codigoMascota={codigoMascota} dni={dni} />
+        <PanelEditarMascota codigoMascota={codigoMascota} dni={dni}/>
       </div>
     </div>
   );

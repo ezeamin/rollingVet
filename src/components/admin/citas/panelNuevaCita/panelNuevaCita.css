@@ -2,6 +2,10 @@
     border-right: 1px solid #ccc;
 }
 
+.admin__panel__nuevaCita-forms-cita{
+    position: relative;
+}
+
 .admin__panel__nuevaCita-forms-cita__disabled{
     position: absolute;
     height: calc(100% - 0.5rem);

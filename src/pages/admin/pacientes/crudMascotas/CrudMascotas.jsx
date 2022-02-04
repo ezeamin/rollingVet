@@ -8,7 +8,10 @@ import { useNavigate } from "react-router-dom";
 const CrudMascotas = (props) => {
   const url = window.location.href;
   const urlSplit = url.split("/");
-  const dni = urlSplit[urlSplit.length - 2];
+  let dni;
+  
+  if(url.includes("admin")) dni = urlSplit[urlSplit.length - 2];
+  else dni = props.user.dni;
 
   const navigate = useNavigate();
   
@@ -17,15 +20,15 @@ const CrudMascotas = (props) => {
   }, []);
   
   React.useEffect(() => {
-    if (!props.isAdmin) {
+    if (!props.isAuthenticated) {
       navigate("/");
     }
-  }, [props.isAdmin, navigate]);
+  }, [props.isAuthenticated, navigate]);
 
   return (
     <div className="row admin">
       <div className="col-xl-2 admin__nav">
-        <Navegacion setIsAuthenticated={props.setIsAuthenticated} setIsAdmin={props.setIsAdmin} isAdmin={props.isAdmin}/>
+        <Navegacion setIsAuthenticated={props.setIsAuthenticated} setIsAdmin={props.setIsAdmin} isAdmin={props.isAdmin} user={props.user}/>
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />

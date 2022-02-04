@@ -18,9 +18,10 @@ const horariosFull = [
   "17:00"
 ];
 
-const PanelNuevaCita = () => {
+const PanelNuevaCita = (props) => {
   const navigate = useNavigate();
 
+  const [isUser, setIsUser] = React.useState(window.location.href.includes("user"));
   const [desbloquear, setDesbloquear] = React.useState(false);
   const [paciente, setPaciente] = React.useState({
     mascotas:[{
@@ -28,18 +29,21 @@ const PanelNuevaCita = () => {
   });
 
   const navigateSuccess = () => {
-    navigate("/admin/citas")
+    if(!isUser) navigate("/admin/citas")
+    else navigate("/user/citas");
   }
 
   const [horarios, setHorarios] = React.useState([]);
   const [fecha, setFecha] = React.useState("");
 
   React.useEffect(() => {
-    if(desbloquear){
-      document.getElementsByClassName("admin__panel__nuevaCita-forms-cita__disabled")[0].style.display = "none";
+    if(!isUser){
+      if(desbloquear){
+        document.getElementsByClassName("admin__panel__nuevaCita-forms-cita__disabled")[0].style.display = "none";
+      }
+      else document.getElementsByClassName("admin__panel__nuevaCita-forms-cita__disabled")[0].style.display = "block";
     }
-    else document.getElementsByClassName("admin__panel__nuevaCita-forms-cita__disabled")[0].style.display = "block";
-  },[desbloquear]);
+  },[desbloquear,isUser]);
 
   React.useEffect(() => {
     //actualizar horarios
@@ -61,6 +65,7 @@ const PanelNuevaCita = () => {
     if(fecha) fetchHorarios();
   },[fecha]);
 
+  if(!isUser){
   return (
     <div className="container py-5 admin__panel-content">
       <h1 className="h3__bold">Nueva cita</h1>
@@ -68,8 +73,8 @@ const PanelNuevaCita = () => {
         <div className="admin__panel__nuevaCita-forms col-sm-12 col-md-8">
           <p className="mb-0 p__descripciones">Buscar paciente por DNI</p>
           <FormularioCitaPaciente setDesbloquear={setDesbloquear} setPaciente={setPaciente}/>
-          <p className="mb-0">Paciente: <span className="fw-bold">{paciente.nombre} {paciente.apellido}</span></p>
-          <div className="admin__panel__nuevaCita-forms-cita position-relative">
+          <p className="mb-4">Paciente: <span className="fw-bold">{paciente.nombre} {paciente.apellido}</span></p>
+          <div className="admin__panel__nuevaCita-forms-cita">
             <div className="admin__panel__nuevaCita-forms-cita__disabled"></div>
             <FormularioCita desbloquear={desbloquear} paciente={paciente} setHorarios={setHorarios} horarios={horarios} setFecha={setFecha} navigateSuccess={navigateSuccess}/>
           </div>
@@ -81,6 +86,25 @@ const PanelNuevaCita = () => {
       </div>
     </div>
   );
+  }
+  else{
+    return (
+      <div className="container py-5 admin__panel-content">
+        <h1 className="h3__bold">Nueva cita</h1>
+        <div className="admin__panel__nuevaCita row">
+          <div className="admin__panel__nuevaCita-forms col-sm-12 col-md-8">
+            <div className="admin__panel__nuevaCita-forms-cita">
+              <FormularioCita desbloquear={true} paciente={props.user} setHorarios={setHorarios} horarios={horarios} setFecha={setFecha} navigateSuccess={navigateSuccess}/>
+            </div>
+          </div>
+          <div className="admin__panel__nuevaCita-tabla col-sm-12 col-md-4">
+            <p className="mb-0 p__descripciones">Horarios disponibles</p>
+            <ListaHorarios horarios={horarios}/>
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default PanelNuevaCita;

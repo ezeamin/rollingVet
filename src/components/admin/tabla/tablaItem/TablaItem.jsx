@@ -59,15 +59,21 @@ const TablaItem = (props) => {
   };
 
   const revisarCita = () => {
-    navigate(`/admin/citas/${props.info.codigoCita}-VOD`); //view only data
+    if(window.location.href.includes("/admin")) navigate(`/admin/citas/${props.info.codigoCita}-VOD`); //view only data
+    else navigate(`/user/citas/${props.info.codigoCita}-VOD`); //view only data
   };
 
   const editarMascota = () => {
-    const codigo =
-      window.location.href.split("/")[
-        window.location.href.split("/").length - 2
-      ];
-    navigate(`/admin/pacientes/${codigo}/mascotas/${props.info.codigoMascota}`);
+    const url = window.location.href;
+    if (url.includes("/admin/pacientes")) {
+      const dni =
+        window.location.href.split("/")[
+          window.location.href.split("/").length - 2
+        ];
+      navigate(`/admin/pacientes/${dni}/mascotas/${props.info.codigoMascota}`);
+    } else {
+      navigate(`/user/perfil/mascotas/${props.info.codigoMascota}`);
+    }
   };
   const eliminarMascota = () => {
     Swal.fire({
@@ -88,7 +94,10 @@ const TablaItem = (props) => {
     return (
       <tr>
         <td className="admin__tables-avatar">
-          <img src={props.info.paciente.avatar} alt={props.info.paciente.apellido} />
+          <img
+            src={props.info.paciente.avatar}
+            alt={props.info.paciente.apellido}
+          />
         </td>
         <td>
           {props.info.paciente.apellido}, {props.info.paciente.nombre}
@@ -173,22 +182,34 @@ const TablaItem = (props) => {
         </tr>
       );
     case "citasProgramadas":
-      botones = [
-        <button
-          onClick={atenderCita}
-          key={Math.round(Math.random() * 10000)}
-          className="btn btn-outline-success"
-        >
-          Atender
-        </button>,
-        <button
-          onClick={cancelarCita}
-          key={Math.round(Math.random() * 10000)}
-          className="btn btn-outline-danger"
-        >
-          Cancelar
-        </button>,
-      ];
+      if (window.location.href.includes("/admin")) {
+        botones = [
+          <button
+            onClick={atenderCita}
+            key={Math.round(Math.random() * 10000)}
+            className="btn btn-outline-success"
+          >
+            Atender
+          </button>,
+          <button
+            onClick={cancelarCita}
+            key={Math.round(Math.random() * 10000)}
+            className="btn btn-outline-danger"
+          >
+            Cancelar
+          </button>,
+        ];
+      } else {
+        botones = [
+          <button
+            onClick={cancelarCita}
+            key={Math.round(Math.random() * 10000)}
+            className="btn btn-outline-danger"
+          >
+            Cancelar
+          </button>,
+        ];
+      }
 
       return citas(botones);
     case "citasRegistro":

@@ -106,13 +106,12 @@ const PanelPlanes = (props) => {
       setMascotas(data.mascotas);
     };
     fetchInfo();
-  }, []);
+  }, [props.user.dni]);
 
   React.useEffect(() => {
     const mascotaSeleccionada = mascotas.find((m) => m.nombre === mascota);
 
     if (mascotaSeleccionada) {
-      console.log(mascotaSeleccionada)
       switch (mascotaSeleccionada.plan) {
         case "Sin plan":
           setChecked([true, false, false, false]);
@@ -130,7 +129,7 @@ const PanelPlanes = (props) => {
           break;
       }
     }
-  }, [mascota]);
+  }, [mascota,mascotas]);
 
   return (
     <div className="container py-5 admin__panel-content user__panel">

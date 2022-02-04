@@ -76,6 +76,11 @@ function App() {
           <Route path="/user" element={<User isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
           <Route path="/user/perfil" element={<Perfil isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
           <Route path="/user/perfil/planes" element={<PlanesUser isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/user/perfil/mascotas" element={<CrudMascotas isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/user/perfil/mascotas/:codigoMascota" element={<EditarMascota isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/user/citas" element={<Citas isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/user/citas/new" element={<NuevaCita isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
+          <Route path="/user/citas/:id" element={<VerCitas isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
           <Route path="*" element={<Pag404 isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} setUser={setUser} user={user}/>} />
         </Routes>
       </Router>

@@ -26,7 +26,10 @@ const PanelEditarMascota = (props) => {
   }, [isNew,props.codigoMascota,props.dni]);
 
   const navigateSuccess = () => {
-    navigate(`/admin/pacientes/${props.dni}/mascotas`);
+    if(window.location.href.includes("admin")){
+      navigate(`/admin/pacientes/${props.dni}/mascotas`);
+    }
+    else navigate(`/user/perfil/mascotas`);
   }
 
   if(isNew){

@@ -181,7 +181,7 @@ class FormularioCita extends Component {
   render() {
     return (
       <Form onSubmit={(e) => this.handleSubmit(e)} className="text-start">
-        <Form.Group className="mt-5 nuevaCita-input">
+        <Form.Group className="mt-2 nuevaCita-input">
           <Form.Select
             type="select"
             placeholder="Mascota"
@@ -195,7 +195,7 @@ class FormularioCita extends Component {
           >
             <option value="0">Mascota</option>
             {this.props.paciente.mascotas.map((mascota,index) => (
-              <option key={index} value={mascota.id}>
+              <option key={index} value={mascota.nombre}>
                 {mascota.nombre}
               </option>
             ))}

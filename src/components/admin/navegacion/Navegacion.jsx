@@ -120,11 +120,6 @@ const Navegacion = (props) => {
       showCancelButton: false,
       showConfirmButton: false,
     }).then(() => {
-      /*props.setIsAuthenticated(false);
-      sessionStorage.removeItem("isFirstTime");
-      if(window.location.pathname !== "/")  navigate("/");
-      else window.location.reload();*/
-
       props.setIsAuthenticated(false);
       props.setIsAdmin(false);
       navigate("/");

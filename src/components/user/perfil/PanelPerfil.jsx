@@ -23,7 +23,7 @@ const PanelPerfil = (props) => {
       setNombreCompleto(`${data.paciente.nombre} ${data.paciente.apellido}`);
     };
     traerInfo();
-  }, []);
+  }, [props.user.dni]);
 
   const navigateSuccess = () => {
     navigate("/user");

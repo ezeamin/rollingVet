@@ -13,7 +13,7 @@ const ListItem = (props) => {
           <div className="col-8 admin__list__item-info">
             <h4 className="mb-1">{props.nombre}</h4>
             <p className="my-0">Mascotas: {props.mascotas}</p>
-            <p className="my-0">Plan: {props.plan}</p>
+            {/* <p className="my-0">Plan: {props.plan}</p> */}
           </div>
         </div>
       );
@@ -44,6 +44,7 @@ const ListItem = (props) => {
       );
     }
     case "loading": {
+      if(window.location.href.includes("/admin")){
       return (
         <div className="py-2 row admin__list__item align-items-center admin__list__item-loading">
           <div className="col-4 admin__list__item-avatar d-flex justify-content-center">
@@ -55,6 +56,17 @@ const ListItem = (props) => {
           </div>
         </div>
       );
+      }
+      else{
+        return (
+          <div className="py-2 admin__list__item align-items-center admin__list__item-loading">
+            <div className="admin__list__item-info-user">
+              <Skeleton variant="text" width={"90%"} />
+              <Skeleton variant="rectangular" height={40} width={"90%"} />
+            </div>
+          </div>
+        );
+      }
     }
     default:
       return (

@@ -60,7 +60,15 @@ router.put("/api/user/guardarPlan/:dni/:codigoMascota", (req, res) => {
 
 router.get("/api/citasProgramadas/:dni", (req, res) => {
   DbCitas.find({ dni: req.params.dni, atendido: false }, (err, docs) => {
-    res.status(200).json({ citas: docs });
+    if(err) res.status(500).json({ ok: false });
+    else res.status(200).json({ citas: docs });
+  });
+});
+
+router.get("/api/citasRegistro/:dni", (req, res) => {
+  DbCitas.find({ dni: req.params.dni, atendido: true }, (err, docs) => {
+    if(err) res.status(500).json({ ok: false });
+    else res.status(200).json({ citas: docs });
   });
 });
 

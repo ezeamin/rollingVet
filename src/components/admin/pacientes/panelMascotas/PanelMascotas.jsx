@@ -44,7 +44,8 @@ const PanelMascotas = (props) => {
   const eliminar = async (codigoMascota) => {}
 
   const handleClick = () => {
-    navigate(`/admin/pacientes/${props.dni}/mascotas/new`);
+    if(window.location.href.includes("admin")) navigate(`/admin/pacientes/${props.dni}/mascotas/new`);
+    else navigate("/user/perfil/mascotas/new");
   };
 
   if(cargando) return <Carga />;

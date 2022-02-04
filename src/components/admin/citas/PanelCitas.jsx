@@ -16,37 +16,57 @@ const opciones = [
   "Acciones",
 ];
 
-const PanelCitas = () => {
+const PanelCitas = (props) => {
   const navigate = useNavigate();
   const [citasProgramadas, setCitasProgramadas] = React.useState([]);
   const [citasRegistro, setCitasRegistro] = React.useState([]);
   const [cargando, setCargando] = React.useState(true);
-
-  const fetchCitasProgramadas = async () => {
-    const response = await fetch("/api/citasProgramadas", {
-      method: "GET",
-    });
-    const data = await response.json();
-    setCitasProgramadas(data.citas);
-  };
-
-  const fetchCitasRegistro = async () => {
-    const response = await fetch("/api/citasRegistro", {
-      method: "GET",
-    });
-    const data = await response.json();
-    setCitasRegistro(data.citas.reverse());
-    setCargando(false);
-  };
+  const [isUser, setIsUser] = React.useState(window.location.href.includes("user"));
 
   const handleClick = () => {
-    navigate("/admin/citas/new");
+    if(!isUser) navigate("/admin/citas/new");
+    else navigate("/user/citas/new");
   };
 
   React.useEffect(() => {
+    const fetchCitasProgramadas = async () => {
+      if(!isUser){
+        const response = await fetch("/api/citasProgramadas", {
+          method: "GET",
+        });
+        const data = await response.json();
+        setCitasProgramadas(data.citas);
+      }
+      else{
+        const response = await fetch(`/api/citasProgramadas/${props.user.dni}`, {
+          method: "GET",
+        });
+        const data = await response.json();
+        setCitasProgramadas(data.citas);
+      }
+    };
+  
+    const fetchCitasRegistro = async () => {
+      if(!isUser){
+        const response = await fetch("/api/citasRegistro", {
+          method: "GET",
+        });
+        const data = await response.json();
+        setCitasRegistro(data.citas.reverse());
+      }
+      else{
+        const response = await fetch(`/api/citasRegistro/${props.user.dni}`, {
+          method: "GET",
+        });
+        const data = await response.json();
+        setCitasRegistro(data.citas.reverse());
+      }
+      setCargando(false);
+    };
+
     fetchCitasProgramadas();
     fetchCitasRegistro();
-  }, []);
+  }, [isUser,props.user.dni]);
 
   const eliminarCita = async (codigoCita) => {
     const response = await fetch(`/api/citas/${codigoCita}`, {
@@ -61,8 +81,23 @@ const PanelCitas = () => {
         showCancelButton: false,
         showConfirmButton: false,
         timer: 2000,
+      }).then(async () => {
+        if(!isUser){
+          const response = await fetch("/api/citasProgramadas", {
+            method: "GET",
+          });
+          const data = await response.json();
+          setCitasProgramadas(data.citas);
+        }
+        else{
+          const response = await fetch(`/api/citasProgramadas/${props.user.dni}`, {
+            method: "GET",
+          });
+          const data = await response.json();
+          setCitasProgramadas(data.citas);
+        }
       });
-      fetchCitasProgramadas();
+      
     }
   }
 
@@ -76,7 +111,8 @@ const PanelCitas = () => {
           opciones={opciones}
           info={citasProgramadas}
           type="citasProgramadas"
-          eliminar={eliminarCita} //MODIFICAR
+          eliminar={eliminarCita}
+          isUser={isUser}
         />
       </div>
       <BotonCrear titulo="Agregar cita" accion={handleClick} />
@@ -88,6 +124,7 @@ const PanelCitas = () => {
           info={citasRegistro}
           type="citasRegistro"
           eliminar={() => {}}
+          isUser={isUser}
         />
       </div>
     </div>

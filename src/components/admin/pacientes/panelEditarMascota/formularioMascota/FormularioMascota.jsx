@@ -163,7 +163,7 @@ class FormularioMascota extends Component {
           raza: this.props.info.raza,
           fechaNac: this.props.info.fechaNac,
           sexo: this.props.info.sexo,
-          plan: this.state.plan,
+          plan: this.props.info.plan,
         });
         this.setState({ cargando: false });
       }
