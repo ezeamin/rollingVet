@@ -15,7 +15,6 @@ require('./passport/auth-login');
 
 //settings
 app.set('port', process.env.PORT || 5000);
-app.set('host', '0.0.0.0');
 
 //middlewares
 app.use(express.static(__dirname + '/public'));
@@ -36,6 +35,6 @@ app.use(routesInfoAdmin);
 app.use(routesInfoUser);
 app.use(routesIndex)
 
-app.listen(app.get("port"),app.get("host"), () => {
+app.listen(app.get("port"), () => {
   console.log(`Server on port ${app.get("port")}`);
 });
