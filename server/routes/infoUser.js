@@ -3,8 +3,6 @@ const router = express.Router();
 
 const DbPacientes = require("../models/paciente");
 const DbCitas = require("../models/cita");
-const DbFechas = require("../models/fechas");
-const DbPrecios = require("../models/precios");
 
 router.get("/api/user/qty/:dni", (req, res) => {
   DbPacientes.findOne({ dni: req.params.dni }, (err, doc) => {

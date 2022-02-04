@@ -9,6 +9,7 @@ const app = express();
 const routesAuth = require('./routes/auth');
 const routesInfoAdmin = require('./routes/infoAdmin');
 const routesInfoUser = require('./routes/infoUser');
+const routesIndex = require('./routes/index');
 require('./database/database');
 require('./passport/auth-login');
 
@@ -32,6 +33,7 @@ app.use(passport.session());
 app.use(routesAuth);
 app.use(routesInfoAdmin);
 app.use(routesInfoUser);
+app.use(routesIndex)
 
 app.listen(app.get("port"), () => {
   console.log(`Server on port ${app.get("port")}`);
