@@ -154,9 +154,13 @@ class FormularioMascota extends Component {
     }
   };
 
+  mounted=true;
+
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.info !== this.props.info) {
-      if (Object.keys(this.props.info).length !== 0) {
+    this.mounted = true;
+
+    if (prevProps.info !== this.props.info && this.mounted) {
+      if (Object.keys(this.props.info).length !== 0 && this.mounted) {
         this.setState({
           nombre: this.props.info.nombre,
           especie: this.props.info.especie,
@@ -168,12 +172,16 @@ class FormularioMascota extends Component {
         this.setState({ cargando: false });
       }
     }
-    if (prevProps.titulo !== this.props.titulo) {
+    if (prevProps.titulo !== this.props.titulo && this.mounted) {
       this.setState({ titulo: this.props.titulo });
       if (this.props.new) {
         this.setState({ cargando: false });
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   render() {

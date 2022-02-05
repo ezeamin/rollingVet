@@ -160,9 +160,13 @@ class FormularioEditarPaciente extends Component {
     }
   }
 
+  mounted=true;
+
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.info !== this.props.info) {
-      if (Object.keys(this.props.info).length !== 0) {
+    this.mounted = true;
+
+    if (prevProps.info !== this.props.info && this.mounted) {
+      if (Object.keys(this.props.info).length !== 0 && this.mounted) {
         this.setState({
           nombre: this.props.info.nombre,
           apellido: this.props.info.apellido,
@@ -175,6 +179,10 @@ class FormularioEditarPaciente extends Component {
         });
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   render() {

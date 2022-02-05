@@ -7,11 +7,15 @@ import { useNavigate } from "react-router-dom";
 const Login = (props) => {
   const navigate = useNavigate();
 
+  const testAuth = props.testAuth;
+
   React.useEffect(() => {
+    testAuth();
+    
     if (props.isAuthenticated) {
       navigate("/");
     }
-  }, [props.isAuthenticated,navigate]);
+  }, [props.isAuthenticated,navigate,testAuth]);
 
   const navigateSuccess = (isAdmin) => {
     props.setIsAuthenticated(true);

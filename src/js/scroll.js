@@ -32,7 +32,7 @@ const modificar = (windowPosition, windowPosition2) => {
   let fab = document.getElementsByClassName("fab")[0];
   let fabContacto = document.getElementsByClassName("fab-contacto")[0];
 
-  if(header!=null){
+  if(header!=null && links != null && logo != null){
     header.classList.toggle("scrolling-active", windowPosition2);
     links.classList.toggle("scrolling-active__links", windowPosition2);
     logo.classList.toggle("scrolling-active__logo", windowPosition2);

@@ -12,7 +12,7 @@ const opciones = [
   "Edad (años)",
   "Sexo",
   "Plan",
-  "Acciones"
+  "Acciones",
 ];
 
 const PanelMascotas = (props) => {
@@ -22,33 +22,47 @@ const PanelMascotas = (props) => {
   const [cargando, setCargando] = React.useState(true);
 
   React.useEffect(() => {
-    const fetchPaciente = async () => {
-      const response = await fetch(`/api/pacientes/${props.dni}`, {
-        method: "GET",
-      });
-      const data = await response.json();
+    const abortCont = new AbortController();
 
-      setInfo(data.paciente);
-      setCargando(false);
+    const fetchPaciente = async () => {
+      try {
+        const response = await fetch(`/api/pacientes/${props.dni}`, {
+          method: "GET",
+          signal: abortCont.signal,
+        });
+        const data = await response.json();
+
+        setInfo(data.paciente);
+        setCargando(false);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
     };
 
     fetchPaciente();
+
+    return () => {
+      abortCont.abort();
+    };
   }, [props.dni]);
 
   React.useEffect(() => {
-    if(info.nombre!==undefined){
+    if (info.nombre !== undefined) {
       setTitulo("Mascotas de " + info.nombre);
     }
   }, [info]);
 
-  const eliminar = async (codigoMascota) => {}
+  const eliminar = async (codigoMascota) => {};
 
   const handleClick = () => {
-    if(window.location.href.includes("admin")) navigate(`/admin/pacientes/${props.dni}/mascotas/new`);
+    if (window.location.href.includes("admin"))
+      navigate(`/admin/pacientes/${props.dni}/mascotas/new`);
     else navigate("/user/perfil/mascotas/new");
   };
 
-  if(cargando) return <Carga />;
+  if (cargando) return <Carga />;
   return (
     <div className="admin__panel-content container py-5">
       <Tabla

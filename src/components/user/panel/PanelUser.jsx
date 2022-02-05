@@ -23,18 +23,31 @@ const PanelUser = (props) => {
   ];
 
   React.useEffect(() => {
+    const abortCont = new AbortController();
+
     const traerInfo = async () => {
-      const response = await fetch(`/api/user/qty/${props.user.dni}`, {
-        method: "GET",
-      });
-      const info = await response.json();
-      setMascotas(info.mascotas);
-      setCitas(info.citas);
-      setCargando(false);
+      try {
+        const response = await fetch(`/api/user/qty/${props.user.dni}`, {
+          method: "GET",
+          signal: abortCont.signal,
+        });
+        const info = await response.json();
+        setMascotas(info.mascotas);
+        setCitas(info.citas);
+        setCargando(false);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
     };
-    if(props.user.dni !== undefined){
+    if (props.user.dni !== undefined) {
       traerInfo();
     }
+
+    return () => {
+      abortCont.abort();
+    };
   }, [props.user.dni]);
 
   const btnCitas = () => {
@@ -54,14 +67,14 @@ const PanelUser = (props) => {
           </div>
         </div>
         <div className="col-sm-12 col-lg-6 col-xl-8">
-            <div className="row admin__panel-content-cards">
-                <List
-                    titulo="Lista de citas"
-                    content="citasPropias"
-                    handleClick={btnCitas}
-                    dni={props.user.dni}
-                />
-            </div>
+          <div className="row admin__panel-content-cards">
+            <List
+              titulo="Lista de citas"
+              content="citasPropias"
+              handleClick={btnCitas}
+              dni={props.user.dni}
+            />
+          </div>
         </div>
       </div>
     </div>

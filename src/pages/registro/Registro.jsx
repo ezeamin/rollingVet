@@ -20,7 +20,11 @@ const Registro = (props) => {
   else gen = "female";
   const [genero, setGenero] = React.useState(gen);
 
+  const testAuth = props.testAuth;
+
   React.useEffect(() => {
+    testAuth();
+    
     const generateAvatar = () => {
       const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg`;
 
@@ -28,7 +32,7 @@ const Registro = (props) => {
     };
 
     generateAvatar();
-  }, []);
+  }, [testAuth, randomSeed, genero]);
 
   React.useEffect(() => {
     if (props.isAuthenticated) {

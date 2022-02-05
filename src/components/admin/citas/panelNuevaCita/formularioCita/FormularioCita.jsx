@@ -170,12 +170,20 @@ class FormularioCita extends Component {
     }
   }
 
+  mounted = true;
+
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.horarios !== this.state.horarios){
+    this.mounted = true;
+
+    if(this.props.horarios !== this.state.horarios && this.mounted){
       this.setState({
         horarios: this.props.horarios,
       })
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   render() {

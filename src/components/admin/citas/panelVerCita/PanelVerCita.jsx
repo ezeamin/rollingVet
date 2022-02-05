@@ -14,27 +14,37 @@ class PanelVerCita extends React.Component {
     cargando: true,
   };
 
+  mounted = true;
+
   componentDidMount() {
+    this.mounted = true;
+
     fetch(`/api/citas/${this.props.codigoCita}`).then((res) => {
-      if (res.ok) {
+      if (res.ok && this.mounted) {
         res.json().then((data) => {
-          this.setState({ info: data.cita });
-          if (window.location.href.includes("VOD")) {
-            //lectura de cita
-            this.setState({
-              VOD: true,
-              veterinario: this.state.info.veterinario,
-              comentarios: this.state.info.comentarios,
-            });
+          if (this.mounted) {
+            this.setState({ info: data.cita });
+            if (window.location.href.includes("VOD")) {
+              //lectura de cita
+              this.setState({
+                VOD: true,
+                veterinario: this.state.info.veterinario,
+                comentarios: this.state.info.comentarios,
+              });
+            }
+            this.setState({ cargando: false });
           }
-          this.setState({ cargando: false });
         });
       }
     });
   }
 
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   componentDidUpdate() {
-    if(!this.state.cargando && this.state.VOD) {
+    if (!this.state.cargando && this.state.VOD) {
       document.getElementsByClassName(
         "admin__panel__cita-btnGuardar"
       )[0].style.display = "none";
@@ -110,7 +120,9 @@ class PanelVerCita extends React.Component {
             <div className="col-sm-12 col-md-8">
               <h3 className="h3__bold mb-0 lh-100">
                 {this.state.info.paciente.apellido},{" "}
-                <span className="h3__bold-light">{this.state.info.paciente.nombre}</span>
+                <span className="h3__bold-light">
+                  {this.state.info.paciente.nombre}
+                </span>
               </h3>
               <p className="p__descripciones mb-5">
                 Mascota: {this.state.info.mascota}

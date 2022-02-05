@@ -31,18 +31,6 @@ class FormularioCitaPaciente extends Component {
     }
 
     this.buscarPaciente();
-
-    /*this.props.setPaciente({
-      dni: this.state.dni,
-      nombre: "Juan",
-      apellido: "Perez",
-      mascotas:[{
-        nombre: "Firulais",
-        raza: "Caniche",
-        fechaNac: "12/12/2020",
-        sexo: "Macho",
-      }]
-    })*/
   };
 
   buscarPaciente = async () => {

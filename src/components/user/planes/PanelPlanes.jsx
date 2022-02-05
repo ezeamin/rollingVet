@@ -94,18 +94,31 @@ const PanelPlanes = (props) => {
   };
 
   React.useEffect(() => {
-    const fetchInfo = async () => {
-      const response = await fetch(
-        `/api/user/pacientes/mascotas/${props.user.dni}`,
-        {
-          method: "GET",
-        }
-      );
-      const data = await response.json();
+    const abortCont = new AbortController();
 
-      setMascotas(data.mascotas);
+    const fetchInfo = async () => {
+      try {
+        const response = await fetch(
+          `/api/user/pacientes/mascotas/${props.user.dni}`,
+          {
+            method: "GET",
+            signal: abortCont.signal,
+          }
+        );
+        const data = await response.json();
+
+        setMascotas(data.mascotas);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
     };
     fetchInfo();
+
+    return () => {
+      abortCont.abort();
+    };
   }, [props.user.dni]);
 
   React.useEffect(() => {
@@ -129,7 +142,7 @@ const PanelPlanes = (props) => {
           break;
       }
     }
-  }, [mascota,mascotas]);
+  }, [mascota, mascotas]);
 
   return (
     <div className="container py-5 admin__panel-content user__panel">

@@ -7,22 +7,35 @@ const Plan = (props) => {
   const [checked, setChecked] = React.useState(props.plan.checked);
 
   React.useEffect(() => {
-    const fetchInfo = async () => {
-      const response = await fetch("/api/precios", {
-        method: "GET",
-      });
-      const data = await response.json();
+    const abortCont = new AbortController();
 
-      setPrecio(data.precios[props.index - 1].precio);
-      setPrecioTotal(data.precios[props.index - 1].precioTotal);
+    const fetchInfo = async () => {
+      try {
+        const response = await fetch("/api/precios", {
+          method: "GET",
+          signal: abortCont.signal,
+        });
+        const data = await response.json();
+
+        setPrecio(data.precios[props.index - 1].precio);
+        setPrecioTotal(data.precios[props.index - 1].precioTotal);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
     };
     if (props.index !== 0) fetchInfo();
+
+    return () => {
+      abortCont.abort();
+    };
   }, [props.index]);
 
   React.useEffect(() => {
-      if(props.plan.checked) setChecked(true);
-      else setChecked(false);
-    }, [props.plan.checked]);
+    if (props.plan.checked) setChecked(true);
+    else setChecked(false);
+  }, [props.plan.checked]);
 
   const handleChange = (e) => {
     setChecked(!checked);

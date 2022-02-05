@@ -15,9 +15,13 @@ const CrudMascotas = (props) => {
 
   const navigate = useNavigate();
   
+  const testAuth = props.testAuth;
+
   React.useEffect(() => {
+    testAuth();
+    
     window.addEventListener("resize", resize);
-  }, []);
+  }, [testAuth]);
   
   React.useEffect(() => {
     if (!props.isAuthenticated) {

@@ -75,10 +75,18 @@ class ItemPrecios extends Component {
     }
   };
 
+  mounted=true;
+
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.datos.precio !== prevProps.datos.precio) {
+    this.mounted = true;
+
+    if (this.props.datos.precio !== prevProps.datos.precio && this.mounted) {
       this.setState({ actual: this.props.datos.precio });
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   render() {

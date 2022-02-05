@@ -8,10 +8,9 @@ import Carga from "../carga/Carga";
 const comparar = (a, b) => {
   if (a.apellido === b.apellido) {
     return a.nombre > b.nombre ? 1 : -1;
-  }
-  else if (a.apellido > b.apellido) {
+  } else if (a.apellido > b.apellido) {
     return 1;
-  } else if (a.apellido  < b.apellido) {
+  } else if (a.apellido < b.apellido) {
     return -1;
   }
 };
@@ -31,16 +30,6 @@ const PanelPacientes = () => {
 
   const [cargando, setCargando] = React.useState(true);
   const [pacientes, setPacientes] = React.useState([]);
-
-  const fetchPacientes = async () => {
-    const response = await fetch("/api/pacientes", {
-      method: "GET",
-    });
-    const data = await response.json();
-
-    setPacientes(data.pacientes.sort((a, b) => comparar(a, b)));
-    setCargando(false);
-  };
 
   const handleClick = () => {
     navigate("/admin/pacientes/new");
@@ -75,10 +64,33 @@ const PanelPacientes = () => {
   };
 
   React.useEffect(() => {
+    const abortCont = new AbortController();
+
+    const fetchPacientes = async () => {
+      try {
+        const response = await fetch("/api/pacientes", {
+          method: "GET",
+          signal: abortCont.signal,
+        });
+        const data = await response.json();
+
+        setPacientes(data.pacientes.sort((a, b) => comparar(a, b)));
+        setCargando(false);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
+    };
+
     fetchPacientes();
+
+    return () => {
+      abortCont.abort();
+    };
   }, []);
 
-  if(cargando) return <Carga />
+  if (cargando) return <Carga />;
   return (
     <div className="container py-5 admin__panel-content">
       <div className="admin__panel__pacientes">

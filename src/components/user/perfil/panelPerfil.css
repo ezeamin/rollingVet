@@ -23,7 +23,7 @@
     }
 
     .user__panel__pacientes-editarUser{
-        padding: 3rem 20rem;
+        padding: 3rem 20rem !important;
     }
 }
 
@@ -45,5 +45,7 @@
     .user__panel__pacientes-editarUser{
         padding-top: 3rem;
         padding-bottom: 0;
+        justify-content: center !important;
+        height: 100vh !important;
     }
 }

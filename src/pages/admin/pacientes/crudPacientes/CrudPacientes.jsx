@@ -16,23 +16,42 @@ const CrudPacientes = (props) => {
   const [avatarUrl, setAvatarUrl] = React.useState("");
   const [info, setInfo] = React.useState({});
 
+  const testAuth = props.testAuth;
+
   React.useEffect(() => {
+    testAuth();
+    
     window.addEventListener("resize", resize);
 
-    if (dni !== "new") {
-      fetch(`/api/pacientes/${dni}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setInfo(data.paciente);
-        });
-    }
-  }, [dni]);
-  
+    const abortCont = new AbortController();
+
+    const fetchPaciente = async () => {
+      try {
+        if (dni !== "new") {
+          fetch(`/api/pacientes/${dni}`)
+            .then((response) => response.json())
+            .then((data) => {
+              setInfo(data.paciente);
+            });
+        }
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
+    };
+    fetchPaciente();
+
+    return () => {
+      abortCont.abort();
+    };
+  }, [dni,testAuth]);
+
   React.useEffect(() => {
     if (!props.isAdmin) {
       navigate("/");
     }
-  }, [props.isAdmin,navigate]);
+  }, [props.isAdmin, navigate]);
 
   const redirectMascotas = () => {
     navigate(`/admin/pacientes/${dni}/mascotas`);
@@ -41,7 +60,7 @@ const CrudPacientes = (props) => {
   const navigateSuccess = () => {
     navigate("/admin/pacientes");
   };
-  
+
   const changeAvatar = (gen) => {
     let genero;
     if (gen === "Masculino") {
@@ -52,7 +71,9 @@ const CrudPacientes = (props) => {
 
     const randomSeed = Math.floor(Math.random() * 99999) + 2;
 
-    setAvatarUrl(`https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg`);
+    setAvatarUrl(
+      `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg`
+    );
   };
 
   if (dni !== "new") {
@@ -60,7 +81,11 @@ const CrudPacientes = (props) => {
     return (
       <div className="row admin">
         <div className="col-xl-2 admin__nav">
-          <Navegacion setIsAuthenticated={props.setIsAuthenticated} setIsAdmin={props.setIsAdmin} isAdmin={props.isAdmin}/>
+          <Navegacion
+            setIsAuthenticated={props.setIsAuthenticated}
+            setIsAdmin={props.setIsAdmin}
+            isAdmin={props.isAdmin}
+          />
         </div>
         <div className="col-xl-10 admin__panel">
           <NavegacionResponsive />
@@ -91,14 +116,24 @@ const CrudPacientes = (props) => {
   return (
     <div className="row admin">
       <div className="col-xl-2 admin__nav">
-        <Navegacion setIsAuthenticated={props.setIsAuthenticated} setIsAdmin={props.setIsAdmin} isAdmin={props.isAdmin}/>
+        <Navegacion
+          setIsAuthenticated={props.setIsAuthenticated}
+          setIsAdmin={props.setIsAdmin}
+          isAdmin={props.isAdmin}
+        />
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />
         <div className="admin__panel__pacientes-newUser py-5 admin__panel__pacientes-content">
           <h1 className="mb-3 h3__bold">Agregar paciente</h1>
           <div className="admin__panel__pacientes-newUser-form">
-            <FormularioRegistro avatar={avatarUrl} changeAvatar={changeAvatar} navigateSuccess={navigateSuccess} setIsAuthenticated={()=>{}} isAdmin={true}/>
+            <FormularioRegistro
+              avatar={avatarUrl}
+              changeAvatar={changeAvatar}
+              navigateSuccess={navigateSuccess}
+              setIsAuthenticated={() => {}}
+              isAdmin={true}
+            />
           </div>
         </div>
       </div>

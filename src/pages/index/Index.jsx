@@ -15,11 +15,15 @@ import { useNavigate } from "react-router-dom";
 
 const Index = (props) => {
   const navigate = useNavigate();
+  
+  const testAuth = props.testAuth;
 
   React.useEffect(() => {
     scrollDetection();
     window.scrollTo(0, 0);
-  }, []);
+
+    testAuth();
+  }, [testAuth]);
 
   React.useEffect(() => {
     if(props.isAuthenticated) {

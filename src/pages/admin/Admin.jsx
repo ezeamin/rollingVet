@@ -9,9 +9,13 @@ import { useNavigate } from "react-router-dom";
 const Admin = (props) => {
   const navigate = useNavigate();
 
+  const testAuth = props.testAuth;
+
   React.useEffect(() => {
+    testAuth();
+    
     window.addEventListener("resize", resize);
-  }, []);
+  }, [testAuth]);
 
   React.useEffect(() => {
     if (!props.isAdmin) {

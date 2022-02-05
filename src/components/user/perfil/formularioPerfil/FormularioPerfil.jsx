@@ -172,7 +172,11 @@ class FormularioPerfil extends Component {
     }
   }
 
+  mounted=true;
+
   componentDidMount() {
+    this.mounted = true;
+
     this.setState({
         nombre: this.props.info.nombre,
         apellido: this.props.info.apellido,
@@ -184,8 +188,8 @@ class FormularioPerfil extends Component {
     }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.info !== this.props.info) {
-      if (Object.keys(this.props.info).length !== 0) {
+    if (prevProps.info !== this.props.info && this.mounted) {
+      if (Object.keys(this.props.info).length !== 0 && this.mounted) {
         this.setState({
           nombre: this.props.info.nombre,
           apellido: this.props.info.apellido,
@@ -196,6 +200,10 @@ class FormularioPerfil extends Component {
         });
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   render() {

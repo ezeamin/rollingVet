@@ -21,52 +21,77 @@ const PanelCitas = (props) => {
   const [citasProgramadas, setCitasProgramadas] = React.useState([]);
   const [citasRegistro, setCitasRegistro] = React.useState([]);
   const [cargando, setCargando] = React.useState(true);
-  const [isUser, setIsUser] = React.useState(window.location.href.includes("user"));
+  const [isUser, setIsUser] = React.useState(
+    window.location.href.includes("user")
+  );
 
   const handleClick = () => {
-    if(!isUser) navigate("/admin/citas/new");
+    if (!isUser) navigate("/admin/citas/new");
     else navigate("/user/citas/new");
   };
 
   React.useEffect(() => {
+    const abortCont = new AbortController();
+
     const fetchCitasProgramadas = async () => {
-      if(!isUser){
-        const response = await fetch("/api/citasProgramadas", {
-          method: "GET",
-        });
-        const data = await response.json();
-        setCitasProgramadas(data.citas);
-      }
-      else{
-        const response = await fetch(`/api/citasProgramadas/${props.user.dni}`, {
-          method: "GET",
-        });
-        const data = await response.json();
-        setCitasProgramadas(data.citas);
+      try {
+        if (!isUser) {
+          const response = await fetch("/api/citasProgramadas", {
+            method: "GET",
+            signal: abortCont.signal,
+          });
+          const data = await response.json();
+          setCitasProgramadas(data.citas);
+        } else {
+          const response = await fetch(
+            `/api/citasProgramadas/${props.user.dni}`,
+            {
+              method: "GET",
+              signal: abortCont.signal,
+            }
+          );
+          const data = await response.json();
+          setCitasProgramadas(data.citas);
+        }
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
       }
     };
-  
+
     const fetchCitasRegistro = async () => {
-      if(!isUser){
-        const response = await fetch("/api/citasRegistro", {
-          method: "GET",
-        });
-        const data = await response.json();
-        setCitasRegistro(data.citas.reverse());
+      try {
+        if (!isUser) {
+          const response = await fetch("/api/citasRegistro", {
+            method: "GET",
+            signal: abortCont.signal,
+          });
+          const data = await response.json();
+          setCitasRegistro(data.citas.reverse());
+        } else {
+          const response = await fetch(`/api/citasRegistro/${props.user.dni}`, {
+            method: "GET",
+            signal: abortCont.signal,
+          });
+          const data = await response.json();
+          setCitasRegistro(data.citas.reverse());
+        }
+        setCargando(false);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
       }
-      else{
-        const response = await fetch(`/api/citasRegistro/${props.user.dni}`, {
-          method: "GET",
-        });
-        const data = await response.json();
-        setCitasRegistro(data.citas.reverse());
-      }
-      setCargando(false);
     };
 
     fetchCitasProgramadas();
     fetchCitasRegistro();
-  }, [isUser,props.user.dni]);
+
+    return () => {
+      abortCont.abort();
+    };
+  }, [isUser, props.user.dni]);
 
   const eliminarCita = async (codigoCita) => {
     const response = await fetch(`/api/citas/${codigoCita}`, {
@@ -82,26 +107,27 @@ const PanelCitas = (props) => {
         showConfirmButton: false,
         timer: 2000,
       }).then(async () => {
-        if(!isUser){
+        if (!isUser) {
           const response = await fetch("/api/citasProgramadas", {
             method: "GET",
           });
           const data = await response.json();
           setCitasProgramadas(data.citas);
-        }
-        else{
-          const response = await fetch(`/api/citasProgramadas/${props.user.dni}`, {
-            method: "GET",
-          });
+        } else {
+          const response = await fetch(
+            `/api/citasProgramadas/${props.user.dni}`,
+            {
+              method: "GET",
+            }
+          );
           const data = await response.json();
           setCitasProgramadas(data.citas);
         }
       });
-      
     }
-  }
+  };
 
-  if(cargando) return <Carga />
+  if (cargando) return <Carga />;
   return (
     <div className="container py-5 admin__panel-content">
       <div className="admin__panel__citas-prog">

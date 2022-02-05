@@ -21,20 +21,38 @@ const Card = () => {
   const [user, setUser] = React.useState({});
 
   React.useEffect(() => {
+    const abortCont = new AbortController();
+
     const fetchData = async () => {
-      const res = await fetch("https://randomuser.me/api/?nat=ES&inc=name,picture");
-      const user = await res.json();
+      try {
+        const res = await fetch(
+          "https://randomuser.me/api/?nat=ES&inc=name,picture",
+          {
+            signal: abortCont.signal,
+          }
+        );
+        const user = await res.json();
 
-      const finalUser = {
-        name: user.results[0].name.first,
-        image: user.results[0].picture.large,
-        comentario: comentarios[Math.floor(Math.random() * comentarios.length)],
-      };
+        const finalUser = {
+          name: user.results[0].name.first,
+          image: user.results[0].picture.large,
+          comentario:
+            comentarios[Math.floor(Math.random() * comentarios.length)],
+        };
 
-      setUser(finalUser);
+        setUser(finalUser);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
     };
 
     fetchData();
+
+    return () => {
+      abortCont.abort();
+    };
   }, []);
 
   return (

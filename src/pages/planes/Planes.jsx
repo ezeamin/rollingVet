@@ -10,16 +10,22 @@ import { useNavigate } from "react-router-dom";
 const Planes = (props) => {
   const navigate = useNavigate();
 
+  const testAuth = props.testAuth;
+
   React.useEffect(() => {
+    testAuth();
+    
     scrollDetection();
     window.scrollTo(0, 0);
-  }, []);
+  }, [testAuth]);
 
   React.useEffect(() => {
     if (props.isAdmin) {
       navigate("/admin");
+    } else if (props.isAuthenticated) {
+      navigate("/user");
     }
-  }, [props.isAdmin, navigate]);
+  }, [props.isAdmin, props.isAuthenticated, navigate]);
 
   return (
     <div>

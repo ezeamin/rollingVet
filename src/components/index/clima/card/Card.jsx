@@ -10,27 +10,43 @@ const Card = () => {
   const [clima, setClima] = React.useState(modelo);
 
   React.useEffect(() => {
+    const abortCont = new AbortController();
+
     const fetchClima = async () => {
-      const appId = "ac30c37d1ff270376eef9ad6c4c01a99";
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=Tucuman,Argentina&appid=${appId}&lang=es&units=metric`;
-      const respuesta = await fetch(url);
-      const datos = await respuesta.json();
+      try {
+        const appId = "ac30c37d1ff270376eef9ad6c4c01a99";
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=Tucuman,Argentina&appid=${appId}&lang=es&units=metric`;
+        const respuesta = await fetch(url, {
+          signal: abortCont.signal,
+        });
+        const datos = await respuesta.json();
 
-      const description =
-        datos.weather[0].description[0].toUpperCase() +
-        datos.weather[0].description.substring(1);
+        const description =
+          datos.weather[0].description[0].toUpperCase() +
+          datos.weather[0].description.substring(1);
 
-      const iconUrl =
-        "http://openweathermap.org/img/wn/" + datos.weather[0].icon + "@2x.png";
+        const iconUrl =
+          "http://openweathermap.org/img/wn/" +
+          datos.weather[0].icon +
+          "@2x.png";
 
-      setClima({
-        tiempo: Math.round(datos.main.temp),
-        description: description,
-        iconUrl: iconUrl,
-      });
+        setClima({
+          tiempo: Math.round(datos.main.temp),
+          description: description,
+          iconUrl: iconUrl,
+        });
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
     };
 
     fetchClima();
+
+    return () => {
+      abortCont.abort();
+    };
   }, []);
 
   return (

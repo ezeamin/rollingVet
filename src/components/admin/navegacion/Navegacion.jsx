@@ -108,18 +108,17 @@ const Navegacion = (props) => {
       });
   }, [props.isAdmin, props.user]);
 
-  const handleLogout = async () => {
-    await fetch("/api/logout", {
-      method: "DELETE",
-    });
-
+  const handleLogout = () => {
     Swal.fire({
       title: "¡Adios!",
       text: " ",
       timer: 2000,
       showCancelButton: false,
       showConfirmButton: false,
-    }).then(() => {
+    }).then(async () => {
+      await fetch("/api/logout", {
+        method: "DELETE",
+      });
       props.setIsAuthenticated(false);
       props.setIsAdmin(false);
       navigate("/");

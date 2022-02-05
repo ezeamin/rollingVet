@@ -12,9 +12,13 @@ const VerCita = (props) => {
   let codigoCita = urlSplit[urlSplit.length - 1];
   if(codigoCita.includes("VOD")) codigoCita = codigoCita.split("-")[0];
 
+  const testAuth = props.testAuth;
+
   React.useEffect(() => {
+    testAuth();
+    
     window.addEventListener("resize", resize);
-  }, []);
+  }, [testAuth]);
   
   React.useEffect(() => {
     if (!props.isAuthenticated) {

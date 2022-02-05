@@ -23,78 +23,95 @@ const List = (props) => {
   const [cargando, setCargando] = React.useState(true);
 
   React.useEffect(() => {
+    const abortCont = new AbortController();
+
     const fetchPacientes = async () => {
-      const response = await fetch("api/pacientes", {
-        method: "GET",
-      });
-      let data = await response.json();
-
-      if (data.pacientes.length === 0) {
-        setDatos([]);
-        setCargando(false);
-        setContent("null");
-        return;
-      }
-
-      let datos = [];
-
-      data.pacientes.reverse();
-      data.pacientes = data.pacientes.slice(0, 3);
-
-      data.pacientes.forEach((paciente) => {
-        const nombre = `${paciente.nombre} ${paciente.apellido}`;
-        datos.push({
-          avatar: paciente.avatar,
-          nombre: nombre,
-          mascotas: paciente.mascotas.length,
-          plan: paciente.plan,
+      try {
+        const response = await fetch("api/pacientes", {
+          method: "GET",
+          signal: abortCont.signal,
         });
-      });
-      setDatos(datos);
-      setCargando(false);
-      setContent("pacientes");
+        let data = await response.json();
+
+        if (data.pacientes.length === 0) {
+          setDatos([]);
+          setCargando(false);
+          setContent("null");
+          return;
+        }
+
+        let datos = [];
+
+        data.pacientes.reverse();
+        data.pacientes = data.pacientes.slice(0, 3);
+
+        data.pacientes.forEach((paciente) => {
+          const nombre = `${paciente.nombre} ${paciente.apellido}`;
+          datos.push({
+            avatar: paciente.avatar,
+            nombre: nombre,
+            mascotas: paciente.mascotas.length,
+            plan: paciente.plan,
+          });
+        });
+        setDatos(datos);
+        setCargando(false);
+        setContent("pacientes");
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
     };
 
     const fetchCitas = async (modo) => {
-      let data;
-      if (modo === "todas") {
-        const response = await fetch("api/citasProgramadas", {
-          method: "GET",
-        });
-        data = await response.json();
-      } else {
-        const response = await fetch(`api/citasProgramadas/${props.dni}`, {
-          method: "GET",
-        });
-        data = await response.json();
-      }
+      try {
+        let data;
+        if (modo === "todas") {
+          const response = await fetch("api/citasProgramadas", {
+            method: "GET",
+            signal: abortCont.signal,
+          });
+          data = await response.json();
+        } else {
+          const response = await fetch(`api/citasProgramadas/${props.dni}`, {
+            method: "GET",
+            signal: abortCont.signal,
+          });
+          data = await response.json();
+        }
 
-      if (data.citas.length === 0) {
-        setDatos([""]);
+        if (data.citas.length === 0) {
+          setDatos([""]);
+          setCargando(false);
+          setContent("null");
+          return;
+        }
+
+        let datos = [];
+
+        data.citas.sort((a, b) => comparar(a, b));
+        data.citas = data.citas.slice(0, 3);
+
+        data.citas.forEach((cita) => {
+          const nombre = `${cita.paciente.nombre}`;
+          datos.push({
+            avatar: cita.paciente.avatar,
+            nombre: nombre,
+            mascota: cita.mascota,
+            fecha: convertir(cita.fecha),
+            hora: cita.hora,
+          });
+        });
+        setDatos(datos);
         setCargando(false);
-        setContent("null");
-        return;
+        if (modo === "todas") setContent("citas");
+        else setContent("citasPropias");
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
       }
-
-      let datos = [];
-
-      data.citas.sort((a, b) => comparar(a, b));
-      data.citas = data.citas.slice(0, 3);
-
-      data.citas.forEach((cita) => {
-        const nombre = `${cita.paciente.nombre}`;
-        datos.push({
-          avatar: cita.paciente.avatar,
-          nombre: nombre,
-          mascota: cita.mascota,
-          fecha: convertir(cita.fecha),
-          hora: cita.hora,
-        });
-      });
-      setDatos(datos);
-      setCargando(false);
-      if (modo === "todas") setContent("citas");
-      else setContent("citasPropias");
     };
 
     switch (props.content) {
@@ -110,6 +127,10 @@ const List = (props) => {
       default:
         break;
     }
+
+    return () => {
+      abortCont.abort();
+    };
   }, [props.content, props.dni]);
 
   if (cargando)

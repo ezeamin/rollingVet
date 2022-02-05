@@ -3,32 +3,47 @@ import Plan from "./plan/Plan";
 import "./planes.css";
 
 const Planes = () => {
-  const [planes,setPlanes] = React.useState([]);
+  const [planes, setPlanes] = React.useState([]);
 
   React.useEffect(() => {
+    const abortCont = new AbortController();
+
     const fetchPrecios = async () => {
-      const response = await fetch("/api/precios",{
-        method: "GET",
-      });
-      const data = await response.json();
-      
-      setPlanes([{
-        num: 1,
-        precio: data.precios[0].precio,
-        precioTotal: data.precios[0].precioTotal,
-      },
-      {
-        num: 2,
-        precio: data.precios[1].precio,
-        precioTotal: data.precios[1].precioTotal,
-      },
-      {
-        num: 3,
-        precio: data.precios[2].precio,
-        precioTotal: data.precios[2].precioTotal,
-      }]);
-    }
+      try {
+        const response = await fetch("/api/precios", {
+          method: "GET",
+          signal: abortCont.signal,
+        });
+        const data = await response.json();
+
+        setPlanes([
+          {
+            num: 1,
+            precio: data.precios[0].precio,
+            precioTotal: data.precios[0].precioTotal,
+          },
+          {
+            num: 2,
+            precio: data.precios[1].precio,
+            precioTotal: data.precios[1].precioTotal,
+          },
+          {
+            num: 3,
+            precio: data.precios[2].precio,
+            precioTotal: data.precios[2].precioTotal,
+          },
+        ]);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
+    };
     fetchPrecios();
+
+    return () => {
+      abortCont.abort();
+    };
   }, []);
 
   return (
@@ -44,7 +59,14 @@ const Planes = () => {
       </div>
       <div className="card-planes">
         {planes.map((plan, index) => {
-          return <Plan categoria={plan.num} key={index} precio={plan.precio} precioTotal={plan.precioTotal}/>;
+          return (
+            <Plan
+              categoria={plan.num}
+              key={index}
+              precio={plan.precio}
+              precioTotal={plan.precioTotal}
+            />
+          );
         })}
       </div>
     </div>

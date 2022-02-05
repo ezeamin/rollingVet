@@ -12,17 +12,30 @@ const PanelPerfil = (props) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
+    const abortCont = new AbortController();
+
     const traerInfo = async () => {
+      try {
       const res = await fetch(`/api/pacientes/${props.user.dni}`, {
         method: "GET",
+        signal: abortCont.signal,
       });
       const data = await res.json();
 
       setInfo(data.paciente);
       setCargando(false);
       setNombreCompleto(`${data.paciente.nombre} ${data.paciente.apellido}`);
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        console.log(err);
+      }
+    }
     };
     traerInfo();
+
+    return () => {
+      abortCont.abort();
+    };
   }, [props.user.dni]);
 
   const navigateSuccess = () => {
