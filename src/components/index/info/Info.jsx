@@ -26,7 +26,7 @@ const Info = () => {
                     <img src='img/index/marcas/whiskas.png' alt='whiskas' />
                 </div>
                 <div className='marcas__container'>
-                    <img src='img/index/marcas/purina.png' alt='purina' style={{width: "120px"}}/>
+                    <img src='img/index/marcas/purina.png' alt='purina' style={{width: "140px"}}/>
                 </div>
             </article>
             <p className='p__mascotas mt-4' id="planes">¡Tenemos lo que necesites para el cuidado de tu mascota!</p>

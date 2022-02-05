@@ -78,8 +78,8 @@ export default function animateGallery() {
     }
   }, 4500);
 
-  setTimeout(() => {
+  /*setTimeout(() => {
     clearInterval(int1);
     clearInterval(int2);
-  }, 60000);
+  }, 60000);*/
 }

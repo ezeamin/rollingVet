@@ -1,18 +1,17 @@
 {
   "name": "rollingvet",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tu veterinaria de confianza",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["veterinaria","obra social de mascotas","tucuman"],
+  "author": "Ezequiel Amin",
   "license": "ISC",
   "dependencies": {
-    "@emailjs/browser": "^3.4.0",
     "bcrypt": "^5.0.1",
     "express": "^4.17.2",
     "express-session": "^1.17.2",
