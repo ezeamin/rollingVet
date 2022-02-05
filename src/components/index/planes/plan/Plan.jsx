@@ -39,7 +39,7 @@ const Plan = (props) => {
       default: {
       }
     }
-  }, [props.categoria]);
+  }, [props.categoria, props.precio, props.precioTotal]);
 
   return (
     <div className="card">

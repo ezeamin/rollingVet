@@ -141,6 +141,19 @@ class FormularioRegistro extends Component {
     this.props.navigateSuccess();
   }
 
+  capitalize(string) {
+    //capitalize each word
+
+    let words = string.split(" ");
+    let newWords = [];
+
+    words.forEach((word) => {
+      newWords.push(word[0].toUpperCase() + word.slice(1));
+    });
+
+    return newWords.join(" ");
+  }
+
   async registrar(boton) {
     const res = await fetch("/api/signup", {
       method: "POST",
@@ -148,8 +161,8 @@ class FormularioRegistro extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        nombre: this.state.nombre,
-        apellido: this.state.apellido,
+        nombre: this.capitalize(this.state.nombre),
+        apellido: this.capitalize(this.state.apellido),
         dni: this.state.dni,
         genero: this.state.genero,
         email: this.state.email,

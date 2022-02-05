@@ -262,6 +262,16 @@ router.delete("/api/citas/:codigoCita", (req, res) => {
         err,
       });
     } else {
+      const fecha = cita.fecha;
+      const hora = cita.hora;
+
+      DbFechas.findOne({ fecha: fecha }, (err, doc) => {
+        if(doc){
+          doc.ocupados = doc.ocupados.filter((ocupado) => ocupado !== hora);
+          doc.save();
+        }
+      });
+
       res.status(200).json({
         ok: true,
       });

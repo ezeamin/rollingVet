@@ -106,10 +106,11 @@ const List = (props) => {
         break;
       case "citasPropias":
         fetchCitas("propias");
+        break;
       default:
         break;
     }
-  }, [props.content]);
+  }, [props.content, props.dni]);
 
   if (cargando)
     if (props.content === "citasPropias") {
