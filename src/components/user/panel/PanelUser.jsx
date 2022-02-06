@@ -35,6 +35,8 @@ const PanelUser = (props) => {
         setMascotas(info.mascotas);
         setCitas(info.citas);
         setCargando(false);
+
+        if(info.mascotas===0) {}
       } catch (err) {
         if (err.name !== "AbortError") {
           console.log(err);
@@ -58,6 +60,7 @@ const PanelUser = (props) => {
   return (
     <div className="container py-5 admin__panel-content">
       <h1 className="mb-3 h3__bold">Dashboard</h1>
+      <p className="p__descripciones">Agrega mascotas en "Mi perfil"</p>
       <div className="row user__panel-content">
         <div className="col-sm-12 col-lg-6 col-xl-4">
           <div className="row admin__panel-content-cards">

@@ -8,13 +8,11 @@ import { useNavigate } from "react-router-dom";
 const Citas = (props) => {
   const navigate = useNavigate();
 
-  const testAuth = props.testAuth;
-
   React.useEffect(() => {
-    testAuth();
+    props.testAuth();
     
     window.addEventListener("resize", resize);
-  }, [testAuth]);
+  }, []);
 
   React.useEffect(() => {
     if (!props.isAuthenticated) {

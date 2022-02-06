@@ -31,6 +31,8 @@ function App() {
 
   const testAuth = async () => {
     try {
+      //if(isAdmin || isAuthenticated) return;
+
       const res = await fetch("/api/auth", {
         method: "GET",
         credentials: "include",

@@ -21,6 +21,7 @@ class FormularioMascota extends Component {
     },
     cargando: true,
     titulo: this.props.titulo,
+    isUser: window.location.href.includes("user"),
   };
 
   handleChange = (e) => {
@@ -93,7 +94,10 @@ class FormularioMascota extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    let error = [false, false, false, false, false, false];
+    let error;
+    if(!this.state.isUser) error = [false, false, false, false, false, false];
+    else error = [false, false, false, false, false];
+
     let errorGeneral = false;
 
     error[0] = this.verificar("nombre", this.state.nombre);
@@ -101,7 +105,7 @@ class FormularioMascota extends Component {
     error[2] = this.verificar("raza", this.state.raza);
     error[3] = this.verificar("fechaNac", this.state.fechaNac);
     error[4] = this.verificar("sexo", this.state.sexo);
-    error[5] = this.verificar("plan", this.state.plan);
+    if(!this.state.isUser) error[5] = this.verificar("plan", this.state.plan);
 
     error.forEach((element) => {
       if (element) {
@@ -265,6 +269,9 @@ class FormularioMascota extends Component {
             </Form.Group>
           </div>
           <Form.Group className="mt-2 nuevaCita-input">
+            <div className="text-center">
+              <label>Fecha de nacimiento</label>
+            </div>
             <Form.Control
               type="date"
               placeholder="Fecha de nacimiento"
@@ -279,6 +286,7 @@ class FormularioMascota extends Component {
               Ingrese una fecha valida
             </Form.Control.Feedback>
           </Form.Group>
+          {!this.state.isUser ? 
           <Form.Group className="mt-2 w-100">
             <Form.Select
               type="select"
@@ -300,6 +308,7 @@ class FormularioMascota extends Component {
               Seleccione un plan
             </Form.Control.Feedback>
           </Form.Group>
+           : null}
           <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">
             Guardar
           </button>

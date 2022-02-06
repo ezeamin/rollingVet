@@ -138,12 +138,17 @@ router.put("/api/pacientes/mascota/:dni", (req, res) => {
       if (mascota.codigoMascota === "") {
         //nueva mascota
         mascota.codigoMascota = generarCodigo();
+        mascota.plan = "Sin plan";
         paciente.mascotas.push(mascota);
       } else {
         //editar mascota
         const mascotaIndex = paciente.mascotas.findIndex(
           (mascota) => mascota.codigoMascota === req.body.codigoMascota
         );
+
+        let prevPlan = paciente.mascotas[mascotaIndex].plan;
+        if(mascota.plan === "") mascota.plan = prevPlan; //editado desde user, no se carga plan y se mantiene el anterior
+
         paciente.mascotas[mascotaIndex] = mascota;
       }
 
