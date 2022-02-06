@@ -1,6 +1,5 @@
 {
   "short_name": "Rolling Vet",
-  "proxy": "http://localhost:5000/",
   "name": "Rolling Vet",
   "start_url": "/",
   "display": "standalone",

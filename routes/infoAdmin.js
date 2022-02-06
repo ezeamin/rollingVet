@@ -116,6 +116,27 @@ router.get("/api/pacientes/:dni/:codigoMascota", (req, res) => {
   });
 });
 
+router.delete("/api/pacientes/:dni/:codigoMascota", (req, res) => {
+  DbPacientes.findOne({ dni: req.params.dni }, (err, paciente) => {
+    if (err) {
+      res.status(500).json({
+        ok: false,
+        err,
+      });
+    } else {
+      const mascota = paciente.mascotas.find(
+        (mascota) => mascota.codigoMascota === req.params.codigoMascota
+      );
+      if (mascota) {
+        paciente.mascotas.splice(paciente.mascotas.indexOf(mascota), 1);
+        paciente.save();
+      }
+
+      res.status(200).json({ok: true});
+    }
+  });
+});
+
 const generarCodigo = () => {
   let codigo = "";
   const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -138,12 +159,17 @@ router.put("/api/pacientes/mascota/:dni", (req, res) => {
       if (mascota.codigoMascota === "") {
         //nueva mascota
         mascota.codigoMascota = generarCodigo();
+        mascota.plan = "Sin plan";
         paciente.mascotas.push(mascota);
       } else {
         //editar mascota
         const mascotaIndex = paciente.mascotas.findIndex(
           (mascota) => mascota.codigoMascota === req.body.codigoMascota
         );
+
+        let prevPlan = paciente.mascotas[mascotaIndex].plan;
+        if(mascota.plan === "") mascota.plan = prevPlan; //editado desde user, no se carga plan y se mantiene el anterior
+
         paciente.mascotas[mascotaIndex] = mascota;
       }
 
@@ -262,6 +288,16 @@ router.delete("/api/citas/:codigoCita", (req, res) => {
         err,
       });
     } else {
+      const fecha = cita.fecha;
+      const hora = cita.hora;
+
+      DbFechas.findOne({ fecha: fecha }, (err, doc) => {
+        if(doc){
+          doc.ocupados = doc.ocupados.filter((ocupado) => ocupado !== hora);
+          doc.save();
+        }
+      });
+
       res.status(200).json({
         ok: true,
       });
