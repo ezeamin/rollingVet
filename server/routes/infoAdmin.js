@@ -116,6 +116,27 @@ router.get("/api/pacientes/:dni/:codigoMascota", (req, res) => {
   });
 });
 
+router.delete("/api/pacientes/:dni/:codigoMascota", (req, res) => {
+  DbPacientes.findOne({ dni: req.params.dni }, (err, paciente) => {
+    if (err) {
+      res.status(500).json({
+        ok: false,
+        err,
+      });
+    } else {
+      const mascota = paciente.mascotas.find(
+        (mascota) => mascota.codigoMascota === req.params.codigoMascota
+      );
+      if (mascota) {
+        paciente.mascotas.splice(paciente.mascotas.indexOf(mascota), 1);
+        paciente.save();
+      }
+
+      res.status(200).json({ok: true});
+    }
+  });
+});
+
 const generarCodigo = () => {
   let codigo = "";
   const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

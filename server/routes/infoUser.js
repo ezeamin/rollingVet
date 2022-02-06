@@ -9,8 +9,8 @@ router.get("/api/user/qty/:dni", (req, res) => {
     if (doc) {
       let qtyMascotas = doc.mascotas.length;
 
-      DbCitas.countDocuments({ dni: req.params.dni, atendido: false }, (err, count) => {
-        let qtyCitas = count;
+      DbCitas.find({atendido: false }, (err,docs) => {
+        let qtyCitas = docs.filter(cita => {return(cita.paciente.dni === req.params.dni)}).length;
 
         res.status(200).json({ mascotas: qtyMascotas, citas: qtyCitas });
       });

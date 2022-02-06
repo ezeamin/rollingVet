@@ -13,11 +13,11 @@ const Planes = (props) => {
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    testAuth();
+    props.testAuth();
     
     scrollDetection();
     window.scrollTo(0, 0);
-  }, [testAuth]);
+  }, []);
 
   React.useEffect(() => {
     if (props.isAdmin) {

@@ -12,7 +12,7 @@ const PlanesUser = (props) => {
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    testAuth();
+    props.testAuth();
     
     window.addEventListener("resize", resize);
   }, [testAuth]);

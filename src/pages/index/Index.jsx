@@ -22,8 +22,8 @@ const Index = (props) => {
     scrollDetection();
     window.scrollTo(0, 0);
 
-    testAuth();
-  }, [testAuth]);
+    props.testAuth();
+  }, []);
 
   React.useEffect(() => {
     if(props.isAuthenticated) {

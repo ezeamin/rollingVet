@@ -3,6 +3,7 @@ import BotonCrear from "../../botonCrear/BotonCrear";
 import Tabla from "../../tabla/Tabla";
 import { useNavigate } from "react-router";
 import Carga from "../../carga/Carga";
+import Swal from "sweetalert2";
 
 const opciones = [
   "Nombre",
@@ -54,7 +55,31 @@ const PanelMascotas = (props) => {
     }
   }, [info]);
 
-  const eliminar = async (codigoMascota) => {};
+  const eliminar = (codigoMascota) => {
+    fetch(`/api/pacientes/${props.dni}/${codigoMascota}`, {
+      method: "DELETE",
+    }).then(() => {
+      Swal.fire({
+        title: "Mascota eliminada",
+        text: " ",
+        icon: "success",
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 1500  
+      }).then(() => {
+        const fetchPaciente = async () => {
+            const response = await fetch(`/api/pacientes/${props.dni}`, {
+              method: "GET",
+            });
+            const data = await response.json();
+
+            setInfo(data.paciente);
+        };
+    
+        fetchPaciente();
+      });
+    });
+  };
 
   const handleClick = () => {
     if (window.location.href.includes("admin"))

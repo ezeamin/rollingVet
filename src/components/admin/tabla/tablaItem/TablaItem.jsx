@@ -86,7 +86,9 @@ const TablaItem = (props) => {
       cancelButtonColor: "#6c757d",
       cancelButtonText: "Cancelar",
     }).then((result) => {
-      if (result.isConfirmed) props.eliminar(props.info.codigoMascota);
+      if (result.isConfirmed) {
+        props.eliminar(props.info.codigoMascota);
+      }
     });
   };
 

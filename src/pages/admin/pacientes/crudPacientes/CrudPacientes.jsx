@@ -19,7 +19,7 @@ const CrudPacientes = (props) => {
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    testAuth();
+    props.testAuth();
     
     window.addEventListener("resize", resize);
 
@@ -45,7 +45,7 @@ const CrudPacientes = (props) => {
     return () => {
       abortCont.abort();
     };
-  }, [dni,testAuth]);
+  }, [dni]);
 
   React.useEffect(() => {
     if (!props.isAdmin) {

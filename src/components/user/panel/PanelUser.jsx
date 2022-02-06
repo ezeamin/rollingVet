@@ -9,6 +9,7 @@ const PanelUser = (props) => {
   const [mascotas, setMascotas] = React.useState(0);
   const [citas, setCitas] = React.useState(0);
   const [cargando, setCargando] = React.useState(true);
+  const [mascotaNull, setMascotaNull] = React.useState(false);
   const navigate = useNavigate();
 
   const info = [
@@ -36,7 +37,9 @@ const PanelUser = (props) => {
         setCitas(info.citas);
         setCargando(false);
 
-        if(info.mascotas===0) {}
+        if(info.mascotas===0) {
+          setMascotaNull(true);
+        }
       } catch (err) {
         if (err.name !== "AbortError") {
           console.log(err);
@@ -60,7 +63,7 @@ const PanelUser = (props) => {
   return (
     <div className="container py-5 admin__panel-content">
       <h1 className="mb-3 h3__bold">Dashboard</h1>
-      <p className="p__descripciones">Agrega mascotas en "Mi perfil"</p>
+      {mascotaNull ? <p className="p__descripciones">Agrega mascotas en "Mi perfil"</p> : null}
       <div className="row user__panel-content">
         <div className="col-sm-12 col-lg-6 col-xl-4">
           <div className="row admin__panel-content-cards">

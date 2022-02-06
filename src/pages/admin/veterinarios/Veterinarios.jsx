@@ -11,10 +11,10 @@ const Veterinarios = (props) => {
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    testAuth();
+    props.testAuth();
     
     window.addEventListener("resize", resize);
-  }, [testAuth]);
+  }, []);
 
   React.useEffect(() => {
     if (!props.isAdmin) {
