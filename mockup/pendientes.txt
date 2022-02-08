@@ -1,0 +1,18 @@
+pendiente
+
+//admin
+
+//cliente
+mi perfil (plan actual/mascotas abm)
+citas (abm)
+
+//DB
+Pacientes
+(Veterinarios)
+Citas futuras
+Citas pasadas
+Precios
+
+PREGUNTAR
+rombo
+altura distinta en tablas

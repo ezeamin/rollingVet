@@ -39,7 +39,7 @@ const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  return res.status(401).json({ message: "Unauthorized", code: 1 });
+  return res.status(200).json({ message: "Unauthorized", code: 401 });
 };
 
 router.get("/api/auth", isAuthenticated, (req, res) => {
