@@ -12,11 +12,11 @@ const Perfil = (props) => {
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(true);
     
     window.addEventListener("resize", resize);
   }, []);
-
+/*
   React.useEffect(() => {
     if (!props.isAuthenticated) {
       navigate("/");
@@ -25,7 +25,7 @@ const Perfil = (props) => {
       navigate("/admin");
     }
   }, [props.isAuthenticated, props.isAdmin, navigate]);
-
+*/
   return (
     <div className="row admin">
       <div className="col-xl-2 admin__nav">

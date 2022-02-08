@@ -13,7 +13,7 @@ export default function scrollDetection() {
     setTimeout(() => {
       document.getElementsByClassName("logo")[0].style.transition = "all 0.5s ease";
       document.querySelector("header").style.transition = "all 0.5s ease";
-    },500);
+    },100);
   }
 
   window.addEventListener("scroll", function () {

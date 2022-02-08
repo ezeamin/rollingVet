@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Index from "./pages/index/Index";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
 import Planes from "./pages/planes/Planes";
 import scrollDetection from "./js/scroll";
 import Pag404 from "./pages/pag404/Pag404";
@@ -28,11 +28,10 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [user, setUser] = React.useState({});
   const [isAdmin, setIsAdmin] = React.useState(false);
+  //const navigate = useNavigate();
 
-  const testAuth = async () => {
+  const testAuth = async (isProtected) => {
     try {
-      //if(isAdmin || isAuthenticated) return;
-
       const res = await fetch("/api/auth", {
         method: "GET",
         credentials: "include",
@@ -42,15 +41,18 @@ function App() {
       if (data.code === 200) {
         setIsAuthenticated(true);
         setUser(data.user);
+        if(data.user.dni==="1") setIsAdmin(true);
 
-        const res2 = await fetch("/api/isAdmin", {
-          method: "GET",
-        });
-        const data2 = await res2.json();
-        if (data2.isAdmin) setIsAdmin(true);
+        const url = window.location.href;
+        if(!(url.includes("/user") || url.includes("/admin"))){
+          if(data.user.dni==="1") window.location.href="/admin";
+          else window.location.href="/user";
+        } 
       } else {
         setIsAuthenticated(false); //poner en true para empezar, como isAdmin
         setIsAdmin(false);
+
+        if(isProtected && window.location.href!=="/") window.location.href="/";
       }
     } catch (err) {}
   };

@@ -4,22 +4,14 @@ import NavegacionResponsive from "../../components/admin/navegacion/navegacionRe
 import Panel from "../../components/admin/panel/Panel";
 import "./admin.css";
 import resize from "../../js/adminResize";
-import { useNavigate } from "react-router-dom";
 
 const Admin = (props) => {
-  const navigate = useNavigate();
 
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(true);
     
     window.addEventListener("resize", resize);
   }, []);
-
-  React.useEffect(() => {
-    if (!props.isAdmin) {
-      navigate("/");
-    }
-  }, [props.isAdmin,navigate]);
 
   return (
     <div className="row admin">

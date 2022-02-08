@@ -19,7 +19,7 @@ const CrudPacientes = (props) => {
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(true);
     
     window.addEventListener("resize", resize);
 
@@ -46,12 +46,6 @@ const CrudPacientes = (props) => {
       abortCont.abort();
     };
   }, [dni]);
-
-  React.useEffect(() => {
-    if (!props.isAdmin) {
-      navigate("/");
-    }
-  }, [props.isAdmin, navigate]);
 
   const redirectMascotas = () => {
     navigate(`/admin/pacientes/${dni}/mascotas`);

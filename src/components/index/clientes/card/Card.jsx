@@ -3,7 +3,7 @@ import "./card.css";
 
 const comentarios = [
   "Es lo mejor que me pasó en mi vida",
-  "La atencion es excelente, en especial la del doctor Eze",
+  "La atencion es excelente, en especial la del doctor Esteban",
   "Es una excelente atencion, la recomiendo",
   "Lleve a mi Schnauzer a lavado y lo dejaron impecable",
   "Muy bien ubicado, muy buena atencion",

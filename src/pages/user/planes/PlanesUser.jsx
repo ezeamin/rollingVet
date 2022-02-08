@@ -4,26 +4,16 @@ import NavegacionResponsive from "../../../components/admin/navegacion/navegacio
 import PanelPlanes from "../../../components/user/planes/PanelPlanes";
 import "./planes.css";
 import resize from "../../../js/adminResize";
-import { useNavigate } from "react-router-dom";
 
 const PlanesUser = (props) => {
-  const navigate = useNavigate();
 
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(true);
     
     window.addEventListener("resize", resize);
   }, []);
-
-  React.useEffect(() => {
-    if (!props.isAuthenticated) {
-      navigate("/");
-    } else if (props.isAdmin) {
-      navigate("/admin");
-    }
-  }, [props.isAuthenticated, props.isAdmin, navigate]);
 
   return (
     <div className="row admin">
@@ -37,7 +27,7 @@ const PlanesUser = (props) => {
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />
-        <PanelPlanes user={props.user} />
+        <PanelPlanes user={props.user || {}} />
       </div>
     </div>
   );

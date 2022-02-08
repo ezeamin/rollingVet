@@ -10,12 +10,8 @@ const Login = (props) => {
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    props.testAuth();
-    
-    if (props.isAuthenticated) {
-      navigate("/");
-    }
-  }, [props.isAuthenticated,navigate]);
+    props.testAuth(false);
+  }, []);
 
   const navigateSuccess = (isAdmin) => {
     props.setIsAuthenticated(true);

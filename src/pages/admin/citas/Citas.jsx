@@ -3,22 +3,14 @@ import PanelCitas from "../../../components/admin/citas/PanelCitas";
 import Navegacion from "../../../components/admin/navegacion/Navegacion";
 import NavegacionResponsive from "../../../components/admin/navegacion/navegacionResponsive/NavegacionResponsive";
 import resize from "../../../js/adminResize";
-import { useNavigate } from "react-router-dom";
 
 const Citas = (props) => {
-  const navigate = useNavigate();
-
+  
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(true);
     
     window.addEventListener("resize", resize);
   }, []);
-
-  React.useEffect(() => {
-    if (!props.isAuthenticated) {
-      navigate("/");
-    }
-  }, [props.isAuthenticated, navigate]);
 
   return (
     <div className="row admin">

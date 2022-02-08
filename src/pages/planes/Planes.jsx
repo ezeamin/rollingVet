@@ -5,27 +5,17 @@ import Header from "../../components/header/Header";
 import Main from "../../components/planes/main/Main";
 import DetallePlanes from "../../components/planes/detallePlanes/DetallePlanes";
 import scrollDetection from "../../js/scroll";
-import { useNavigate } from "react-router-dom";
 
 const Planes = (props) => {
-  const navigate = useNavigate();
 
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(false);
     
     scrollDetection();
     window.scrollTo(0, 0);
   }, []);
-
-  React.useEffect(() => {
-    if (props.isAdmin) {
-      navigate("/admin");
-    } else if (props.isAuthenticated) {
-      navigate("/user");
-    }
-  }, [props.isAdmin, props.isAuthenticated, navigate]);
 
   return (
     <div>

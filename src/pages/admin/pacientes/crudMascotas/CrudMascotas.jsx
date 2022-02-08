@@ -3,7 +3,6 @@ import Navegacion from "../../../../components/admin/navegacion/Navegacion";
 import NavegacionResponsive from "../../../../components/admin/navegacion/navegacionResponsive/NavegacionResponsive";
 import resize from "../../../../js/adminResize";
 import PanelMascotas from "../../../../components/admin/pacientes/panelMascotas/PanelMascotas";
-import { useNavigate } from "react-router-dom";
 
 const CrudMascotas = (props) => {
   const url = window.location.href;
@@ -12,22 +11,14 @@ const CrudMascotas = (props) => {
   
   if(url.includes("admin")) dni = urlSplit[urlSplit.length - 2];
   else dni = props.user.dni;
-
-  const navigate = useNavigate();
   
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(true);
     
     window.addEventListener("resize", resize);
   }, []);
-  
-  React.useEffect(() => {
-    if (!props.isAuthenticated) {
-      navigate("/");
-    }
-  }, [props.isAuthenticated, navigate]);
 
   return (
     <div className="row admin">

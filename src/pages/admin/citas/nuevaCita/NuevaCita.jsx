@@ -3,24 +3,16 @@ import PanelNuevaCita from "../../../../components/admin/citas/panelNuevaCita/Pa
 import Navegacion from "../../../../components/admin/navegacion/Navegacion";
 import NavegacionResponsive from "../../../../components/admin/navegacion/navegacionResponsive/NavegacionResponsive";
 import resize from "../../../../js/adminResize";
-import { useNavigate } from "react-router-dom";
 
 const NuevaCita = (props) => {
-  const navigate = useNavigate();
 
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(true);
     
     window.addEventListener("resize", resize);
   }, []);
-  
-  React.useEffect(() => {
-    if (!props.isAuthenticated) {
-      navigate("/");
-    }
-  }, [props.isAuthenticated, navigate]);
 
   return (
     <div className="row admin">

@@ -15,16 +15,10 @@ const VerCita = (props) => {
   const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(true);
     
     window.addEventListener("resize", resize);
   }, []);
-  
-  React.useEffect(() => {
-    if (!props.isAuthenticated) {
-      navigate("/");
-    }
-  }, [props.isAuthenticated, navigate]);
 
   const navigateSuccess = () => {
     navigate("/admin/citas");

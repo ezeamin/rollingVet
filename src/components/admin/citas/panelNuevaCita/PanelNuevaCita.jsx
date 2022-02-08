@@ -21,12 +21,11 @@ const horariosFull = [
 const PanelNuevaCita = (props) => {
   const navigate = useNavigate();
 
-  const [isUser, setIsUser] = React.useState(
-    window.location.href.includes("user")
-  );
+  const isUser = window.location.href.includes("user")
+
   const [desbloquear, setDesbloquear] = React.useState(false);
   const [paciente, setPaciente] = React.useState({
-    mascotas: [{}],
+      mascotas: [{}],
   });
 
   const navigateSuccess = () => {
@@ -47,8 +46,10 @@ const PanelNuevaCita = (props) => {
         document.getElementsByClassName(
           "admin__panel__nuevaCita-forms-cita__disabled"
         )[0].style.display = "block";
+    } else{
+      if(Object.keys(props.user).length !== 0) setPaciente(props.user)
     }
-  }, [desbloquear, isUser]);
+  }, [desbloquear, isUser, props.user]);
 
   React.useEffect(() => {
     //actualizar horarios
@@ -129,7 +130,7 @@ const PanelNuevaCita = (props) => {
             <div className="admin__panel__nuevaCita-forms-cita">
               <FormularioCita
                 desbloquear={true}
-                paciente={props.user}
+                paciente={paciente}
                 setHorarios={setHorarios}
                 horarios={horarios}
                 setFecha={setFecha}

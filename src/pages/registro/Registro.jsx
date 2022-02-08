@@ -23,7 +23,7 @@ const Registro = (props) => {
   const testAuth = props.testAuth;
   
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(false);
     
     const generateAvatar = () => {
       const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg?mood=happy`;//skinColor=variant01
@@ -33,13 +33,6 @@ const Registro = (props) => {
 
     generateAvatar();
   }, []); //randomSeed, genero
-  
-
-  React.useEffect(() => {
-    if (props.isAuthenticated) {
-      navigate("/");
-    }
-  }, [props.isAuthenticated, navigate]);
 
   const changeAvatar = (nuevoGenero) => {
     if (nuevoGenero === "Masculino") nuevoGenero = "male";

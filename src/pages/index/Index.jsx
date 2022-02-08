@@ -11,10 +11,8 @@ import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import "./indexPage.css";
 import scrollDetection from "../../js/scroll";
-import { useNavigate } from "react-router-dom";
 
 const Index = (props) => {
-  const navigate = useNavigate();
   
   const testAuth = props.testAuth;
 
@@ -22,19 +20,8 @@ const Index = (props) => {
     scrollDetection();
     window.scrollTo(0, 0);
 
-    props.testAuth();
+    props.testAuth(false);
   }, []);
-
-  React.useEffect(() => {
-    if(props.isAuthenticated) {
-      if (props.isAdmin) {
-        navigate("/admin");
-      }
-      else {
-        navigate("/user");
-      }
-    }
-  }, [props.isAdmin, props.isAuthenticated, navigate]);
 
   return (
     <div>

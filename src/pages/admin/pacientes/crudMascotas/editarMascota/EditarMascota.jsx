@@ -3,7 +3,6 @@ import Navegacion from "../../../../../components/admin/navegacion/Navegacion";
 import NavegacionResponsive from "../../../../../components/admin/navegacion/navegacionResponsive/NavegacionResponsive";
 import resize from "../../../../../js/adminResize";
 import PanelEditarMascota from "../../../../../components/admin/pacientes/panelEditarMascota/PanelEditarMascota";
-import { useNavigate } from "react-router-dom";
 
 const EditarMascota = (props) => {
   const url = window.location.href;
@@ -17,21 +16,13 @@ const EditarMascota = (props) => {
     dni = props.user.dni
   }
 
-  const navigate = useNavigate();
-
   //const testAuth = props.testAuth;
 
   React.useEffect(() => {
-    props.testAuth();
+    props.testAuth(true);
 
     window.addEventListener("resize", resize);
   }, []);
-  
-  React.useEffect(() => {
-    if (!props.isAuthenticated) {
-      navigate("/");
-    }
-  }, [props.isAuthenticated,navigate]);
 
   return (
     <div className="row admin">
