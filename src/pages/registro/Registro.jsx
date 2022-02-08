@@ -21,18 +21,19 @@ const Registro = (props) => {
   const [genero, setGenero] = React.useState(gen);
 
   const testAuth = props.testAuth;
-
+  
   React.useEffect(() => {
     props.testAuth();
     
     const generateAvatar = () => {
-      const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg`;
+      const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg?mood=happy`;//skinColor=variant01
 
       setAvatarUrl(url);
     };
 
     generateAvatar();
-  }, [randomSeed, genero]);
+  }, []); //randomSeed, genero
+  
 
   React.useEffect(() => {
     if (props.isAuthenticated) {

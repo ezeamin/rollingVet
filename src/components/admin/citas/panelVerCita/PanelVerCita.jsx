@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import "./panelVerCita.css";
 import Swal from "sweetalert2";
 import Carga from "../../carga/Carga";
+import convertir from "../../../../js/convertirFecha";
 
 class PanelVerCita extends React.Component {
   state = {
@@ -109,7 +110,7 @@ class PanelVerCita extends React.Component {
       alert("Error al guardar");
     }
   }
-
+  
   render() {
     if (this.state.cargando) return <Carga />;
     return (
@@ -128,7 +129,7 @@ class PanelVerCita extends React.Component {
                 Mascota: {this.state.info.mascota}
               </p>
               <p className="p__descripciones mb-0">
-                Fecha: {this.state.info.fecha}
+                Fecha: {convertir(this.state.info.fecha)}
               </p>
               <p className="p__descripciones">Hora: {this.state.info.hora}</p>
             </div>

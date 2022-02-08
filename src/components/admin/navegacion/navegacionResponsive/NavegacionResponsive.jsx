@@ -26,9 +26,15 @@ const NavegacionResponsive = () => {
           <i className="fas fa-bars fa-2x"></i>
         </div>
         <div className="admin__logo-responsive">
-          <Link to="/admin">
-            <img src="/img/favicon.png" alt="logo RollingVet" />
-          </Link>
+          {window.location.href.includes("admin") ? (
+            <Link to="/admin">
+              <img src="/img/favicon.png" alt="logo RollingVet" />
+            </Link>
+          ) : (
+            <Link to="/user">
+              <img src="/img/favicon.png" alt="logo RollingVet" />
+            </Link>
+          )}
         </div>
       </div>
     </div>

@@ -194,7 +194,9 @@ const PanelPlanes = (props) => {
             </div>
           );
         })}
-        <button className="btnForm">Guardar</button>
+        <div className="container">
+          <button className="btnForm w-100">Guardar</button>
+        </div>
       </form>
     </div>
   );

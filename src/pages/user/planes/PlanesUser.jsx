@@ -15,7 +15,7 @@ const PlanesUser = (props) => {
     props.testAuth();
     
     window.addEventListener("resize", resize);
-  }, [testAuth]);
+  }, []);
 
   React.useEffect(() => {
     if (!props.isAuthenticated) {

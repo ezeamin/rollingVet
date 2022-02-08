@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import './formularioCita.css';
 import Swal from "sweetalert2";
+import { init,send } from '@emailjs/browser';
 
 class FormularioCita extends Component {
   state = {
@@ -14,6 +15,7 @@ class FormularioCita extends Component {
       hora: false,
     },
     horarios: this.props.horarios,
+    precio: 0,
   };
 
   handleChange = (e) => {
@@ -48,6 +50,16 @@ class FormularioCita extends Component {
         case "hora":
         case "mascota":{
           if(value === "0") return this.error(errores, name);
+
+          const planMascota = this.props.paciente.mascotas.find(
+            (mascota) => mascota.nombre === this.state.mascota
+          ).plan;
+
+          if(planMascota==="Sin plan") this.setState({precio: 1000});
+          else this.setState({precio: 0});
+
+          //cambiar precios si se hacen mas de 5 citas al mes
+
           break;
         }
         case "fecha":{
@@ -106,6 +118,21 @@ class FormularioCita extends Component {
     }
   };
 
+  mandarMail = async () => {
+    init("user_fEGhekYTWvaVP2OtQtMlf");
+
+    const templateParams = {
+      name: this.props.paciente.nombre,
+      apellido: this.props.paciente.apellido,
+      email: this.props.paciente.email,
+      mascota: this.state.mascota,
+      fecha: this.state.fecha,
+      hora: this.state.hora,
+    };
+
+    await send("service_mx7av3k", "template_qjehzmh", templateParams);
+  }
+
   registrarCita = async () => {
     const codigoMascota = this.props.paciente.mascotas.find(
       (mascota) => mascota.nombre === this.state.mascota
@@ -146,6 +173,8 @@ class FormularioCita extends Component {
           hora: this.state.hora,
         })
       });
+
+      this.mandarMail();
 
       Swal.fire({
         title: "Cita registrada",
@@ -254,6 +283,9 @@ class FormularioCita extends Component {
         <button id="btnRegistro" type="submit" disabled={!this.props.desbloquear} className="my-2 w-100 btnForm">
           Cargar
         </button>
+        <div className="text-center">
+          <p>Valor de la cita: <b>${this.state.precio}</b></p>
+        </div>
       </Form>
     );
   }

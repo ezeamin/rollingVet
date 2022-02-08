@@ -16,6 +16,7 @@ class FormularioContacto extends Component {
       mensaje: false,
     },
     primaryDark: "", //para guardar el valor del color primario del documento
+    enviando: false,
   };
 
   handleChange = (e) => {
@@ -79,7 +80,8 @@ class FormularioContacto extends Component {
     });
 
     if (!errorGeneral) {
-      //this.enviarMail();
+      this.setState({ enviando: true });
+      this.enviarMail();
 
       //deshabilitar boton - no cambia color
       const boton = document.getElementById("btnContacto");
@@ -88,7 +90,7 @@ class FormularioContacto extends Component {
   };
 
   enviarMail = async () => {
-    init("user_8j9LHOR1moc4XSGy8uETC");
+    init("user_qh54p4VeU3bqOcLlclhCJ");
 
     const templateParams = {
       from_name: this.state.nombre,
@@ -96,31 +98,22 @@ class FormularioContacto extends Component {
       message: this.state.mensaje,
     };
 
-    send("service_mvm479c", "template_q3a26mw", templateParams).then(
-      function (response) {
-        Swal.fire({
-          icon: "success",
-          title: "¡Gracias!",
-          text: "Su mensaje ha sido enviado correctamente y se lo contactará a la brevedad",
-        });
+    await send("service_wg30o5a", "template_j4xvixt", templateParams);
+    Swal.fire({
+      icon: "success",
+      title: "¡Gracias!",
+      text: "Su mensaje ha sido enviado correctamente y se lo contactará a la brevedad",
+    });
 
-        //habilitar boton
-        this.setState({
-          nombre: "",
-          email: "",
-          mensaje: "",
-        });
-        const boton = document.getElementById("btnContacto");
-        boton.disabled = false;
-      },
-      function (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Ha ocurrido un error al enviar su mensaje, por favor intente nuevamente",
-        });
-      }
-    );
+    //habilitar boton
+    this.setState({
+      nombre: "",
+      email: "",
+      mensaje: "",
+    });
+    const boton = document.getElementById("btnContacto");
+    boton.disabled = false;
+    this.setState({ enviando: false });
   };
 
   componentDidMount() {
@@ -188,6 +181,11 @@ class FormularioContacto extends Component {
         <button id="btnContacto" type="submit" className="mt-2 w-100 btnForm">
           Enviar
         </button>
+        {this.state.enviando ? (
+          <div className="text-center mt-2">
+            <p>Enviando...</p>
+          </div>
+        ) : null}
       </Form>
     );
   }

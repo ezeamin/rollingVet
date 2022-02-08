@@ -29,7 +29,7 @@
 
 @media screen and (min-width: 992px) and (max-width: 1200px){
     .user__panel__pacientes-editarUser{
-        height: 100vh !important;
+        height: calc(100vh - 72px) !important;
     }
 }
 
@@ -46,6 +46,5 @@
         padding-top: 3rem;
         padding-bottom: 0;
         justify-content: center !important;
-        height: 100vh !important;
     }
 }

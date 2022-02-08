@@ -214,14 +214,14 @@ class FormularioRegistro extends Component {
   }
 
   enviarMail = async () => {
-    init("user_8j9LHOR1moc4XSGy8uETC");
+    init("user_fEGhekYTWvaVP2OtQtMlf");
 
     const templateParams = {
       name: this.state.nombre,
       email: this.state.email,
     };
 
-    await send("service_mvm479c", "template_v3i4f78", templateParams);
+    await send("service_iabhehr", "template_kp9acc2", templateParams);
   }
 
   componentDidUpdate(prevProps, prevState) {
