@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import './formularioCita.css';
 import Swal from "sweetalert2";
 import { init,send } from '@emailjs/browser';
+import convertir from "../../../../../js/convertirFecha";
 
 class FormularioCita extends Component {
   state = {
@@ -22,6 +23,11 @@ class FormularioCita extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
+
+    if(e.target.name==="fecha"){
+      if(this.verificarFecha(e.target.value)) this.props.setFecha(e.target.value);
+      else this.props.setFecha(null);
+    }
   };
 
   error = (errores, name) => {
@@ -39,6 +45,32 @@ class FormularioCita extends Component {
     });
     return false;
   };
+
+  verificarFecha(value){
+    if(!/^\d{4}-\d{2}-\d{2}$/i.test(value)) return false;
+          
+    let splitFecha = value.split("-");
+    let fecha = new Date(splitFecha[0], splitFecha[1] - 1, splitFecha[2]);
+    let fechaActual = new Date();
+
+    //mismo dia
+    if(fecha.getDate()===fechaActual.getDate() && fecha.getMonth()===fechaActual.getMonth() && fecha.getFullYear()===fechaActual.getFullYear()){
+      if(fechaActual.getHours()>=17){
+        return false;
+      }
+    }
+
+    if(fechaActual.getTime() > fecha.getTime()){
+      return false;
+    }
+
+    //detectar fin de semana
+    if(fecha.getDay() === 6 || fecha.getDay() === 0){
+      return false;
+    }
+
+    return true;
+  }
 
   verificar(name, value) {
     const errores = this.state.errores;
@@ -63,20 +95,7 @@ class FormularioCita extends Component {
           break;
         }
         case "fecha":{
-          if(!/^\d{4}-\d{2}-\d{2}$/i.test(value)) return this.error(errores, name);
-          
-          let splitFecha = value.split("-");
-          let fecha = new Date(splitFecha[0], splitFecha[1] - 1, splitFecha[2]);
-          let fechaActual = new Date();
-
-          if(fechaActual.getTime() > fecha.getTime()){
-            return this.error(errores, name);
-          }
-
-          //detectar fin de semana
-          if(fecha.getDay() === 6 || fecha.getDay() === 0){
-            return this.error(errores, name);
-          }
+          if(!this.verificarFecha(value)) return this.error(errores, name);
           break;
         }
         default:{
@@ -91,10 +110,6 @@ class FormularioCita extends Component {
   handleBlur = (e) => {
     const { name, value } = e.target;
     this.verificar(name, value);
-
-    if(name==="fecha" && !this.state.errores.fecha){
-      this.props.setFecha(value);
-    }
   };
 
   handleSubmit = (e) => {
@@ -126,7 +141,7 @@ class FormularioCita extends Component {
       apellido: this.props.paciente.apellido,
       email: this.props.paciente.email,
       mascota: this.state.mascota,
-      fecha: this.state.fecha,
+      fecha: convertir(this.state.fecha),
       hora: this.state.hora,
     };
 

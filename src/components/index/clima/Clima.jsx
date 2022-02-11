@@ -9,7 +9,7 @@ const Clima = () => {
                 <Card />
                 <div className='clima__flex-texto'>
                     <h3 className='h3__bold'>¿Llovió y se embarró Firulais?</h3>
-                    <p className='p__descripcion mb-0'>¡No te preocupes! Un baño gratuito a la semana está incluido en todos los planes<br/><br/>Psst! Revisa el clima para evitar más huellas llenas de amor y barro en tu sofá</p>
+                    <p className='p__descripcion mb-0'>¡No te preocupes! Dos baños mensuales gratuitos están incluidos en todos los planes<br/><br/>Psst! Revisa el clima para evitar más huellas llenas de amor y barro en tu sofá</p>
                 </div>
             </div>
         </div>

@@ -63,6 +63,20 @@ const PanelNuevaCita = (props) => {
         });
         const data = await response.json();
 
+        //mismo dia
+        const fechaActual = new Date();
+        if(fechaActual.getDate().toString() === fecha.split("-")[2] && fechaActual.getMonth() === fecha.split("-")[1] - 1 && fechaActual.getFullYear().toString() === fecha.split("-")[0]){
+          if(fechaActual.getHours() >= 17) setHorarios([]);
+          else{
+            const hora = fechaActual.getHours();
+            const horariosFiltrados = horariosFull.filter((h) => h.split(":")[0] > hora);
+
+            console.log(horariosFiltrados);
+            setHorarios(horariosFiltrados);
+            return;
+          }
+        }
+
         if (data.datos === null) {
           setHorarios(horariosFull);
         } else {
@@ -79,6 +93,7 @@ const PanelNuevaCita = (props) => {
       }
     };
     if (fecha) fetchHorarios();
+    else setHorarios([]);
 
     return () => {
       abortCont.abort();

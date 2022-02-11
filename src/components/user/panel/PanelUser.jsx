@@ -4,12 +4,14 @@ import List from "../../admin/panel/list/List";
 import "./panelUser.css";
 import Carga from "../../admin/carga/Carga";
 import { useNavigate } from "react-router-dom";
+import Mensaje from "./mensaje/Mensaje";
 
 const PanelUser = (props) => {
   const [mascotas, setMascotas] = React.useState(0);
   const [citas, setCitas] = React.useState(0);
   const [cargando, setCargando] = React.useState(true);
   const [mascotaNull, setMascotaNull] = React.useState(false);
+  const [mascotaPlanNull, setMascotaPlanNull] = React.useState(false);
   const navigate = useNavigate();
 
   const info = [
@@ -40,6 +42,18 @@ const PanelUser = (props) => {
         if(info.mascotas===0) {
           setMascotaNull(true);
         }
+        else{
+          const res = await fetch(`/api/user/pacientes/mascotas//${props.user.dni}`, {
+            method: "GET",
+            signal: abortCont.signal,
+          });
+          const resMascotas = await res.json();
+
+          resMascotas.mascotas.map((mascota) => {
+            if(mascota.plan==="Sin plan") setMascotaPlanNull(true);
+            return;
+          });
+        }
       } catch (err) {
         if (err.name !== "AbortError") {
           console.log(err);
@@ -59,11 +73,18 @@ const PanelUser = (props) => {
     navigate("/user/citas");
   };
 
+  //<p className="p__descripciones">Agregale un plan a tu(s) mascota(s) desde "Mi perfil"</p>
+
   if (cargando) return <Carga />;
   return (
     <div className="container py-5 admin__panel-content">
       <h1 className="mb-3 h3__bold">Dashboard</h1>
-      {mascotaNull ? <p className="p__descripciones">Agrega mascotas en "Mi perfil"</p> : null}
+      {mascotaNull ? 
+        <Mensaje mensaje="Agrega tu primera mascota desde 'Mi perfil'" />
+      : null}
+      {mascotaPlanNull ? 
+        <Mensaje mensaje="Agrega un plan a tu(s) mascota(s) desde 'Mi perfil'" />
+      : null}
       <div className="row user__panel-content">
         <div className="col-sm-12 col-lg-6 col-xl-4">
           <div className="row admin__panel-content-cards">

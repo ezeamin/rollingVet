@@ -7,7 +7,7 @@
 }
 
 .error__img{
-    max-width: 50vw;
+    max-width: 10vw;
 }
 
 .error__img img{
@@ -17,5 +17,15 @@
 @media screen and (max-width: 1200px) {
     .error__page{
         height: calc(100vh - 72px);
+    }
+
+    .error__img{
+        max-width: 30vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .error__img{
+        max-width: 50vw;
     }
 }

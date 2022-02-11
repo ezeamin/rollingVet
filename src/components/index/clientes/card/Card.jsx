@@ -1,23 +1,7 @@
 import React from "react";
 import "./card.css";
 
-const comentarios = [
-  "Es lo mejor que me pasó en mi vida",
-  "La atencion es excelente, en especial la del doctor Esteban",
-  "Es una excelente atencion, la recomiendo",
-  "Lleve a mi Schnauzer a lavado y lo dejaron impecable",
-  "Muy bien ubicado, muy buena atencion",
-  "Increible lo amoroso que es todo el personal. Volvería siempre",
-  "¡Los precios son super accesibles y la atencion es de calidad!",
-  "¡Me encantó la predisposicion del veterinario! ¡La recomiendo!",
-  "Me lo recomendó una amiga y ya veo por qué insistió tanto. ¡Son increibles!",
-  "Vivo a una cuadra y siempre lo vi pero nunca habia entrado. Es fantastico el lugar",
-  "Me encantó que tenga un patio deportivo para mi cachorro. Se super divirtió",
-  "Sin palabras realmente. Muy buena atencion y muy buenos precios",
-  "¿Aceptan CVs? Porque quiero trabajar con este maravilloso equipo!",
-];
-
-const Card = () => {
+const Card = (props) => {
   const [user, setUser] = React.useState({});
 
   React.useEffect(() => {
@@ -36,8 +20,7 @@ const Card = () => {
         const finalUser = {
           name: user.results[0].name.first,
           image: user.results[0].picture.large,
-          comentario:
-            comentarios[Math.floor(Math.random() * comentarios.length)],
+          comentario: props.comentario,
         };
 
         setUser(finalUser);
@@ -53,7 +36,7 @@ const Card = () => {
     return () => {
       abortCont.abort();
     };
-  }, []);
+  }, [props.comentario]);
 
   return (
     <div className="cardClientes">

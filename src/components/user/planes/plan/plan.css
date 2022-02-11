@@ -12,4 +12,11 @@
     .user__planes-container{
         flex-direction: column;
     }
+
+    
+    .user__planes-info-cargando{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }

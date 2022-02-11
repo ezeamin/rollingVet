@@ -251,7 +251,7 @@ const TablaItem = (props) => {
           <td>{props.info.nombre}</td>
           <td>{props.info.especie}</td>
           <td>{props.info.raza}</td>
-          <td>{props.info.fechaNac}</td>
+          <td>{convertir(props.info.fechaNac)}</td>
           <td>{edad}</td>
           <td>{props.info.sexo}</td>
           <td>{props.info.plan}</td>

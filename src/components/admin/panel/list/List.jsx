@@ -143,9 +143,11 @@ const List = (props) => {
             </div>
             <ListItem key={0} {...datos} content={"loading"} />
           </div>
-          <button className="btnForm px-3" onClick={props.handleClick}>
-            Ver mas
-          </button>
+          <div className="text-center">
+            <button className="btnForm px-3" onClick={props.handleClick}>
+              Ver mas
+            </button>
+          </div>
         </div>
       );
     } else
@@ -157,9 +159,11 @@ const List = (props) => {
             </div>
             <ListItem key={0} {...datos} content={"loading"} />
           </div>
-          <button className="btnForm px-3" onClick={props.handleClick}>
-            Ver mas
-          </button>
+          <div className="text-center">
+            <button className="btnForm px-3" onClick={props.handleClick}>
+              Ver mas
+            </button>
+          </div>
         </div>
       );
   if (props.content === "citasPropias") {
@@ -191,9 +195,11 @@ const List = (props) => {
             return <ListItem key={index} {...datos} content={content} />;
           })}
         </div>
-        <button className="btnForm px-3" onClick={props.handleClick}>
-          Ver mas
-        </button>
+        <div className="text-center">
+          <button className="btnForm px-3" onClick={props.handleClick}>
+            Ver mas
+          </button>
+        </div>
       </div>
     );
 };

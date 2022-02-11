@@ -4,6 +4,7 @@ import "./panelPlanes.css";
 import Swal from "sweetalert2";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import Carga from "../../admin/carga/Carga";
 
 const PanelPlanes = (props) => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const PanelPlanes = (props) => {
   const [mascota, setMascota] = React.useState("0");
   const [mascotas, setMascotas] = React.useState([]);
   const [isInvalid, setIsInvalid] = React.useState(false);
+  const [cargando, setCargando] = React.useState(true);
 
   const planes = [
     {
@@ -108,18 +110,38 @@ const PanelPlanes = (props) => {
         const data = await response.json();
 
         setMascotas(data.mascotas);
+        setCargando(false);
       } catch (err) {
         if (err.name !== "AbortError") {
           console.log(err);
         }
       }
     };
-    fetchInfo();
+    if(props.user.dni) fetchInfo();
 
     return () => {
       abortCont.abort();
     };
   }, [props.user.dni]);
+
+  React.useEffect(() => {
+    switch (seleccionado) {
+      case "Sin plan":
+        setChecked([true, false, false, false]);
+        break;
+      case "Primeros pasos":
+        setChecked([false, true, false, false]);
+        break;
+      case "Madurando":
+        setChecked([false, false, true, false]);
+        break;
+      case "Adultos":
+        setChecked([false, false, false, true]);
+        break;
+      default:
+        break;
+    }
+  }, [seleccionado]);
 
   React.useEffect(() => {
     const mascotaSeleccionada = mascotas.find((m) => m.nombre === mascota);
@@ -142,8 +164,12 @@ const PanelPlanes = (props) => {
           break;
       }
     }
+    else{
+      setChecked([false, false, false, false]);
+    }
   }, [mascota, mascotas]);
 
+  if(cargando) return <Carga />;
   return (
     <div className="container py-5 admin__panel-content user__panel">
       <div className="user__panel-planes__titulo">
@@ -189,6 +215,7 @@ const PanelPlanes = (props) => {
                 key={index}
                 plan={plan}
                 index={index}
+                checked={checked[index]}
                 setSeleccionado={setSeleccionado}
               />
             </div>

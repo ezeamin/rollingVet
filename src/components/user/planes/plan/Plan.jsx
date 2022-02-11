@@ -1,10 +1,11 @@
 import React from "react";
 import "./plan.css";
+import { Skeleton } from "@mui/material";
 
 const Plan = (props) => {
   const [precio, setPrecio] = React.useState(0);
   const [precioTotal, setPrecioTotal] = React.useState(0);
-  const [checked, setChecked] = React.useState(props.plan.checked);
+  const [cargando, setCargando] = React.useState(true);
 
   React.useEffect(() => {
     const abortCont = new AbortController();
@@ -19,6 +20,7 @@ const Plan = (props) => {
 
         setPrecio(data.precios[props.index - 1].precio);
         setPrecioTotal(data.precios[props.index - 1].precioTotal);
+        setCargando(false);
       } catch (err) {
         if (err.name !== "AbortError") {
           console.log(err);
@@ -26,22 +28,38 @@ const Plan = (props) => {
       }
     };
     if (props.index !== 0) fetchInfo();
+    else setTimeout(()=>setCargando(false),300);
 
     return () => {
       abortCont.abort();
     };
   }, [props.index]);
 
-  React.useEffect(() => {
-    if (props.plan.checked) setChecked(true);
-    else setChecked(false);
-  }, [props.plan.checked]);
-
   const handleChange = (e) => {
-    setChecked(!checked);
     props.setSeleccionado(props.plan.titulo);
   };
 
+  if (cargando) {
+    return (
+      <div className="user__planes-container my-2">
+        <div className="user__planes-info user__planes-info-cargando">
+          <Skeleton variant="text" width={"75%"} className="mb-2"/>
+          <Skeleton variant="text" width={"250px"} className="mb-2" />
+          <p>
+          <Skeleton variant="text" width={"200px"} />
+          </p>
+        </div>
+        <div className="user__planes-select">
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="user__planes-container my-2">
       <div className="user__planes-info">
@@ -59,7 +77,7 @@ const Plan = (props) => {
             name="planes"
             value={props.plan.titulo}
             onChange={handleChange}
-            checked={checked}
+            checked={props.checked}
           />
         </div>
       </div>
