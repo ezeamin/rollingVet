@@ -62,7 +62,6 @@ const Clientes = () => {
       <div className="card-clientes">
         {clientes.map((cliente, index) => {
           let num = generateRandom();
-          console.log(num, comentarios[num]);
           return (
             <Card cliente={cliente} key={index} comentario={comentarios[num]} />
           );

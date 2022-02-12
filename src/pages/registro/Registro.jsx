@@ -19,8 +19,6 @@ const Registro = (props) => {
   if ((randomSeed % 10) % 2 === 0) gen = "male";
   else gen = "female";
   const [genero, setGenero] = React.useState(gen);
-
-  const testAuth = props.testAuth;
   
   React.useEffect(() => {
     props.testAuth(false);

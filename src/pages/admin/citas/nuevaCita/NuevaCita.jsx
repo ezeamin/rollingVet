@@ -6,8 +6,6 @@ import resize from "../../../../js/adminResize";
 
 const NuevaCita = (props) => {
 
-  const testAuth = props.testAuth;
-
   React.useEffect(() => {
     props.testAuth(true);
     

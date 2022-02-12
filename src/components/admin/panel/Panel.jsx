@@ -6,7 +6,7 @@ import Carga from "../carga/Carga";
 import { useNavigate } from "react-router-dom";
 import Error from "../error/Error";
 
-const Panel = () => {
+const Panel = (props) => {
   const [pacientes, setPacientes] = React.useState(0);
   const [citas, setCitas] = React.useState(0);
   const [cargando, setCargando] = React.useState(true);
@@ -37,13 +37,6 @@ const Panel = () => {
           method: "GET",
           signal: abortCont.signal,
         });
-
-        if (!response.ok) {
-          setCargando(false);
-          setError(true);
-          return;
-        }
-
         const info = await response.json();
 
         setPacientes(info.pacientes);
@@ -55,12 +48,16 @@ const Panel = () => {
         }
       }
     };
-    traerInfo();
+    if(props.user.dni === 0){
+      setCargando(false);
+      setError(true);
+    }
+    else traerInfo();
 
     return () => {
       abortCont.abort();
     };
-  }, []);
+  }, [props.user.dni]);
 
   const btnPacientesClick = () => {
     navigate("/admin/pacientes");

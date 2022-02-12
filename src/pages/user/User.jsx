@@ -7,10 +7,8 @@ import resize from "../../js/adminResize";
 
 const User = (props) => {
 
-  const testAuth = props.testAuth;
-
   React.useEffect(() => {
-    testAuth(true);
+    props.testAuth(true);
     
     window.addEventListener("resize", resize);
   }, []);

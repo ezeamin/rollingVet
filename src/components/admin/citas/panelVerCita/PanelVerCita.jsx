@@ -4,6 +4,7 @@ import "./panelVerCita.css";
 import Swal from "sweetalert2";
 import Carga from "../../carga/Carga";
 import convertir from "../../../../js/convertirFecha";
+import Error from "../../error/Error";
 
 class PanelVerCita extends React.Component {
   state = {
@@ -13,6 +14,7 @@ class PanelVerCita extends React.Component {
     VOD: false,
     info: {},
     cargando: true,
+    error: false,
   };
 
   mounted = true;
@@ -36,6 +38,9 @@ class PanelVerCita extends React.Component {
             this.setState({ cargando: false });
           }
         });
+      }
+      else if (!res.ok){
+        this.setState({ cargando: false, error: true });
       }
     });
   }
@@ -113,6 +118,7 @@ class PanelVerCita extends React.Component {
   
   render() {
     if (this.state.cargando) return <Carga />;
+    else if (this.state.error) return <Error />;
     return (
       <div className="admin__panel-content py-5 container">
         <h1 className="h3__bold admin__panel__cita-title">Cita</h1>

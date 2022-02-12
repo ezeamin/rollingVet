@@ -6,8 +6,6 @@ import PanelPrecios from "../../../components/admin/precios/PanelPrecios";
 
 const Precios = (props) => {
 
-  const testAuth = props.testAuth;
-
   React.useEffect(() => {
     props.testAuth(true);
     

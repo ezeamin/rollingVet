@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import Carga from "../../admin/carga/Carga";
+import Error from "../../admin/error/Error";
 
 const PanelPlanes = (props) => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const PanelPlanes = (props) => {
   const [mascotas, setMascotas] = React.useState([]);
   const [isInvalid, setIsInvalid] = React.useState(false);
   const [cargando, setCargando] = React.useState(true);
+  const [error, setError] = React.useState(false);
 
   const planes = [
     {
@@ -107,6 +109,13 @@ const PanelPlanes = (props) => {
             signal: abortCont.signal,
           }
         );
+
+        if (!response.ok) {
+          setCargando(false);
+          setError(true);
+          return;
+        }
+
         const data = await response.json();
 
         setMascotas(data.mascotas);
@@ -115,9 +124,15 @@ const PanelPlanes = (props) => {
         if (err.name !== "AbortError") {
           console.log(err);
         }
+        
       }
     };
-    if(props.user.dni) fetchInfo();
+    if(props.user.dni === 0){
+      setCargando(false);
+      setError(true);
+    }
+    else if (props.user.dni) fetchInfo();
+    
 
     return () => {
       abortCont.abort();
@@ -163,13 +178,13 @@ const PanelPlanes = (props) => {
         default:
           break;
       }
-    }
-    else{
+    } else {
       setChecked([false, false, false, false]);
     }
   }, [mascota, mascotas]);
 
-  if(cargando) return <Carga />;
+  if (cargando) return <Carga />;
+  else if (error) return <Error />;
   return (
     <div className="container py-5 admin__panel-content user__panel">
       <div className="user__panel-planes__titulo">

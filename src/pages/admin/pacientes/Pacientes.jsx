@@ -6,8 +6,6 @@ import PanelPacientes from "../../../components/admin/pacientes/PanelPacientes";
 
 const Pacientes = (props) => {
 
-  const testAuth = props.testAuth;
-
   React.useEffect(() => {
     props.testAuth(true);
     
@@ -21,7 +19,7 @@ const Pacientes = (props) => {
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />
-        <PanelPacientes />
+        <PanelPacientes user={props.user}/>
       </div>
     </div>
   );

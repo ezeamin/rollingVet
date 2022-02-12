@@ -1,10 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import FormularioMascota from "./formularioMascota/FormularioMascota";
+import Error from "../../error/Error";
 
 const PanelEditarMascota = (props) => {
   const [info, setInfo] = React.useState({});
   const [titulo, setTitulo] = React.useState("");
+  const [error, setError] = React.useState(false);
   const isNew = props.codigoMascota === "new";
   const navigate = useNavigate();
 
@@ -21,6 +23,12 @@ const PanelEditarMascota = (props) => {
               signal: abortCont.signal,
             }
           );
+
+          if (!response.ok) {
+            setError(true);
+            return;
+          }
+
           const data = await response.json();
 
           setInfo(data.mascota);
@@ -32,13 +40,17 @@ const PanelEditarMascota = (props) => {
         }
       };
 
-      fetchMascota();
+      if(props.user.dni === 0){
+        setError(true);
+      }
+      else fetchMascota();
+
     } else setTitulo("Nueva mascota");
 
     return () => {
       abortCont.abort();
     };
-  }, [isNew, props.codigoMascota, props.dni]);
+  }, [isNew, props.codigoMascota, props.dni,props.user.dni]);
 
   const navigateSuccess = () => {
     if (window.location.href.includes("admin")) {
@@ -46,7 +58,8 @@ const PanelEditarMascota = (props) => {
     } else navigate(`/user/perfil/mascotas`);
   };
 
-  if (isNew) {
+  if (error) return <Error />;
+  else if (isNew) {
     return (
       <div className="admin__panel__pacientes-newUser py-5 admin__panel__pacientes-content">
         <FormularioMascota

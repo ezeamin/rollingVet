@@ -7,7 +7,7 @@ const CardAdmin = (props) => {
       <div className="col-sm-12 col-md-6 col-lg-4">
         <div className="admin__card">
           <h3>{props.titulo}</h3>
-          <h2>{props.cantidad}</h2>
+          <h2 className="mb-0">{props.cantidad}</h2>
         </div>
       </div>
     );

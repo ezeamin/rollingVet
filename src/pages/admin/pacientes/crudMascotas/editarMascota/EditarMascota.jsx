@@ -16,8 +16,6 @@ const EditarMascota = (props) => {
     dni = props.user.dni
   }
 
-  //const testAuth = props.testAuth;
-
   React.useEffect(() => {
     props.testAuth(true);
 
@@ -36,7 +34,7 @@ const EditarMascota = (props) => {
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />
-        <PanelEditarMascota codigoMascota={codigoMascota} dni={dni}/>
+        <PanelEditarMascota codigoMascota={codigoMascota} dni={dni} user={props.user}/>
       </div>
     </div>
   );

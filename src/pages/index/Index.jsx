@@ -14,8 +14,6 @@ import scrollDetection from "../../js/scroll";
 
 const Index = (props) => {
   
-  const testAuth = props.testAuth;
-
   React.useEffect(() => {
     scrollDetection();
     window.scrollTo(0, 0);

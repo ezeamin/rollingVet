@@ -5,11 +5,13 @@ import "./panelUser.css";
 import Carga from "../../admin/carga/Carga";
 import { useNavigate } from "react-router-dom";
 import Mensaje from "./mensaje/Mensaje";
+import Error from "../../admin/error/Error";
 
 const PanelUser = (props) => {
   const [mascotas, setMascotas] = React.useState(0);
   const [citas, setCitas] = React.useState(0);
   const [cargando, setCargando] = React.useState(true);
+  const [error, setError] = React.useState(false);
   const [mascotaNull, setMascotaNull] = React.useState(false);
   const [mascotaPlanNull, setMascotaPlanNull] = React.useState(false);
   const navigate = useNavigate();
@@ -47,9 +49,16 @@ const PanelUser = (props) => {
             method: "GET",
             signal: abortCont.signal,
           });
+          
+          if (!response.ok) {
+            setCargando(false);
+            setError(true);
+            return;
+          }
+          
           const resMascotas = await res.json();
 
-          resMascotas.mascotas.map((mascota) => {
+          resMascotas.mascotas.forEach((mascota) => {
             if(mascota.plan==="Sin plan") setMascotaPlanNull(true);
             return;
           });
@@ -60,9 +69,11 @@ const PanelUser = (props) => {
         }
       }
     };
-    if (props.user.dni !== undefined) {
-      traerInfo();
+    if(props.user.dni === 0){
+      setCargando(false);
+      setError(true);
     }
+    else if (props.user.dni) traerInfo();
 
     return () => {
       abortCont.abort();
@@ -76,6 +87,7 @@ const PanelUser = (props) => {
   //<p className="p__descripciones">Agregale un plan a tu(s) mascota(s) desde "Mi perfil"</p>
 
   if (cargando) return <Carga />;
+  else if (error) return <Error />;
   return (
     <div className="container py-5 admin__panel-content">
       <h1 className="mb-3 h3__bold">Dashboard</h1>

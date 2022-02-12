@@ -4,6 +4,7 @@ import FormularioCitaPaciente from "./formularioCitaPaciente/FormularioCitaPacie
 import "./panelNuevaCita.css";
 import ListaHorarios from "./listaHorarios/ListaHorarios";
 import { useNavigate } from "react-router-dom";
+import Error from "../../error/Error";
 
 const horariosFull = [
   "08:00",
@@ -21,11 +22,12 @@ const horariosFull = [
 const PanelNuevaCita = (props) => {
   const navigate = useNavigate();
 
-  const isUser = window.location.href.includes("user")
+  const isUser = window.location.href.includes("user");
 
   const [desbloquear, setDesbloquear] = React.useState(false);
+  const [error, setError] = React.useState(false);
   const [paciente, setPaciente] = React.useState({
-      mascotas: [{}],
+    mascotas: [{}],
   });
 
   const navigateSuccess = () => {
@@ -46,8 +48,8 @@ const PanelNuevaCita = (props) => {
         document.getElementsByClassName(
           "admin__panel__nuevaCita-forms-cita__disabled"
         )[0].style.display = "block";
-    } else{
-      if(Object.keys(props.user).length !== 0) setPaciente(props.user)
+    } else {
+      if (Object.keys(props.user).length !== 0) setPaciente(props.user);
     }
   }, [desbloquear, isUser, props.user]);
 
@@ -61,15 +63,27 @@ const PanelNuevaCita = (props) => {
           method: "GET",
           signal: abortCont.signal,
         });
+
+        if (!response.ok) {
+          setError(true);
+          return;
+        }
+
         const data = await response.json();
 
         //mismo dia
         const fechaActual = new Date();
-        if(fechaActual.getDate().toString() === fecha.split("-")[2] && fechaActual.getMonth() === fecha.split("-")[1] - 1 && fechaActual.getFullYear().toString() === fecha.split("-")[0]){
-          if(fechaActual.getHours() >= 17) setHorarios([]);
-          else{
+        if (
+          fechaActual.getDate().toString() === fecha.split("-")[2] &&
+          fechaActual.getMonth() === fecha.split("-")[1] - 1 &&
+          fechaActual.getFullYear().toString() === fecha.split("-")[0]
+        ) {
+          if (fechaActual.getHours() >= 17) setHorarios([]);
+          else {
             const hora = fechaActual.getHours();
-            const horariosFiltrados = horariosFull.filter((h) => h.split(":")[0] > hora);
+            const horariosFiltrados = horariosFull.filter(
+              (h) => h.split(":")[0] > hora
+            );
 
             console.log(horariosFiltrados);
             setHorarios(horariosFiltrados);
@@ -92,15 +106,18 @@ const PanelNuevaCita = (props) => {
         }
       }
     };
-    if (fecha) fetchHorarios();
+    if (props.user.dni === 0) {
+      setError(true);
+    } else if (fecha) fetchHorarios();
     else setHorarios([]);
 
     return () => {
       abortCont.abort();
     };
-  }, [fecha]);
+  }, [fecha,props.user.dni]);
 
-  if (!isUser) {
+  if (error) return <Error />;
+  else if (!isUser) {
     return (
       <div className="container py-5 admin__panel-content">
         <h1 className="h3__bold">Nueva cita</h1>

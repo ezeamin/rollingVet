@@ -1,6 +1,6 @@
 .admin__list__item {
   margin: 0 !important;
-  height: calc((50vh / 3) - 22px);
+  height: calc((50vh / 3) - 21px);
   border-bottom: 1px solid rgba(231, 231, 231, 0.253);
 }
 

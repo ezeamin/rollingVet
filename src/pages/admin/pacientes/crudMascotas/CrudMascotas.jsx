@@ -12,8 +12,6 @@ const CrudMascotas = (props) => {
   if(url.includes("admin")) dni = urlSplit[urlSplit.length - 2];
   else dni = props.user.dni;
   
-  const testAuth = props.testAuth;
-
   React.useEffect(() => {
     props.testAuth(true);
     
@@ -27,7 +25,7 @@ const CrudMascotas = (props) => {
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />
-        <PanelMascotas dni={dni} />
+        <PanelMascotas dni={dni} user={props.user}/>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import BotonCrear from "../botonCrear/BotonCrear";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Carga from "../carga/Carga";
+import Error from "../error/Error";
 
 const comparar = (a, b) => {
   if (a.apellido === b.apellido) {
@@ -25,11 +26,12 @@ const opciones = [
   "Acciones",
 ];
 
-const PanelPacientes = () => {
+const PanelPacientes = (props) => {
   const navigate = useNavigate();
 
   const [cargando, setCargando] = React.useState(true);
   const [pacientes, setPacientes] = React.useState([]);
+  const [error, setError] = React.useState(false);
 
   const handleClick = () => {
     navigate("/admin/pacientes/new");
@@ -72,6 +74,13 @@ const PanelPacientes = () => {
           method: "GET",
           signal: abortCont.signal,
         });
+
+        if (!response.ok) {
+          setCargando(false);
+          setError(true);
+          return;
+        }
+
         const data = await response.json();
 
         setPacientes(data.pacientes.sort((a, b) => comparar(a, b)));
@@ -83,14 +92,19 @@ const PanelPacientes = () => {
       }
     };
 
-    fetchPacientes();
+    if(props.user.dni === 0){
+      setCargando(false);
+      setError(true);
+    }
+    else fetchPacientes();
 
     return () => {
       abortCont.abort();
     };
-  }, []);
+  }, [props.user.dni]);
 
   if (cargando) return <Carga />;
+  else if (error) return <Error />;
   return (
     <div className="container py-5 admin__panel-content">
       <div className="admin__panel__pacientes">

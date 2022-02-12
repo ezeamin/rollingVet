@@ -5,6 +5,7 @@ import Tabla from "../tabla/Tabla";
 import BotonCrear from "../botonCrear/BotonCrear";
 import Carga from "../carga/Carga";
 import Swal from "sweetalert2";
+import Error from "../error/Error";
 
 const opciones = [
   "Avatar",
@@ -21,9 +22,8 @@ const PanelCitas = (props) => {
   const [citasProgramadas, setCitasProgramadas] = React.useState([]);
   const [citasRegistro, setCitasRegistro] = React.useState([]);
   const [cargando, setCargando] = React.useState(true);
-  const [isUser, setIsUser] = React.useState(
-    window.location.href.includes("user")
-  );
+  const [error, setError] = React.useState(false);
+  const isUser = window.location.href.includes("user");
 
   const handleClick = () => {
     if (!isUser) navigate("/admin/citas/new");
@@ -40,6 +40,13 @@ const PanelCitas = (props) => {
             method: "GET",
             signal: abortCont.signal,
           });
+
+          if (!response.ok) {
+            setCargando(false);
+            setError(true);
+            return;
+          }
+  
           const data = await response.json();
           setCitasProgramadas(data.citas);
         } else {
@@ -50,6 +57,13 @@ const PanelCitas = (props) => {
               signal: abortCont.signal,
             }
           );
+
+          if (!response.ok) {
+            setCargando(false);
+            setError(true);
+            return;
+          }
+
           const data = await response.json();
           setCitasProgramadas(data.citas);
         }
@@ -67,6 +81,13 @@ const PanelCitas = (props) => {
             method: "GET",
             signal: abortCont.signal,
           });
+          
+          if (!response.ok) {
+            setCargando(false);
+            setError(true);
+            return;
+          }
+
           const data = await response.json();
           setCitasRegistro(data.citas.reverse());
         } else {
@@ -84,14 +105,19 @@ const PanelCitas = (props) => {
         }
       }
     };
-
-    fetchCitasProgramadas();
-    fetchCitasRegistro();
+    if(props.user.dni === 0){
+      setCargando(false);
+      setError(true);
+    }
+    else {
+      fetchCitasProgramadas();
+      fetchCitasRegistro();
+    }
 
     return () => {
       abortCont.abort();
     };
-  }, [isUser, props.user.dni]);
+  }, [isUser,props.user.dni]);
 
   const eliminarCita = async (codigoCita) => {
     const response = await fetch(`/api/citas/${codigoCita}`, {
@@ -128,6 +154,7 @@ const PanelCitas = (props) => {
   };
 
   if (cargando) return <Carga />;
+  else if (error) return <Error />;
   return (
     <div className="container py-5 admin__panel-content">
       <div className="admin__panel__citas-prog">

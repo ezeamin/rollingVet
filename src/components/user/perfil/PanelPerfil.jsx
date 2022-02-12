@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Carga from "../../admin/carga/Carga";
 import FormularioPerfil from "./formularioPerfil/FormularioPerfil";
 import './panelPerfil.css';
+import Error from "../../admin/error/Error";
 
 const PanelPerfil = (props) => {
   const [cargando, setCargando] = React.useState(true);
+  const [error, setError] = React.useState(false);
   const [info, setInfo] = React.useState({});
   const [avatarUrl, setAvatarUrl] = React.useState("");
   const [nombreCompleto, setNombreCompleto] = React.useState("");
@@ -31,7 +33,11 @@ const PanelPerfil = (props) => {
       }
     }
     };
-    traerInfo();
+    if(props.user.dni === 0){
+      setCargando(false);
+      setError(true);
+    }
+    else if (props.user.dni) traerInfo();
 
     return () => {
       abortCont.abort();
@@ -66,6 +72,7 @@ const PanelPerfil = (props) => {
   };
 
   if (cargando) return <Carga />;
+  else if(error) return <Error />;
   return (
     <div className="admin__panel__pacientes-editarUser user__panel__pacientes-editarUser admin__panel__pacientes-content">
       <div className="admin__panel__pacientes-editarUser-form">

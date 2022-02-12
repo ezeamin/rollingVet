@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Index from "./pages/index/Index";
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Planes from "./pages/planes/Planes";
 import scrollDetection from "./js/scroll";
 import Pag404 from "./pages/pag404/Pag404";
@@ -28,7 +28,6 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [user, setUser] = React.useState({});
   const [isAdmin, setIsAdmin] = React.useState(false);
-  //const navigate = useNavigate();
 
   const testAuth = async (isProtected) => {
     try {
@@ -36,6 +35,12 @@ function App() {
         method: "GET",
         credentials: "include",
       })
+
+      if(!res.ok){
+        setUser({dni: 0}); //error en el servidor
+        return;
+      }
+
       const data = await res.json();
 
       if (data.code === 200) {

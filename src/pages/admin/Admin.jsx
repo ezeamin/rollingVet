@@ -24,7 +24,7 @@ const Admin = (props) => {
       </div>
       <div className="col-xl-10 admin__panel">
         <NavegacionResponsive />
-        <Panel />
+        <Panel user={props.user}/>
       </div>
     </div>
   );

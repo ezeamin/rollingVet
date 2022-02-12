@@ -4,6 +4,7 @@ import Tabla from "../../tabla/Tabla";
 import { useNavigate } from "react-router";
 import Carga from "../../carga/Carga";
 import Swal from "sweetalert2";
+import Error from "../../error/Error";
 
 const opciones = [
   "Nombre",
@@ -21,6 +22,7 @@ const PanelMascotas = (props) => {
   const [info, setInfo] = React.useState({ mascotas: [] });
   const [titulo, setTitulo] = React.useState("");
   const [cargando, setCargando] = React.useState(true);
+  const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
     const abortCont = new AbortController();
@@ -31,6 +33,13 @@ const PanelMascotas = (props) => {
           method: "GET",
           signal: abortCont.signal,
         });
+
+        if (!response.ok) {
+          setCargando(false);
+          setError(true);
+          return;
+        }
+
         const data = await response.json();
 
         setInfo(data.paciente);
@@ -42,12 +51,16 @@ const PanelMascotas = (props) => {
       }
     };
 
-    fetchPaciente();
+    if(props.user.dni === 0){
+      setCargando(false);
+      setError(true);
+    }
+    else fetchPaciente();
 
     return () => {
       abortCont.abort();
     };
-  }, [props.dni]);
+  }, [props.dni,props.user.dni]);
 
   React.useEffect(() => {
     if (info.nombre !== undefined) {
@@ -88,6 +101,7 @@ const PanelMascotas = (props) => {
   };
 
   if (cargando) return <Carga />;
+  else if (error) return <Error />;
   return (
     <div className="admin__panel-content container py-5">
       <Tabla

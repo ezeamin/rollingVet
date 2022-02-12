@@ -12,8 +12,6 @@ const VerCita = (props) => {
   let codigoCita = urlSplit[urlSplit.length - 1];
   if(codigoCita.includes("VOD")) codigoCita = codigoCita.split("-")[0];
 
-  const testAuth = props.testAuth;
-
   React.useEffect(() => {
     props.testAuth(true);
     
