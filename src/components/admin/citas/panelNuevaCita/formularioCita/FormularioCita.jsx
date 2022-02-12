@@ -134,7 +134,7 @@ class FormularioCita extends Component {
   };
 
   mandarMail = async () => {
-    init("user_fEGhekYTWvaVP2OtQtMlf");
+    init("user_qh54p4VeU3bqOcLlclhCJ");
 
     const templateParams = {
       name: this.props.paciente.nombre,
@@ -145,7 +145,7 @@ class FormularioCita extends Component {
       hora: this.state.hora,
     };
 
-    await send("service_mx7av3k", "template_qjehzmh", templateParams);
+    await send("service_5hzt2bx", "template_u768qhi", templateParams);
   }
 
   registrarCita = async () => {

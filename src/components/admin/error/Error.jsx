@@ -9,6 +9,7 @@ const Error = () => {
             <div className="error__img mt-5">
                 <img src="/img/pag404/broken-bone.png" alt="hueso roto - error" />
             </div>
+            <p className='error_page-code'>ERR_500</p>
         </div>
     );
 };

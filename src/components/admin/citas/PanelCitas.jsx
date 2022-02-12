@@ -17,6 +17,24 @@ const opciones = [
   "Acciones",
 ];
 
+const comparar = (a, b) => {
+  let fechaA = a.fecha.split("-");
+  let fechaB = b.fecha.split("-");
+
+  let fechaADate = new Date(fechaA[2], fechaA[1] - 1, fechaA[0]);
+  let fechaBDate = new Date(fechaB[2], fechaB[1] - 1, fechaB[0]);
+
+  if (fechaADate.getTime() > fechaBDate.getTime()) {
+    return 1;
+  } else if (fechaADate.getTime() < fechaBDate.getTime()) {
+    return -1;
+  } else {
+    if (a.hora.split(":")[0] > b.hora.split(":")[0]) {
+      return 1;
+    } else return -1;
+  }
+};
+
 const PanelCitas = (props) => {
   const navigate = useNavigate();
   const [citasProgramadas, setCitasProgramadas] = React.useState([]);
@@ -46,9 +64,10 @@ const PanelCitas = (props) => {
             setError(true);
             return;
           }
-  
+
           const data = await response.json();
-          setCitasProgramadas(data.citas);
+          const citas = data.citas.sort((a, b) => comparar(a, b));
+          setCitasProgramadas(citas);
         } else {
           const response = await fetch(
             `/api/citasProgramadas/${props.user.dni}`,
@@ -65,7 +84,8 @@ const PanelCitas = (props) => {
           }
 
           const data = await response.json();
-          setCitasProgramadas(data.citas);
+          const citas = data.citas.sort((a, b) => comparar(a, b));
+          setCitasProgramadas(citas);
         }
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -81,7 +101,7 @@ const PanelCitas = (props) => {
             method: "GET",
             signal: abortCont.signal,
           });
-          
+
           if (!response.ok) {
             setCargando(false);
             setError(true);
@@ -105,11 +125,10 @@ const PanelCitas = (props) => {
         }
       }
     };
-    if(props.user.dni === 0){
+    if (props.user.dni === 0) {
       setCargando(false);
       setError(true);
-    }
-    else {
+    } else {
       fetchCitasProgramadas();
       fetchCitasRegistro();
     }
@@ -117,7 +136,7 @@ const PanelCitas = (props) => {
     return () => {
       abortCont.abort();
     };
-  }, [isUser,props.user.dni]);
+  }, [isUser, props.user.dni]);
 
   const eliminarCita = async (codigoCita) => {
     const response = await fetch(`/api/citas/${codigoCita}`, {

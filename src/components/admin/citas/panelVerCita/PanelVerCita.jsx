@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import Carga from "../../carga/Carga";
 import convertir from "../../../../js/convertirFecha";
 import Error from "../../error/Error";
+import { init, send } from "@emailjs/browser";
 
 class PanelVerCita extends React.Component {
   state = {
@@ -15,6 +16,7 @@ class PanelVerCita extends React.Component {
     info: {},
     cargando: true,
     error: false,
+    paciente: {}
   };
 
   mounted = true;
@@ -33,6 +35,19 @@ class PanelVerCita extends React.Component {
                 VOD: true,
                 veterinario: this.state.info.veterinario,
                 comentarios: this.state.info.comentarios,
+              });
+            }
+            else{
+              fetch(`/api/pacientes/${this.state.info.paciente.dni}`).then((res) => {
+                if (res.ok) {
+                  res.json().then((data) => {
+                    if (this.mounted) {
+                      this.setState({
+                        paciente: data.paciente,
+                      });
+                    }
+                  });
+                }
               });
             }
             this.setState({ cargando: false });
@@ -83,8 +98,31 @@ class PanelVerCita extends React.Component {
 
     if (!this.validarVet()) return;
 
+    this.enviarMail();
     this.guardar();
   };
+
+  async enviarMail(){
+    init("user_qh54p4VeU3bqOcLlclhCJ");
+
+    this.setState({
+      nombre: "",
+      email: "",
+      mensaje: "",
+    });
+
+    const templateParams = {
+      name: this.state.paciente.nombre,
+      email: this.state.paciente.email,
+      fecha: convertir(this.state.info.fecha),
+      hora: this.state.info.hora,
+      veterinario: this.state.veterinario,
+      comentarios: this.state.comentarios,
+      mascota: this.state.info.mascota,
+    };
+
+    await send("service_5hzt2bx", "template_vsucs9r", templateParams);
+  }
 
   async guardar() {
     const data = {

@@ -226,6 +226,8 @@ class FormularioMascota extends Component {
                 <option value="Gato">Gato</option>
                 <option value="Hamster">Hamster</option>
                 <option value="Carpincho">Carpincho</option>
+                <option value="Carpincho">Pez</option>
+                <option value="Carpincho">Loro</option>
               </Form.Select>
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese una especie

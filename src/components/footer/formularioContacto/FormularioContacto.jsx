@@ -81,6 +81,11 @@ class FormularioContacto extends Component {
 
     if (!errorGeneral) {
       this.setState({ enviando: true });
+      Swal.fire({
+        icon: "success",
+        title: "¡Gracias!",
+        text: "Su mensaje ha sido enviado correctamente y se lo contactará a la brevedad",
+      });
       this.enviarMail();
 
       //deshabilitar boton - no cambia color
@@ -90,27 +95,29 @@ class FormularioContacto extends Component {
   };
 
   enviarMail = async () => {
-    init("user_qh54p4VeU3bqOcLlclhCJ");
+    init("user_fEGhekYTWvaVP2OtQtMlf");
 
-    const templateParams = {
-      from_name: this.state.nombre,
-      from_mail: this.state.email,
-      message: this.state.mensaje,
-    };
+    const data ={
+      nombre: this.state.nombre,
+      email: this.state.email,
+      mensaje: this.state.mensaje,
+    }
 
-    await send("service_wg30o5a", "template_j4xvixt", templateParams);
-    Swal.fire({
-      icon: "success",
-      title: "¡Gracias!",
-      text: "Su mensaje ha sido enviado correctamente y se lo contactará a la brevedad",
-    });
-
-    //habilitar boton
     this.setState({
       nombre: "",
       email: "",
       mensaje: "",
     });
+
+    const templateParams = {
+      from_name: data.nombre,
+      from_mail: data.email,
+      message: data.mensaje,
+    };
+
+    await send("service_1o9hvsk", "template_ffzu11n", templateParams);
+
+    //habilitar boton
     const boton = document.getElementById("btnContacto");
     boton.disabled = false;
     this.setState({ enviando: false });

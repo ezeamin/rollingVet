@@ -14,6 +14,10 @@ const comparar = (a, b) => {
     return 1;
   } else if (fechaADate.getTime() < fechaBDate.getTime()) {
     return -1;
+  } else {
+    if (a.hora.split(":")[0] > b.hora.split(":")[0]) {
+      return 1;
+    } else return -1;
   }
 };
 
