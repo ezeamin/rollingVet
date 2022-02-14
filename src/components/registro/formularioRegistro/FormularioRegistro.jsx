@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import "./formularioRegistro.css";
 import Swal from "sweetalert2";
-import { init,send } from '@emailjs/browser';
+import { init, send } from "@emailjs/browser";
 
 class FormularioRegistro extends Component {
   state = {
@@ -22,6 +22,7 @@ class FormularioRegistro extends Component {
       contraseña: false,
       contraseña2: false,
     },
+    showPassword: false,
   };
 
   handleChange = (e) => {
@@ -70,6 +71,15 @@ class FormularioRegistro extends Component {
             return this.error(errores, name);
           }
           break;
+        case "contraseña":
+          if (
+            value.length < 6 ||
+            value.length > 20 ||
+            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(value)
+          ) {
+            return this.error(errores, name);
+          }
+          break;
         case "contraseña2":
           if (this.state.contraseña !== value) {
             return this.error(errores, name);
@@ -96,7 +106,7 @@ class FormularioRegistro extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    let error = [false, false, false, false, false, false];
+    let error = [false, false, false, false, false, false, false];
     let errorGeneral = false;
 
     error[0] = this.verificar("nombre", this.state.nombre);
@@ -125,7 +135,7 @@ class FormularioRegistro extends Component {
     }
   };
 
-  async login(){
+  async login() {
     await fetch("/api/signin", {
       method: "POST",
       headers: {
@@ -183,7 +193,7 @@ class FormularioRegistro extends Component {
         showCancelButton: false,
         showConfirmButton: false,
       }).then(() => {
-        if(!this.props.isAdmin) this.login();
+        if (!this.props.isAdmin) this.login();
         else this.props.navigateSuccess();
       });
     } else {
@@ -222,10 +232,10 @@ class FormularioRegistro extends Component {
     };
 
     await send("service_iabhehr", "template_kp9acc2", templateParams);
-  }
+  };
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.info !== this.props.info){
+    if (prevProps.info !== this.props.info) {
       if (Object.keys(this.props.info).length !== 0) {
         this.setState({
           nombre: this.props.info.nombre,
@@ -239,7 +249,19 @@ class FormularioRegistro extends Component {
       }
     }
   }
-  
+
+  displayPassword() {
+    if (!this.state.showPassword) {
+      document.getElementById("contraseña").type = "text";
+      document.getElementById("eye").className = "fas fa-eye-slash";
+    } else {
+      document.getElementById("contraseña").type = "password";
+      document.getElementById("eye").className = "fas fa-eye";
+    }
+
+    this.setState({ showPassword: !this.state.showPassword });
+  }
+
   render() {
     return (
       <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -254,6 +276,7 @@ class FormularioRegistro extends Component {
               value={this.state.nombre}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              maxLength="20"
             />
             <Form.Control.Feedback className="feedback" type="invalid">
               Ingrese un nombre
@@ -269,6 +292,7 @@ class FormularioRegistro extends Component {
               value={this.state.apellido}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              maxLength="20"
             />
             <Form.Control.Feedback className="feedback" type="invalid">
               Ingrese un apellido
@@ -286,9 +310,10 @@ class FormularioRegistro extends Component {
               value={this.state.dni}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              maxLength="8"
             />
             <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese un DNI valido
+              Ingrese un DNI valido (solo numeros)
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mt-2 w-100">
@@ -321,24 +346,35 @@ class FormularioRegistro extends Component {
             value={this.state.email}
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
+            maxLength="35"
           />
           <Form.Control.Feedback className="feedback" type="invalid">
             Ingrese un email valido
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group className="mt-2">
+        <Form.Group className="mt-2 position-relative">
+          <button
+            className="btnContraseña"
+            type="button"
+            onClick={() => this.displayPassword()}
+          >
+            <i className="fas fa-eye" id="eye"></i>
+          </button>
           <Form.Control
             type="password"
             placeholder="Contraseña"
             name="contraseña"
             className="input"
+            id="contraseña"
             isInvalid={this.state.errores.contraseña}
             value={this.state.contraseña}
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
+            maxLength="20"
           />
           <Form.Control.Feedback className="feedback" type="invalid">
-            Ingrese una contraseña
+            La contraseña debe tener al menos 6 caracteres, una mayuscula, una
+            minuscula y un numero
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mt-2">
@@ -351,6 +387,7 @@ class FormularioRegistro extends Component {
             value={this.state.contraseña2}
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
+            maxLength="20"
           />
           <Form.Control.Feedback className="feedback" type="invalid">
             Las contraseñas no coinciden

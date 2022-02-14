@@ -22,6 +22,7 @@ class FormularioPerfil extends Component {
       contraseña2: false,
     },
     cargando: true,
+    showPassword: false,
   };
 
   handleChange = (e) => {
@@ -73,6 +74,15 @@ class FormularioPerfil extends Component {
         case "plan":
         case "genero":
           if (value === "0") {
+            return this.error(errores, name);
+          }
+          break;
+        case "contraseña":
+          if (
+            value.length < 6 ||
+            value.length > 20 ||
+            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(value)
+          ) {
             return this.error(errores, name);
           }
           break;
@@ -172,20 +182,20 @@ class FormularioPerfil extends Component {
     }
   }
 
-  mounted=true;
+  mounted = true;
 
   componentDidMount() {
     this.mounted = true;
 
     this.setState({
-        nombre: this.props.info.nombre,
-        apellido: this.props.info.apellido,
-        dni: this.props.info.dni,
-        genero: this.props.info.genero,
-        email: this.props.info.email,
-        cargando: false,
-      });
-    }
+      nombre: this.props.info.nombre,
+      apellido: this.props.info.apellido,
+      dni: this.props.info.dni,
+      genero: this.props.info.genero,
+      email: this.props.info.email,
+      cargando: false,
+    });
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.info !== this.props.info && this.mounted) {
@@ -206,6 +216,18 @@ class FormularioPerfil extends Component {
     this.mounted = false;
   }
 
+  displayPassword() {
+    if (!this.state.showPassword) {
+      document.getElementById("contraseña").type = "text";
+      document.getElementById("eye").className = "fas fa-eye-slash";
+    } else {
+      document.getElementById("contraseña").type = "password";
+      document.getElementById("eye").className = "fas fa-eye";
+    }
+
+    this.setState({ showPassword: !this.state.showPassword });
+  }
+
   render() {
     if (this.state.cargando) return <Carga />;
     return (
@@ -223,6 +245,7 @@ class FormularioPerfil extends Component {
                 value={this.state.nombre}
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
+                maxLength="20"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese un nombre
@@ -238,6 +261,7 @@ class FormularioPerfil extends Component {
                 value={this.state.apellido}
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
+                maxLength="20"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese un apellido
@@ -255,6 +279,7 @@ class FormularioPerfil extends Component {
                 value={this.state.dni}
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
+                maxLength="8"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese un DNI valido
@@ -290,24 +315,35 @@ class FormularioPerfil extends Component {
               value={this.state.email}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              maxLength="35"
             />
             <Form.Control.Feedback className="feedback" type="invalid">
               Ingrese un email valido
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group className="mt-2">
+          <Form.Group className="mt-2 position-relative">
+            <button
+              className="btnContraseña"
+              type="button"
+              onClick={() => this.displayPassword()}
+            >
+              <i className="fas fa-eye" id="eye"></i>
+            </button>
             <Form.Control
               type="password"
               placeholder="Contraseña"
               name="contraseña"
+              id="contraseña"
               className="input"
               isInvalid={this.state.errores.contraseña}
               value={this.state.contraseña}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              maxLength="20"
             />
             <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese una contraseña
+              La contraseña debe tener al menos 6 caracteres, una mayuscula, una
+              minuscula y un numero
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mt-2">
@@ -320,6 +356,7 @@ class FormularioPerfil extends Component {
               value={this.state.contraseña2}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              maxLength="20"
             />
             <Form.Control.Feedback className="feedback" type="invalid">
               Las contraseñas no coinciden

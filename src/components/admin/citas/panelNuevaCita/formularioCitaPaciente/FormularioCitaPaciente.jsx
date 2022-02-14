@@ -79,6 +79,7 @@ class FormularioCitaPaciente extends Component {
               value={this.state.dni}
               onChange={(e) => this.setState({dni: e.target.value})}
               onBlur={(e) => this.handleBlur(e)}
+              maxLength="8"
             />
             <Form.Control.Feedback className="feedback" type="invalid">
               Ingrese un DNI valido

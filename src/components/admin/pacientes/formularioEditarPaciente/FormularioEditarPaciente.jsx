@@ -202,6 +202,7 @@ class FormularioEditarPaciente extends Component {
                 value={this.state.nombre}
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
+                maxLength="20"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese un nombre
@@ -217,6 +218,7 @@ class FormularioEditarPaciente extends Component {
                 value={this.state.apellido}
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
+                maxLength="20"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese un apellido
@@ -234,6 +236,7 @@ class FormularioEditarPaciente extends Component {
                 value={this.state.dni}
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
+                maxLength="8"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese un DNI valido
@@ -269,6 +272,7 @@ class FormularioEditarPaciente extends Component {
               value={this.state.email}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              maxLength="35"
             />
             <Form.Control.Feedback className="feedback" type="invalid">
               Ingrese un email valido

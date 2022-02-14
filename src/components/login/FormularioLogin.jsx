@@ -157,12 +157,14 @@ class FormularioLogin extends Component {
             value={this.state.email}
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
+            maxLength="35"
           />
           <Form.Control.Feedback className="feedback" type="invalid">
             Ingrese un email valido
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mt-2">
+          
           <Form.Control
             type="password"
             placeholder="Contraseña"
@@ -172,6 +174,7 @@ class FormularioLogin extends Component {
             value={this.state.contraseña}
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
+            maxLength="20"
           />
           <Form.Control.Feedback className="feedback" type="invalid">
             Ingrese una contraseña

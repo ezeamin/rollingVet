@@ -45,7 +45,7 @@ const PanelUser = (props) => {
           setMascotaNull(true);
         }
         else{
-          const res = await fetch(`/api/user/pacientes/mascotas//${props.user.dni}`, {
+          const res = await fetch(`/api/user/pacientes/mascotas/${props.user.dni}`, {
             method: "GET",
             signal: abortCont.signal,
           });
@@ -59,8 +59,10 @@ const PanelUser = (props) => {
           const resMascotas = await res.json();
 
           resMascotas.mascotas.forEach((mascota) => {
-            if(mascota.plan==="Sin plan") setMascotaPlanNull(true);
-            return;
+            if(mascota.plan==="Sin plan"){
+              setMascotaPlanNull(true);
+              return;
+            } 
           });
         }
       } catch (err) {

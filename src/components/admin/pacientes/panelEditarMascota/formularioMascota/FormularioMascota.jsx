@@ -205,6 +205,7 @@ class FormularioMascota extends Component {
                 value={this.state.nombre}
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
+                maxLength="15"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese un nombre
@@ -245,6 +246,7 @@ class FormularioMascota extends Component {
                 value={this.state.raza}
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
+                maxLength="20"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese una raza

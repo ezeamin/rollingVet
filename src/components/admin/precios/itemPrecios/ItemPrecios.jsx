@@ -114,6 +114,7 @@ class ItemPrecios extends Component {
               value={this.state.precio}
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              maxLength="6"
             />
             <button className="admin__precios-item-btn" type="submit">
               <i className="fas fa-save"></i>

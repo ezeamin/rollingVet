@@ -148,6 +148,7 @@ class FormularioContacto extends Component {
             value={this.state.nombre}
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
+            maxLength="30"
           />
           <Form.Control.Feedback className="feedback" type="invalid">
             Ingrese un nombre valido
@@ -163,6 +164,7 @@ class FormularioContacto extends Component {
             value={this.state.email}
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
+            maxLength="35"
           />
           <Form.Control.Feedback className="feedback" type="invalid">
             Ingrese un email valido
@@ -180,6 +182,7 @@ class FormularioContacto extends Component {
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
             style={{ resize: "none" }}
+            maxLength="500"
           />
           <Form.Control.Feedback className="feedback" type="invalid">
             Ingrese un mensaje

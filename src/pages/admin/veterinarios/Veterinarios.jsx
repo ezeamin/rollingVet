@@ -6,8 +6,6 @@ import PanelVeterinarios from "../../../components/admin/veterinarios/PanelVeter
 
 const Veterinarios = (props) => {
 
-  const testAuth = props.testAuth;
-
   React.useEffect(() => {
     props.testAuth(true);
     
