@@ -73,12 +73,16 @@ const PanelEditarPaciente = (props) => {
   else if (props.dni !== "new") {
     return (
       <div className="admin__panel__pacientes-editarUser py-5 admin__panel__pacientes-content">
-        <div className="admin__panel__pacientes-editarUser-form">
-          <FormularioEditarPaciente
-            info={info}
-            navigateSuccess={navigateSuccess}
-            changeAvatar={changeAvatar}
-          />
+        <div>
+          <h1 className="mb-3 h3__bold">Editar perfil</h1>
+          <div className="admin__panel__pacientes-editarUser-form">
+            <FormularioRegistro
+              info={info}
+              navigateSuccess={navigateSuccess}
+              changeAvatar={changeAvatar}
+              avatar={info.avatar}
+            />
+          </div>
         </div>
         <div className="admin__panel__pacientes-editarUser-mascotas">
           <button

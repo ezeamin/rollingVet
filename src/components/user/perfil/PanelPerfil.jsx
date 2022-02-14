@@ -4,6 +4,7 @@ import Carga from "../../admin/carga/Carga";
 import FormularioPerfil from "./formularioPerfil/FormularioPerfil";
 import './panelPerfil.css';
 import Error from "../../admin/error/Error";
+import FormularioRegistro from "../../registro/formularioRegistro/FormularioRegistro";
 
 const PanelPerfil = (props) => {
   const [cargando, setCargando] = React.useState(true);
@@ -76,7 +77,8 @@ const PanelPerfil = (props) => {
   return (
     <div className="admin__panel__pacientes-editarUser user__panel__pacientes-editarUser admin__panel__pacientes-content">
       <div className="admin__panel__pacientes-editarUser-form">
-        <FormularioPerfil
+        <h1 className="mb-3 h3__bold">{nombreCompleto}</h1>
+        <FormularioRegistro
           info={info}
           navigateSuccess={navigateSuccess}
           changeAvatar={changeAvatar}

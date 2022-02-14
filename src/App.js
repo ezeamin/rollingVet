@@ -53,6 +53,12 @@ function App() {
           if(data.user.dni==="1") window.location.href="/admin";
           else window.location.href="/user";
         } 
+        else if (data.user.dni!=="1" && url.includes("/admin")){
+          window.location.href="/user";
+        }
+        else if (data.user.dni==="1" && url.includes("/user")){
+          window.location.href="/admin";
+        }
       } else {
         setIsAuthenticated(false); //poner en true para empezar, como isAdmin
         setIsAdmin(false);

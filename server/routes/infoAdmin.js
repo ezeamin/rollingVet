@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 const DbPacientes = require("../models/paciente");
 const DbCitas = require("../models/cita");
@@ -77,9 +78,21 @@ router.delete("/api/pacientes/:dni", (req, res) => {
 });
 
 router.put("/api/pacientes/editar", (req, res) => {
+  let datos ={
+    dni: req.body.dni,
+    nombre: req.body.nombre,
+    apellido: req.body.apellido,
+    genero: req.body.genero,
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password, 10),
+    avatar: req.body.avatar,
+    mascotas: req.body.mascotas,
+  }
+
+  console.log(datos);
   DbPacientes.findOneAndUpdate(
     { dni: req.body.dni },
-    req.body,
+    datos,
     { new: true },
     (err, paciente) => {
       if (err) {

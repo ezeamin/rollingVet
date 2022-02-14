@@ -23,6 +23,8 @@ class FormularioRegistro extends Component {
       contraseña2: false,
     },
     showPassword: false,
+    cargando: true,
+    isNew: true,
   };
 
   handleChange = (e) => {
@@ -131,7 +133,8 @@ class FormularioRegistro extends Component {
       let color = estilo.getPropertyValue("--global-color-primary-light");
       boton.style.backgroundColor = color;
 
-      this.registrar(boton);
+      if(this.state.isNew) this.registrar(boton);
+      else this.editar(boton)
     }
   };
 
@@ -243,11 +246,81 @@ class FormularioRegistro extends Component {
           dni: this.props.info.dni,
           genero: this.props.info.genero,
           email: this.props.info.email,
-          contraseña: this.props.info.password,
-          contraseña2: this.props.info.password,
         });
       }
     }
+  }
+
+  async editar(boton) {
+    const res = await fetch("/api/pacientes/editar", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre: this.capitalize(this.state.nombre),
+        apellido: this.capitalize(this.state.apellido),
+        dni: this.state.dni,
+        genero: this.state.genero,
+        email: this.state.email,
+        avatar: this.props.avatar,
+        password: this.state.contraseña,
+      }),
+    });
+    const data = await res.json();
+
+    if (data.ok) {
+      console.log(data);
+      Swal.fire({
+        title: "Edicion exitosa",
+        text: " ",
+        timer: 2000,
+        showCancelButton: false,
+        showConfirmButton: false,
+      }).then(() => {
+        this.props.navigateSuccess();
+      });
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "Vuelve a intentarlo mas tarde",
+        icon: "error",
+        timer: 2500,
+        showCancelButton: false,
+        showConfirmButton: false,
+      });
+
+      boton.disabled = false;
+
+      let estilo = window.getComputedStyle(document.body);
+      let color = estilo.getPropertyValue("--global-color-primary");
+      boton.style.backgroundColor = color;
+    }
+  }
+
+  mounted = true;
+
+  componentDidMount() {
+    this.mounted = true;
+
+    if(!window.location.href.includes("new")){
+      if(window.location.href.includes("/user") || window.location.href.includes("/admin")) this.setState({isNew: false})
+    }
+
+    if(this.props.info){
+      this.setState({
+        nombre: this.props.info.nombre,
+        apellido: this.props.info.apellido,
+        dni: this.props.info.dni,
+        genero: this.props.info.genero,
+        email: this.props.info.email,
+        cargando: false,
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   displayPassword() {
