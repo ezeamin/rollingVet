@@ -33,7 +33,7 @@ const Panel = (props) => {
 
     const traerInfo = async () => {
       try {
-        const response = await fetch(process.env.SERVER_URL+"/api/qty", {
+        const response = await fetch("/api/qty", {
           method: "GET",
           signal: abortCont.signal,
         });

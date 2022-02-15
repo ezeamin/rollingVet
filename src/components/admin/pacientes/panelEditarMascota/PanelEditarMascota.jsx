@@ -17,7 +17,7 @@ const PanelEditarMascota = (props) => {
       const fetchMascota = async () => {
         try {
           const response = await fetch(
-            process.env.SERVER_URL+`/api/pacientes/${props.dni}/${props.codigoMascota}`,
+            `/api/pacientes/${props.dni}/${props.codigoMascota}`,
             {
               method: "GET",
               signal: abortCont.signal,

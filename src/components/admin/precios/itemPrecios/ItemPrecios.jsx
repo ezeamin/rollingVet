@@ -49,7 +49,7 @@ class ItemPrecios extends Component {
   savePrecio = async () => {
     const precioTotal = Math.round(this.state.precio * 1.50);
 
-    const response = await fetch(process.env.SERVER_URL+`/api/precios`, {
+    const response = await fetch(`/api/precios`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

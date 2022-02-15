@@ -153,7 +153,7 @@ class FormularioCita extends Component {
       (mascota) => mascota.nombre === this.state.mascota
     ).codigoMascota;
 
-    const response = await fetch(process.env.SERVER_URL+`/api/citas`, {
+    const response = await fetch(`/api/citas`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -178,7 +178,7 @@ class FormularioCita extends Component {
     const data = await response.json();
 
     if (data.ok) {
-      await fetch(process.env.SERVER_URL+`/api/fechas`,{
+      await fetch(`/api/fechas`,{
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

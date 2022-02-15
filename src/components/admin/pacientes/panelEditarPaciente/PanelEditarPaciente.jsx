@@ -16,7 +16,7 @@ const PanelEditarPaciente = (props) => {
     const fetchPaciente = async () => {
       try {
         if (props.dni !== "new") {
-          const res = await fetch(process.env.SERVER_URL+`/api/pacientes/${props.dni}`, {
+          const res = await fetch(`/api/pacientes/${props.dni}`, {
             method: "GET",
             signal: abortCont.signal,
           });

@@ -25,7 +25,7 @@ class PanelVerCita extends React.Component {
   componentDidMount() {
     this.mounted = true;
 
-    fetch(process.env.SERVER_URL+`/api/citas/${this.props.codigoCita}`).then((res) => {
+    fetch(`/api/citas/${this.props.codigoCita}`).then((res) => {
       if (res.ok && this.mounted) {
         res.json().then((data) => {
           if (this.mounted) {
@@ -39,7 +39,7 @@ class PanelVerCita extends React.Component {
               });
             }
             else{
-              fetch(process.env.SERVER_URL+`/api/pacientes/${this.state.info.paciente.dni}`).then((res) => {
+              fetch(`/api/pacientes/${this.state.info.paciente.dni}`).then((res) => {
                 if (res.ok) {
                   res.json().then((data) => {
                     if (this.mounted) {
@@ -141,7 +141,7 @@ class PanelVerCita extends React.Component {
       atendido: true,
     };
 
-    const res = await fetch(process.env.SERVER_URL+`/api/citas/${this.props.codigoCita}`, {
+    const res = await fetch(`/api/citas/${this.props.codigoCita}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

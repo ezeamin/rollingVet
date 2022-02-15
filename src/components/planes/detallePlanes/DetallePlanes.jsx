@@ -9,7 +9,7 @@ const DetallePlanes = () => {
 
     const fetchPrecios = async () => {
       try {
-        const response = await fetch(process.env.SERVER_URL+"/api/precios", {
+        const response = await fetch("/api/precios", {
           method: "GET",
           signal: abortCont.signal,
         });

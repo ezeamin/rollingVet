@@ -71,7 +71,7 @@ const PanelPlanes = (props) => {
     const mascotaSeleccionada = mascotas.find((m) => m.nombre === mascota);
 
     const response = await fetch(
-      process.env.SERVER_URL+`/api/user/guardarPlan/${props.user.dni}/${mascotaSeleccionada.codigoMascota}`,
+      `/api/user/guardarPlan/${props.user.dni}/${mascotaSeleccionada.codigoMascota}`,
       {
         method: "PUT",
         headers: {
@@ -103,7 +103,7 @@ const PanelPlanes = (props) => {
     const fetchInfo = async () => {
       try {
         const response = await fetch(
-          process.env.SERVER_URL+`/api/user/pacientes/mascotas/${props.user.dni}`,
+          `/api/user/pacientes/mascotas/${props.user.dni}`,
           {
             method: "GET",
             signal: abortCont.signal,

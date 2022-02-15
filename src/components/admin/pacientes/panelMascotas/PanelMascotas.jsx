@@ -29,7 +29,7 @@ const PanelMascotas = (props) => {
 
     const fetchPaciente = async () => {
       try {
-        const response = await fetch(process.env.SERVER_URL+`/api/pacientes/${props.dni}`, {
+        const response = await fetch(`/api/pacientes/${props.dni}`, {
           method: "GET",
           signal: abortCont.signal,
         });
@@ -69,7 +69,7 @@ const PanelMascotas = (props) => {
   }, [info]);
 
   const eliminar = (codigoMascota) => {
-    fetch(process.env.SERVER_URL+`/api/pacientes/${props.dni}/${codigoMascota}`, {
+    fetch(`/api/pacientes/${props.dni}/${codigoMascota}`, {
       method: "DELETE",
     }).then(() => {
       Swal.fire({
@@ -81,7 +81,7 @@ const PanelMascotas = (props) => {
         timer: 1500  
       }).then(() => {
         const fetchPaciente = async () => {
-            const response = await fetch(process.env.SERVER_URL+`/api/pacientes/${props.dni}`, {
+            const response = await fetch(`/api/pacientes/${props.dni}`, {
               method: "GET",
             });
             const data = await response.json();
