@@ -1,0 +1,14 @@
+.clima__flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.clima__flex-texto{
+    text-align: right;
+}
+
+@media screen and (max-width: 768px){
+    .clima__flex{
+        flex-direction: column-reverse;
+    }
+}

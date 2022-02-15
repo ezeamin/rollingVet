@@ -1,0 +1,14 @@
+.admin__panel-btn{
+    text-align: end;
+}
+
+.admin__panel-btn button{
+    border-radius: 23px !important;
+    padding: 0.5rem 1rem !important;
+}
+
+@media screen and (max-width: 1200px){
+    .admin__panel-btn{
+        text-align: center;
+    }
+}

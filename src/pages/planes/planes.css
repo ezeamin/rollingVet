@@ -1,0 +1,15 @@
+.gradient__bg-planes {
+    background: linear-gradient(180deg, rgba(255, 222, 173, 0.2) 68.35%, rgba(255, 255, 255, 0.2) 100%), radial-gradient(100% 99.86% at 100% 0.14%, #FE8383 0%, #FFDEAD 98.44%);
+  }
+
+  #fab__arrow-a{
+    background-color: var(--global-color-secondary);
+  }
+
+  #fab__arrow{
+    color: #fff;
+  }
+
+  #fab__arrow-a:hover{
+    background-color: var(--global-color-secondary-dark);
+  }

@@ -1,0 +1,105 @@
+.card{
+    margin-right: 0.5rem;
+    width: calc(100vw - 2rem);
+    border-radius: 23px !important;
+    border: 0 !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.card__img{
+    width: 100%;
+    min-height: 200px;
+    height: 200px;
+    margin-bottom: 1rem;
+}
+
+.card__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 23px 23px 0 0!important;
+}
+
+.card__body{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card__body-inferior{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.card__body-title{
+    font-weight: 800;
+    font-size: 36px;
+    letter-spacing: -0.04em;
+}
+
+.card__body-description{
+    font-weight: 300;
+    font-size: 21px;
+}
+
+.card__body-precio{
+    font-weight: 800;
+    font-size: 36px;
+    letter-spacing: -0.04em;
+}
+
+.card__body-precioFinal{
+    font-weight: 200;
+    font-size: 19px;
+}
+
+.card__body-boton{
+    background: var(--global-color-primary);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 23px;
+    padding: 10px 0;
+    width: 30%;
+    margin: 0 auto;
+    transition: background-color 0.25s ease;
+}
+
+.card__body-boton a{
+    text-decoration: none;
+    padding: 10px 30px;
+    color: #fff;
+}
+
+.card__body-boton:hover{
+    background: var(--global-color-primary-dark);
+}
+
+.card__body-boton:hover a{
+    color: #fff;
+}
+
+@media screen and (max-width: 768px){
+    .card{
+        margin-bottom: 0.5rem;
+        margin-right: 0;
+        width: 100%
+    }
+
+    .card__body-boton a{
+        padding: 10px 28px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .card__body-boton a{
+        padding: 10px 12px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px){
+    .card__body-boton a{
+        padding: 10px 20px;
+    }
+}

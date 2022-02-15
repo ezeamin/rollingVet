@@ -1,0 +1,59 @@
+.admin__panel__cita-info{
+    text-align: start;
+    margin-top: 2rem !important;
+}
+
+.h3__bold-light{
+    font-weight: 300;
+}
+
+.lh-100{
+    line-height: 100%;
+}
+
+.admin__panel__cita-select{
+    border-radius: 23px !important;
+}
+
+.admin__panel__cita-comentarios{
+    resize: none !important;
+    border-radius: 23px !important;
+    padding: 0.5rem 1rem !important;
+}
+
+.admin__panel__cita-btnGuardar{
+    text-align: end;
+}
+
+.admin__panel__cita-btnGuardar button{
+    border-radius: 23px !important;
+    padding: 0.5rem 1rem !important;
+    margin: 1rem 0;
+    border: 1px solid rgb(231, 231, 231);
+    background-color: rgb(255, 255, 255);
+    transition: all 0.2s ease;
+}
+
+.admin__panel__cita-btnGuardar button:hover{
+    background-color: rgb(231, 231, 231);
+}
+
+@media screen and (max-width: 1200px) {
+    .admin__panel__cita-title{
+        font-size: 4rem !important;
+    }
+
+    .admin__panel__cita-btnGuardar{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .admin__panel__cita-title{
+        font-size: 3rem !important;
+    }
+
+    .admin__panel__cita-comentarios{
+        margin-top: 1rem;
+    }
+}

@@ -1,0 +1,12 @@
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+    .user__panel{
+        text-align: start;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .user__panel-planes__titulo{
+        text-align: center;
+    }
+}
+

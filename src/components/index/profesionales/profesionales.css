@@ -1,0 +1,74 @@
+.pro__container{
+    position: relative;
+    height: 64vh;
+}
+
+.pro__titulos{
+    text-align: right;
+    width: 60%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.pro__sobreNosotros{
+    text-align: right;
+    width: 57%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.pro__profesionales-max{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    left: 5rem;
+    top: 15px;
+    bottom: 0;
+    margin: auto;
+}
+
+.pro__profesionales{
+    display: none;
+}
+
+@media screen and (max-width: 1200px){
+    .pro__container{
+        height: 100%;
+    }
+
+    .pro__titulos{
+        position: relative;
+        width: 100%;
+        text-align: center;
+    }
+
+    .pro__inferior{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .pro__sobreNosotros{
+        position: relative;
+        text-align: center;
+        margin-top: 1rem;
+        width: 100%;
+    }
+    
+    .pro__profesionales-max{
+        display: none;
+    }    
+
+    .pro__profesionales{
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .pro__profesionales{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

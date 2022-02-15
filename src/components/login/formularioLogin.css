@@ -1,0 +1,15 @@
+.login__olvidasteContraseña{
+    text-decoration: none;
+    color: #000;
+    border: 0;
+    background: transparent;
+}
+
+.login__olvidasteContraseña:hover{
+    text-decoration: underline;
+    text-decoration-color: #000;
+}
+
+.login__olvidasteContraseña p{
+    margin: 0.5rem 0;
+}

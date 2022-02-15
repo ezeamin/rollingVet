@@ -1,6 +1,6 @@
 {
   "short_name": "Rolling Vet",
-  "proxy": "http://localhost:5000/",
+  "proxy": "https://rollingvet.herokuapp.com",
   "name": "Rolling Vet",
   "start_url": "/",
   "display": "standalone",
