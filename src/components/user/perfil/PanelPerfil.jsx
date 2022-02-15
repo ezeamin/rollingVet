@@ -21,6 +21,7 @@ const PanelPerfil = (props) => {
       const res = await fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/${props.user.dni}`, {
         method: "GET",
         signal: abortCont.signal,
+        credentials: "include",
       });
       const data = await res.json();
 

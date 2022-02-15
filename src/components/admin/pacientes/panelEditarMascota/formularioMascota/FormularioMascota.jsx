@@ -122,6 +122,7 @@ class FormularioMascota extends Component {
   guardarMascota = async () => {
     const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/mascota/${this.props.dni}`, {
       method: "PUT",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -292,6 +293,9 @@ class FormularioMascota extends Component {
           </Form.Group>
           {!this.state.isUser ? 
           <Form.Group className="mt-2 w-100">
+            <div className="text-center">
+              <label>Plan</label>
+            </div>
             <Form.Select
               type="select"
               placeholder="Plan"

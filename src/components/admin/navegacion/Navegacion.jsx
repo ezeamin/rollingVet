@@ -118,6 +118,7 @@ const Navegacion = (props) => {
     }).then(async () => {
       await fetch(process.env.REACT_APP_SERVER_URL+"/api/logout", {
         method: "DELETE",
+        credentials: "include",
       });
       props.setIsAuthenticated(false);
       props.setIsAdmin(false);

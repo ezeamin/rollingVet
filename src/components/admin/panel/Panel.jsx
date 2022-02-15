@@ -36,6 +36,7 @@ const Panel = (props) => {
         const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/qty", {
           method: "GET",
           signal: abortCont.signal,
+          credentials: "include",
         });
         const info = await response.json();
 

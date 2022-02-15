@@ -35,6 +35,7 @@ const PanelUser = (props) => {
         const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/user/qty/${props.user.dni}`, {
           method: "GET",
           signal: abortCont.signal,
+          credentials: "include",
         });
         const info = await response.json();
         setMascotas(info.mascotas);
@@ -48,6 +49,7 @@ const PanelUser = (props) => {
           const res = await fetch(process.env.REACT_APP_SERVER_URL+`/api/user/pacientes/mascotas/${props.user.dni}`, {
             method: "GET",
             signal: abortCont.signal,
+            credentials: "include",
           });
           
           if (!response.ok) {
@@ -85,9 +87,7 @@ const PanelUser = (props) => {
   const btnCitas = () => {
     navigate("/user/citas");
   };
-
-  //<p className="p__descripciones">Agregale un plan a tu(s) mascota(s) desde "Mi perfil"</p>
-
+  
   if (cargando) return <Carga />;
   else if (error) return <Error />;
   return (

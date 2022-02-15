@@ -57,6 +57,7 @@ const PanelCitas = (props) => {
           const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/citasProgramadas", {
             method: "GET",
             signal: abortCont.signal,
+            credentials: "include",
           });
 
           if (!response.ok) {
@@ -74,6 +75,7 @@ const PanelCitas = (props) => {
             {
               method: "GET",
               signal: abortCont.signal,
+              credentials: "include",
             }
           );
 
@@ -100,6 +102,7 @@ const PanelCitas = (props) => {
           const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/citasRegistro", {
             method: "GET",
             signal: abortCont.signal,
+            credentials: "include",
           });
 
           if (!response.ok) {
@@ -113,6 +116,7 @@ const PanelCitas = (props) => {
         } else {
           const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citasRegistro/${props.user.dni}`, {
             method: "GET",
+            credentials: "include",
             signal: abortCont.signal,
           });
           const data = await response.json();
@@ -141,6 +145,7 @@ const PanelCitas = (props) => {
   const eliminarCita = async (codigoCita) => {
     const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citas/${codigoCita}`, {
       method: "DELETE",
+      credentials: "include",
     });
     const data = await response.json();
     if (data.ok) {
@@ -155,6 +160,7 @@ const PanelCitas = (props) => {
         if (!isUser) {
           const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/citasProgramadas", {
             method: "GET",
+            credentials: "include",
           });
           const data = await response.json();
           setCitasProgramadas(data.citas);
@@ -163,6 +169,7 @@ const PanelCitas = (props) => {
             process.env.REACT_APP_SERVER_URL+`/api/citasProgramadas/${props.user.dni}`,
             {
               method: "GET",
+              credentials: "include",
             }
           );
           const data = await response.json();

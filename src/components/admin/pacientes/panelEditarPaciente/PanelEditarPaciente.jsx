@@ -19,6 +19,7 @@ const PanelEditarPaciente = (props) => {
           const res = await fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/${props.dni}`, {
             method: "GET",
             signal: abortCont.signal,
+            credentials: "include",
           });
 
           if (!res.ok) {

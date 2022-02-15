@@ -21,6 +21,7 @@ const PanelEditarMascota = (props) => {
             {
               method: "GET",
               signal: abortCont.signal,
+              credentials: "include",
             }
           );
 

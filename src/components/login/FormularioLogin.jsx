@@ -11,6 +11,7 @@ class FormularioLogin extends Component {
       email: false,
       contraseña: false,
     },
+    showPassword: false,
   };
 
   handleChange = (e) => {
@@ -97,6 +98,7 @@ class FormularioLogin extends Component {
   async login(boton) {
     const res = await fetch(process.env.REACT_APP_SERVER_URL+"/api/signin", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -137,11 +139,24 @@ class FormularioLogin extends Component {
       //datos correctos
       const res2 = await fetch(process.env.REACT_APP_SERVER_URL+"/api/isAdmin", {
         method: "GET",
+        credentials: "include",
       });
       const data2 = await res2.json();
 
       this.props.navigateSuccess(data2.isAdmin);
     }
+  }
+
+  displayPassword() {
+    if (!this.state.showPassword) {
+      document.getElementById("contraseña").type = "text";
+      document.getElementById("eye").className = "fas fa-eye-slash";
+    } else {
+      document.getElementById("contraseña").type = "password";
+      document.getElementById("eye").className = "fas fa-eye";
+    }
+
+    this.setState({ showPassword: !this.state.showPassword });
   }
 
   render() {
@@ -163,11 +178,19 @@ class FormularioLogin extends Component {
             Ingrese un email valido
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group className="mt-2">
+        <Form.Group className="mt-2 position-relative">
+        <button
+            className="btnContraseña"
+            type="button"
+            onClick={() => this.displayPassword()}
+          >
+            <i className="fas fa-eye" id="eye"></i>
+          </button>
           <Form.Control
             type="password"
             placeholder="Contraseña"
             name="contraseña"
+            id="contraseña"
             className="input"
             isInvalid={this.state.errores.contraseña}
             value={this.state.contraseña}

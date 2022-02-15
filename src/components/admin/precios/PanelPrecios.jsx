@@ -16,6 +16,7 @@ const PanelPrecios = () => {
         const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/precios", {
           method: "GET",
           signal: abortCont.signal,
+          credentials: "include",
         });
 
         if (!response.ok) {

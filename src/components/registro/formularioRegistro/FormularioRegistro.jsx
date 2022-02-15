@@ -141,6 +141,7 @@ class FormularioRegistro extends Component {
   async login() {
     await fetch(process.env.REACT_APP_SERVER_URL + "/api/signin", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -170,6 +171,7 @@ class FormularioRegistro extends Component {
   async registrar(boton) {
     const res = await fetch(process.env.REACT_APP_SERVER_URL + "/api/signup", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -256,6 +258,7 @@ class FormularioRegistro extends Component {
       process.env.REACT_APP_SERVER_URL + "/api/pacientes/editar",
       {
         method: "PUT",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

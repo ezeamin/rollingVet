@@ -17,7 +17,7 @@ class PanelVerCita extends React.Component {
     info: {},
     cargando: true,
     error: false,
-    paciente: {}
+    paciente: {},
   };
 
   mounted = true;
@@ -25,7 +25,13 @@ class PanelVerCita extends React.Component {
   componentDidMount() {
     this.mounted = true;
 
-    fetch(process.env.REACT_APP_SERVER_URL+`/api/citas/${this.props.codigoCita}`).then((res) => {
+    fetch(
+      process.env.REACT_APP_SERVER_URL + `/api/citas/${this.props.codigoCita}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    ).then((res) => {
       if (res.ok && this.mounted) {
         res.json().then((data) => {
           if (this.mounted) {
@@ -37,9 +43,15 @@ class PanelVerCita extends React.Component {
                 veterinario: this.state.info.veterinario,
                 comentarios: this.state.info.comentarios,
               });
-            }
-            else{
-              fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/${this.state.info.paciente.dni}`).then((res) => {
+            } else {
+              fetch(
+                process.env.REACT_APP_SERVER_URL +
+                  `/api/pacientes/${this.state.info.paciente.dni}`,
+                {
+                  method: "GET",
+                  credentials: "include",
+                }
+              ).then((res) => {
                 if (res.ok) {
                   res.json().then((data) => {
                     if (this.mounted) {
@@ -54,8 +66,7 @@ class PanelVerCita extends React.Component {
             this.setState({ cargando: false });
           }
         });
-      }
-      else if (!res.ok){
+      } else if (!res.ok) {
         this.setState({ cargando: false, error: true });
       }
     });
@@ -112,7 +123,7 @@ class PanelVerCita extends React.Component {
     this.guardar();
   };
 
-  async enviarMail(){
+  async enviarMail() {
     init("user_qh54p4VeU3bqOcLlclhCJ");
 
     this.setState({
@@ -141,13 +152,17 @@ class PanelVerCita extends React.Component {
       atendido: true,
     };
 
-    const res = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citas/${this.props.codigoCita}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(
+      process.env.REACT_APP_SERVER_URL + `/api/citas/${this.props.codigoCita}`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     if (res.ok) {
       Swal.fire({
@@ -163,7 +178,7 @@ class PanelVerCita extends React.Component {
       alert("Error al guardar");
     }
   }
-  
+
   render() {
     if (this.state.cargando) return <Carga />;
     else if (this.state.error) return <Error />;
@@ -230,8 +245,8 @@ class PanelVerCita extends React.Component {
               isInvalid={this.state.errorComentarios}
             />
             <Form.Control.Feedback type="invalid">
-                  Cargue un comentario
-                </Form.Control.Feedback>
+              Cargue un comentario
+            </Form.Control.Feedback>
           </Form.Group>
           <div className="admin__panel__cita-btnGuardar">
             <button type="submit">Guardar</button>

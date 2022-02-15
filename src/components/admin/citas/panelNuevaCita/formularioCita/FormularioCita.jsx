@@ -155,6 +155,7 @@ class FormularioCita extends Component {
 
     const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citas`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -180,6 +181,7 @@ class FormularioCita extends Component {
     if (data.ok) {
       await fetch(process.env.REACT_APP_SERVER_URL+`/api/fechas`,{
         method: "PUT",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

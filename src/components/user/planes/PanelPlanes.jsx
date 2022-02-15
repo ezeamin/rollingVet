@@ -74,6 +74,7 @@ const PanelPlanes = (props) => {
       process.env.REACT_APP_SERVER_URL+`/api/user/guardarPlan/${props.user.dni}/${mascotaSeleccionada.codigoMascota}`,
       {
         method: "PUT",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -107,6 +108,7 @@ const PanelPlanes = (props) => {
           {
             method: "GET",
             signal: abortCont.signal,
+            credentials: "include",
           }
         );
 
