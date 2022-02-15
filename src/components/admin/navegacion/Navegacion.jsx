@@ -116,7 +116,7 @@ const Navegacion = (props) => {
       showCancelButton: false,
       showConfirmButton: false,
     }).then(async () => {
-      await fetch("/api/logout", {
+      await fetch(process.env.REACT_APP_SERVER_URL+"/api/logout", {
         method: "DELETE",
       });
       props.setIsAuthenticated(false);

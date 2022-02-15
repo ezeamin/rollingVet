@@ -133,13 +133,13 @@ class FormularioRegistro extends Component {
       let color = estilo.getPropertyValue("--global-color-primary-light");
       boton.style.backgroundColor = color;
 
-      if(this.state.isNew) this.registrar(boton);
-      else this.editar(boton)
+      if (this.state.isNew) this.registrar(boton);
+      else this.editar(boton);
     }
   };
 
   async login() {
-    await fetch("/api/signin", {
+    await fetch(process.env.REACT_APP_SERVER_URL + "/api/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -168,7 +168,7 @@ class FormularioRegistro extends Component {
   }
 
   async registrar(boton) {
-    const res = await fetch("/api/signup", {
+    const res = await fetch(process.env.REACT_APP_SERVER_URL + "/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -252,21 +252,24 @@ class FormularioRegistro extends Component {
   }
 
   async editar(boton) {
-    const res = await fetch("/api/pacientes/editar", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nombre: this.capitalize(this.state.nombre),
-        apellido: this.capitalize(this.state.apellido),
-        dni: this.state.dni,
-        genero: this.state.genero,
-        email: this.state.email,
-        avatar: this.props.avatar,
-        password: this.state.contraseña,
-      }),
-    });
+    const res = await fetch(
+      process.env.REACT_APP_SERVER_URL + "/api/pacientes/editar",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: this.capitalize(this.state.nombre),
+          apellido: this.capitalize(this.state.apellido),
+          dni: this.state.dni,
+          genero: this.state.genero,
+          email: this.state.email,
+          avatar: this.props.avatar,
+          password: this.state.contraseña,
+        }),
+      }
+    );
     const data = await res.json();
 
     if (data.ok) {
@@ -303,11 +306,15 @@ class FormularioRegistro extends Component {
   componentDidMount() {
     this.mounted = true;
 
-    if(!window.location.href.includes("new")){
-      if(window.location.href.includes("/user") || window.location.href.includes("/admin")) this.setState({isNew: false})
+    if (!window.location.href.includes("new")) {
+      if (
+        window.location.href.includes("/user") ||
+        window.location.href.includes("/admin")
+      )
+        this.setState({ isNew: false });
     }
 
-    if(this.props.info){
+    if (this.props.info) {
       this.setState({
         nombre: this.props.info.nombre,
         apellido: this.props.info.apellido,

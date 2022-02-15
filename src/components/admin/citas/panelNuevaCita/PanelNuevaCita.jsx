@@ -59,7 +59,7 @@ const PanelNuevaCita = (props) => {
 
     const fetchHorarios = async () => {
       try {
-        const response = await fetch(`/api/fechas/${fecha}`, {
+        const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/fechas/${fecha}`, {
           method: "GET",
           signal: abortCont.signal,
         });

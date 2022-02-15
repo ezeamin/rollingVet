@@ -32,7 +32,7 @@ const PanelUser = (props) => {
 
     const traerInfo = async () => {
       try {
-        const response = await fetch(`/api/user/qty/${props.user.dni}`, {
+        const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/user/qty/${props.user.dni}`, {
           method: "GET",
           signal: abortCont.signal,
         });
@@ -45,7 +45,7 @@ const PanelUser = (props) => {
           setMascotaNull(true);
         }
         else{
-          const res = await fetch(`/api/user/pacientes/mascotas/${props.user.dni}`, {
+          const res = await fetch(process.env.REACT_APP_SERVER_URL+`/api/user/pacientes/mascotas/${props.user.dni}`, {
             method: "GET",
             signal: abortCont.signal,
           });

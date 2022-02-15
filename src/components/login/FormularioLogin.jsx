@@ -95,7 +95,7 @@ class FormularioLogin extends Component {
   };
 
   async login(boton) {
-    const res = await fetch("/api/signin", {
+    const res = await fetch(process.env.REACT_APP_SERVER_URL+"/api/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -135,7 +135,7 @@ class FormularioLogin extends Component {
       boton.style.backgroundColor = color;
     } else {
       //datos correctos
-      const res2 = await fetch("/api/isAdmin", {
+      const res2 = await fetch(process.env.REACT_APP_SERVER_URL+"/api/isAdmin", {
         method: "GET",
       });
       const data2 = await res2.json();

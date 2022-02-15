@@ -38,7 +38,7 @@ const PanelPacientes = (props) => {
   };
 
   const eliminar = async (dni) => {
-    const response = await fetch(`/api/pacientes/${dni}`, {
+    const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/${dni}`, {
       method: "DELETE",
     });
     const data = await response.json();
@@ -70,7 +70,7 @@ const PanelPacientes = (props) => {
 
     const fetchPacientes = async () => {
       try {
-        const response = await fetch("/api/pacientes", {
+        const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/pacientes", {
           method: "GET",
           signal: abortCont.signal,
         });

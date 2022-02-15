@@ -120,7 +120,7 @@ class FormularioMascota extends Component {
   };
 
   guardarMascota = async () => {
-    const response = await fetch(`/api/pacientes/mascota/${this.props.dni}`, {
+    const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/mascota/${this.props.dni}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
