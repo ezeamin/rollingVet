@@ -21,6 +21,7 @@ const userSchema = new Schema({
   dni: String,
   avatar: String,
   mascotas: [mascotaSchema],
+  incorporacion: String,
 });
 
 userSchema.methods.encryptPassword = (password) => {

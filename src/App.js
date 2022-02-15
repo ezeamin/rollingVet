@@ -60,7 +60,7 @@ function App() {
           window.location.href="/admin";
         }
       } else {
-        setIsAuthenticated(false); //poner en true para empezar, como isAdmin
+        setIsAuthenticated(false);
         setIsAdmin(false);
 
         if(isProtected && window.location.href!=="/") window.location.href="/";

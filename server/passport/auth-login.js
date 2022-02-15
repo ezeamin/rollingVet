@@ -1,6 +1,5 @@
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcrypt");
 
 const User = require("../models/paciente");
 
@@ -52,7 +51,7 @@ passport.use(
           dni: req.body.dni,
           avatar: req.body.avatar,
           mascotas: [],
-          plan: req.body.plan,
+          incorporacion: new Date(),
         });
         user.password = user.encryptPassword(password);
         await user.save();

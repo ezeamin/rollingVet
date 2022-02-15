@@ -12,6 +12,7 @@ class PanelVerCita extends React.Component {
     veterinario: "0",
     comentarios: "",
     errorVet: false,
+    errorComentarios: false,
     VOD: false,
     info: {},
     cargando: true,
@@ -93,10 +94,19 @@ class PanelVerCita extends React.Component {
     return true;
   }
 
+  validarComentarios() {
+    if (this.state.comentarios.trim() === "") {
+      this.setState({ errorComentarios: true });
+      return false;
+    } else this.setState({ errorComentarios: false });
+    return true;
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
 
     if (!this.validarVet()) return;
+    if (!this.validarComentarios()) return;
 
     this.enviarMail();
     this.guardar();
@@ -216,7 +226,12 @@ class PanelVerCita extends React.Component {
               value={this.state.comentarios}
               disabled={this.state.VOD}
               onChange={(e) => this.setState({ comentarios: e.target.value })}
+              onBlur={() => this.validarComentarios()}
+              isInvalid={this.state.errorComentarios}
             />
+            <Form.Control.Feedback type="invalid">
+                  Cargue un comentario
+                </Form.Control.Feedback>
           </Form.Group>
           <div className="admin__panel__cita-btnGuardar">
             <button type="submit">Guardar</button>

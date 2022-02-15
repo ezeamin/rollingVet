@@ -37,9 +37,10 @@
     .user__panel__editarUser-botones{
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: space-evenly;
         align-items: center;
         margin-top: 1rem;
+        width: 100%;
     }
 
     .user__panel__pacientes-editarUser{

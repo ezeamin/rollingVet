@@ -23,7 +23,7 @@ const Plan = (props) => {
         setCargando(false);
       } catch (err) {
         if (err.name !== "AbortError") {
-          console.log(err);
+          console.log(err+"Hola");
         }
       }
     };
