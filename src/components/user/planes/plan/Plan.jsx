@@ -12,7 +12,7 @@ const Plan = (props) => {
 
     const fetchInfo = async () => {
       try {
-        const response = await fetch("/api/precios", {
+        const response = await fetch(process.env.SERVER_URL+"/api/precios", {
           method: "GET",
           signal: abortCont.signal,
         });

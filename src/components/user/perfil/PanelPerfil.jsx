@@ -18,7 +18,7 @@ const PanelPerfil = (props) => {
 
     const traerInfo = async () => {
       try {
-      const res = await fetch(`/api/pacientes/${props.user.dni}`, {
+      const res = await fetch(process.env.SERVER_URL+`/api/pacientes/${props.user.dni}`, {
         method: "GET",
         signal: abortCont.signal,
       });

@@ -31,7 +31,7 @@ function App() {
 
   const testAuth = async (isProtected) => {
     try {
-      const res = await fetch("/api/auth", {
+      const res = await fetch(process.env.SERVER_URL+"/api/auth", {
         method: "GET",
         credentials: "include",
       })

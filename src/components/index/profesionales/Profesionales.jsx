@@ -4,7 +4,7 @@ import "./profesionales.css";
 import Rombo from "./rombo/Rombo";
 
 const Profesionales = () => {
-    const cards = [1,2,3,4]
+  const cards = [1, 2, 3, 4];
 
   return (
     <div className="mt-5 pro__container">
@@ -20,11 +20,9 @@ const Profesionales = () => {
         <Rombo />
       </div>
       <div className="pro__profesionales">
-          {cards.map((card,index) => {
-              return(
-                  <Card key={index} profesional={index}/>
-              )
-          })}
+        {cards.map((card, index) => {
+          return <Card key={index} profesional={index} />;
+        })}
       </div>
       <div className="pro__sobreNosotros">
         <p className="pro__sobreNosotros-titulo p__description">

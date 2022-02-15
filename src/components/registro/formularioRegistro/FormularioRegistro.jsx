@@ -139,7 +139,7 @@ class FormularioRegistro extends Component {
   };
 
   async login() {
-    await fetch("/api/signin", {
+    await fetch(process.env.SERVER_URL+"/api/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -168,7 +168,7 @@ class FormularioRegistro extends Component {
   }
 
   async registrar(boton) {
-    const res = await fetch("/api/signup", {
+    const res = await fetch(process.env.SERVER_URL+"/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -252,7 +252,7 @@ class FormularioRegistro extends Component {
   }
 
   async editar(boton) {
-    const res = await fetch("/api/pacientes/editar", {
+    const res = await fetch(process.env.SERVER_URL+"/api/pacientes/editar", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

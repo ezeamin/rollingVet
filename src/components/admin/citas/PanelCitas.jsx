@@ -54,7 +54,7 @@ const PanelCitas = (props) => {
     const fetchCitasProgramadas = async () => {
       try {
         if (!isUser) {
-          const response = await fetch("/api/citasProgramadas", {
+          const response = await fetch(process.env.SERVER_URL+"/api/citasProgramadas", {
             method: "GET",
             signal: abortCont.signal,
           });
@@ -70,7 +70,7 @@ const PanelCitas = (props) => {
           setCitasProgramadas(citas);
         } else {
           const response = await fetch(
-            `/api/citasProgramadas/${props.user.dni}`,
+            process.env.SERVER_URL+`/api/citasProgramadas/${props.user.dni}`,
             {
               method: "GET",
               signal: abortCont.signal,
@@ -97,7 +97,7 @@ const PanelCitas = (props) => {
     const fetchCitasRegistro = async () => {
       try {
         if (!isUser) {
-          const response = await fetch("/api/citasRegistro", {
+          const response = await fetch(process.env.SERVER_URL+"/api/citasRegistro", {
             method: "GET",
             signal: abortCont.signal,
           });
@@ -111,7 +111,7 @@ const PanelCitas = (props) => {
           const data = await response.json();
           setCitasRegistro(data.citas.reverse());
         } else {
-          const response = await fetch(`/api/citasRegistro/${props.user.dni}`, {
+          const response = await fetch(process.env.SERVER_URL+`/api/citasRegistro/${props.user.dni}`, {
             method: "GET",
             signal: abortCont.signal,
           });
@@ -139,7 +139,7 @@ const PanelCitas = (props) => {
   }, [isUser, props.user.dni]);
 
   const eliminarCita = async (codigoCita) => {
-    const response = await fetch(`/api/citas/${codigoCita}`, {
+    const response = await fetch(process.env.SERVER_URL+`/api/citas/${codigoCita}`, {
       method: "DELETE",
     });
     const data = await response.json();
@@ -153,7 +153,7 @@ const PanelCitas = (props) => {
         timer: 2000,
       }).then(async () => {
         if (!isUser) {
-          const response = await fetch("/api/citasProgramadas", {
+          const response = await fetch(process.env.SERVER_URL+"/api/citasProgramadas", {
             method: "GET",
           });
           const data = await response.json();
