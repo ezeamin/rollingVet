@@ -68,6 +68,10 @@ function App() {
     } catch (err) {}
   };
 
+  const volver = () => {
+    window.location.href="/";
+  };
+
   return (
     <div className="App">
       <Router>

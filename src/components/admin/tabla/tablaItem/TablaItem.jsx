@@ -3,24 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./tablaItem.css";
 import convertir from "../../../../js/convertirFecha";
+import getEdad from "../../../../js/getEdad";
 
 const TablaItem = (props) => {
   const navigate = useNavigate();
-
-  const getEdad = (fecha) => {
-    const fechaActual = new Date();
-    const fechaNacimiento = new Date(fecha);
-
-    let edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
-    let mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
-    let dia = fechaActual.getDate() - fechaNacimiento.getDate();
-
-    if (mes < 0 || (mes === 0 && dia < 0)) {
-      edad--;
-    }
-
-    return edad;
-  };
 
   const editarPaciente = () => {
     navigate(`/admin/pacientes/${props.info.dni}`);

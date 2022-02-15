@@ -30,6 +30,7 @@ const Login = (props) => {
     <div className="registro__container">
       <Header />
       <main className="main__registro">
+        <button className="btnVolver btnVolver-left" onClick={()=>navigate(-1)}><i class="fas fa-chevron-left"></i></button>
         <div className="main__registro-content">
           <div className="titulos__registro">
             <div>

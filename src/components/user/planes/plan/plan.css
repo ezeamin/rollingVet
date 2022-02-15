@@ -8,6 +8,14 @@
     align-items: center;
 }
 
+.plan-blocked{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(204, 204, 204, 0.322);
+    border-radius: 23px;
+}
+
 @media screen and (max-width: 992px) {
     .user__planes-container{
         flex-direction: column;

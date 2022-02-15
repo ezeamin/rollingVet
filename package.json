@@ -1,7 +1,6 @@
 {
     "name": "rollingvet",
     "version": "1.0.6",
-    "proxy": "https://rollingvet.herokuapp.com/",
     "private": true,
     "dependencies": {
         "@emailjs/browser": "^3.4.0",

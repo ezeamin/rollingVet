@@ -1,6 +1,7 @@
 .admin__nav{
     border-right: 1px solid rgba(204, 204, 204, 0.658);
     height: 100vh;
+    z-index: 999;
     display: block;
     position: fixed;
     background-color: rgba(255, 255, 255, 0.979);
@@ -17,6 +18,7 @@
     padding-right: 0 !important;
     width: 100vw !important;
     height: 100vh;
+    position: relative;
 }
 
 @media screen and (max-width: 1200px) {

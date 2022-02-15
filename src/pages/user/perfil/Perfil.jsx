@@ -4,8 +4,11 @@ import NavegacionResponsive from "../../../components/admin/navegacion/navegacio
 import "./perfil.css";
 import resize from "../../../js/adminResize";
 import PanelPerfil from "../../../components/user/perfil/PanelPerfil";
+import { useNavigate } from "react-router-dom";
 
 const Perfil = (props) => {
+  const navigate = useNavigate();
+
   React.useEffect(() => {
     props.testAuth(true);
     
@@ -23,6 +26,7 @@ const Perfil = (props) => {
         />
       </div>
       <div className="col-xl-10 admin__panel">
+        <button className="btnVolver" onClick={()=>navigate(-1)}><i class="fas fa-chevron-left"></i></button>
         <NavegacionResponsive />
         <PanelPerfil user={props.user} />
       </div>

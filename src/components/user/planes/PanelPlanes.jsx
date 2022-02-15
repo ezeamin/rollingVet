@@ -6,10 +6,12 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import Carga from "../../admin/carga/Carga";
 import Error from "../../admin/error/Error";
+import getEdad from "../../../js/getEdad";
 
 const PanelPlanes = (props) => {
   const navigate = useNavigate();
   const [checked, setChecked] = React.useState([false, false, false, false]);
+  const [blocked, setBlocked] = React.useState([false, false, false, false]);
   const [seleccionado, setSeleccionado] = React.useState("0");
   const [mascota, setMascota] = React.useState("0");
   const [mascotas, setMascotas] = React.useState([]);
@@ -160,6 +162,8 @@ const PanelPlanes = (props) => {
     }
   }, [seleccionado]);
 
+  
+
   React.useEffect(() => {
     const mascotaSeleccionada = mascotas.find((m) => m.nombre === mascota);
 
@@ -180,8 +184,22 @@ const PanelPlanes = (props) => {
         default:
           break;
       }
+
+      //bloquear planes segun edad
+      let edad = getEdad(mascotaSeleccionada.fechaNac);
+      if(edad>=10){
+        setBlocked([false, true, true, false]);
+      }
+      else if(edad>=5){
+        setBlocked([false, true, false, true]);
+      }
+      else{
+        setBlocked([false, false, true, true]);
+      }
+
     } else {
       setChecked([false, false, false, false]);
+      setBlocked([false, false, false, false]);
     }
   }, [mascota, mascotas]);
 
@@ -233,6 +251,7 @@ const PanelPlanes = (props) => {
                 plan={plan}
                 index={index}
                 checked={checked[index]}
+                blocked={blocked[index]}
                 setSeleccionado={setSeleccionado}
               />
             </div>

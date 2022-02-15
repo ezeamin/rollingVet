@@ -61,6 +61,8 @@ const Plan = (props) => {
     );
   }
   return (
+    <div className="position-relative">
+    {props.blocked ? <div className="plan-blocked"></div> : null}
     <div className="user__planes-container my-2">
       <div className="user__planes-info">
         <h3>{props.plan.titulo}</h3>
@@ -81,6 +83,7 @@ const Plan = (props) => {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 };

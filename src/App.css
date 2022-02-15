@@ -10,3 +10,25 @@
   font-size: 21px;
   line-height: 28px;
 }
+
+.btnVolver{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 1rem;
+  margin-left: calc(16.6vw + 1rem);
+  padding: 1rem 1.4rem;
+  border-radius: 50%;
+  border: 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.btnVolver-left{
+  margin: 1rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .btnVolver{
+    margin: 1rem;
+  }
+}
