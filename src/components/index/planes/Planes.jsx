@@ -10,7 +10,7 @@ const Planes = () => {
 
     const fetchPrecios = async () => {
       try {
-        const response = await fetch("/api/precios", {
+        const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/precios", {
           method: "GET",
           signal: abortCont.signal,
         });
