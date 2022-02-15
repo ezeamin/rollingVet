@@ -366,7 +366,7 @@ router.put("/api/fechas", isAuthenticated, (req, res) => {
 
 //precios
 
-router.get("/api/precios", isAuthenticated, (req, res) => {
+router.get("/api/precios", (req, res) => {
   DbPrecios.find({}, (err, precios) => {
     if (err) {
       res.status(500).json({

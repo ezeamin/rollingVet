@@ -47,7 +47,7 @@ const Plan = (props) => {
       timer: 2000,
       showConfirmButton: false,
     }).then(() => {
-      navigate("/login");
+      navigate("/login?redirect=user/perfil/planes");
     });
   };
 

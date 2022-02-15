@@ -164,7 +164,6 @@ class FormularioLogin extends Component {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mt-2">
-          
           <Form.Control
             type="password"
             placeholder="Contraseña"

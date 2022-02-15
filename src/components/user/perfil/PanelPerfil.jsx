@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Carga from "../../admin/carga/Carga";
-import FormularioPerfil from "./formularioPerfil/FormularioPerfil";
 import './panelPerfil.css';
 import Error from "../../admin/error/Error";
 import FormularioRegistro from "../../registro/formularioRegistro/FormularioRegistro";

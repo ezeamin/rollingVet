@@ -1,5 +1,4 @@
 import React from "react";
-import FormularioEditarPaciente from "../formularioEditarPaciente/FormularioEditarPaciente";
 import FormularioRegistro from "../../../registro/formularioRegistro/FormularioRegistro";
 import { useNavigate } from "react-router-dom";
 import Error from "../../error/Error";
