@@ -237,6 +237,7 @@ class FormularioRegistro extends Component {
 
     const templateParams = {
       name: this.state.nombre,
+      apellido: this.state.apellido,
       email: this.state.email,
     };
 
