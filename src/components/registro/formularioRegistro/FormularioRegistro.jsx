@@ -169,6 +169,9 @@ class FormularioRegistro extends Component {
   }
 
   async registrar(boton) {
+    let fecha = new Date();
+    let fechaString = fecha.getFullYear() + "-" + fecha.getMonth() + "-" + fecha.getDate();
+
     const res = await fetch(process.env.REACT_APP_SERVER_URL + "/api/signup", {
       method: "POST",
       credentials: "include",
@@ -184,7 +187,7 @@ class FormularioRegistro extends Component {
         password: this.state.contraseña,
         avatar: this.props.avatar,
         mascotas: [],
-        plan: "Sin plan",
+        incorporacion: fechaString,
       }),
     });
     const data = await res.json();
@@ -205,6 +208,7 @@ class FormularioRegistro extends Component {
       if (data.code === 1) {
         Swal.fire({
           title: "Email en uso",
+          text: " ",
           icon: "error",
           timer: 2500,
           showCancelButton: false,
@@ -276,7 +280,6 @@ class FormularioRegistro extends Component {
     const data = await res.json();
 
     if (data.ok) {
-      console.log(data);
       Swal.fire({
         title: "Edicion exitosa",
         text: " ",
@@ -436,13 +439,6 @@ class FormularioRegistro extends Component {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mt-2 position-relative">
-          <button
-            className="btnContraseña"
-            type="button"
-            onClick={() => this.displayPassword()}
-          >
-            <i className="fas fa-eye" id="eye"></i>
-          </button>
           <Form.Control
             type="password"
             placeholder="Contraseña"
@@ -455,6 +451,13 @@ class FormularioRegistro extends Component {
             onBlur={(e) => this.handleBlur(e)}
             maxLength="20"
           />
+          <button
+            className="btnContraseña"
+            type="button"
+            onClick={() => this.displayPassword()}
+          >
+            <i className="fas fa-eye" id="eye"></i>
+          </button>
           <Form.Control.Feedback className="feedback" type="invalid">
             La contraseña debe tener al menos 6 caracteres, una mayuscula, una
             minuscula y un numero

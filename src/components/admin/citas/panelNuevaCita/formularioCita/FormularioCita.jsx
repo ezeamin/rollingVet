@@ -58,6 +58,7 @@ class FormularioCita extends Component {
       if(fechaActual.getHours()>=17){
         return false;
       }
+      return true;
     }
 
     if(fechaActual.getTime() > fecha.getTime()){
