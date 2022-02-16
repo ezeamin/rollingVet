@@ -47,11 +47,6 @@
     margin-bottom: 0;
 }
 
-/* .plan__seccion:nth-child(even){
-    flex-direction: row-reverse;
-    text-align: end;
-} */
-
 .plan__seccion:first-child{
     margin-top: 5rem;
 }
@@ -73,5 +68,10 @@
     
     .p__precioFinal{
         margin-bottom: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .preciosSkeleton{
+        justify-content: center;
     }
 }

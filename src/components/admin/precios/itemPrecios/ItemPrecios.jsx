@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 
 class ItemPrecios extends Component {
   state = {
-    actual: this.props.datos.precio,
-    id: `precio_${this.props.datos.plan}`,
+    actual: "",
+    id: `precio_${this.props.datos.id}`,
     precio: "",
     error: false,
   };
@@ -47,24 +47,32 @@ class ItemPrecios extends Component {
   };
 
   savePrecio = async () => {
-    const precioTotal = Math.round(this.state.precio * 1.50);
+    const precioTotal = Math.round(this.state.precio * 1.5);
 
-    const response = await fetch(`/api/precios`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        plan: this.props.datos.plan,
-        precio: this.state.precio,
-        precioTotal: precioTotal,
-      }),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_SERVER_URL + `/api/precios`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          plan: this.props.datos.plan,
+          precio: this.state.precio,
+          precioTotal: precioTotal,
+        }),
+      }
+    );
 
     const data = await response.json();
 
     if (data.ok) {
-      this.setState({ actual: this.state.precio, precio: "" });
+      this.setState({ 
+        actual: this.state.precio, 
+        precio: "", 
+        error: false 
+      });
       Swal.fire({
         title: "Precio actualizado",
         text: " ",
@@ -75,7 +83,11 @@ class ItemPrecios extends Component {
     }
   };
 
-  mounted=true;
+  mounted = true;
+
+  componentDidMount() {
+    this.setState({ actual: this.props.datos.precio });
+  }
 
   componentDidUpdate(prevProps, prevState) {
     this.mounted = true;

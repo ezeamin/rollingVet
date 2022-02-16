@@ -27,7 +27,7 @@ const CrudMascotas = (props) => {
         <Navegacion setIsAuthenticated={props.setIsAuthenticated} setIsAdmin={props.setIsAdmin} isAdmin={props.isAdmin} user={props.user}/>
       </div>
       <div className="col-xl-10 admin__panel">
-        <button className="btnVolver" onClick={()=>navigate(-1)}><i class="fas fa-chevron-left"></i></button>
+        <button className="btnVolver" onClick={()=>navigate(-1)}><i className="fas fa-chevron-left"></i></button>
         <NavegacionResponsive />
         <PanelMascotas dni={dni} user={props.user}/>
       </div>

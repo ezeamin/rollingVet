@@ -84,7 +84,7 @@ class FormularioContacto extends Component {
       Swal.fire({
         icon: "success",
         title: "¡Gracias!",
-        text: "Su mensaje ha sido enviado correctamente y se lo contactará a la brevedad",
+        text: "Su mensaje está siendo enviado y se lo contactará a la brevedad",
       });
       this.enviarMail();
 

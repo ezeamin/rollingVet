@@ -36,7 +36,7 @@ const EditarMascota = (props) => {
         />
       </div>
       <div className="col-xl-10 admin__panel">
-        <button className="btnVolver" onClick={()=>navigate(-1)}><i class="fas fa-chevron-left"></i></button>
+        <button className="btnVolver" onClick={()=>navigate(-1)}><i className="fas fa-chevron-left"></i></button>
         <NavegacionResponsive />
         <PanelEditarMascota codigoMascota={codigoMascota} dni={dni} user={props.user}/>
       </div>

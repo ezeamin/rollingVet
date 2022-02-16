@@ -46,7 +46,7 @@ class PanelVerCita extends React.Component {
             } else {
               fetch(
                 process.env.REACT_APP_SERVER_URL +
-                  `/api/pacientes/${this.state.info.paciente.dni}`,
+                  `/api/pacientes/${this.state.info.dni}`,
                 {
                   method: "GET",
                   credentials: "include",

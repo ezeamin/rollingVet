@@ -46,6 +46,12 @@ const PanelPacientes = (props) => {
 
     if (data.ok) {
       setPacientes(pacientes.filter((paciente) => paciente.dni !== dni));
+
+      const res = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citas/paciente/${dni}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
       Swal.fire({
         title: "Paciente eliminado",
         text: "El paciente ha sido eliminado correctamente",

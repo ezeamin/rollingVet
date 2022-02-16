@@ -30,14 +30,17 @@ const PanelPrecios = () => {
         setPlanes([
           {
             plan: "Primeros pasos",
+            id:"primeros-pasos",
             precio: data.precios[0].precio,
           },
           {
             plan: "Madurando",
+            id:"madurando",
             precio: data.precios[1].precio,
           },
           {
             plan: "Adultos",
+            id:"adultos",
             precio: data.precios[2].precio,
           },
         ]);

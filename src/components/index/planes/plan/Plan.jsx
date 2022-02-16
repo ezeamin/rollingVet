@@ -1,3 +1,4 @@
+import { Skeleton } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import "./plan.css";
@@ -38,9 +39,38 @@ const Plan = (props) => {
         break;
       default: {
       }
-    }
+    
+  }
   }, [props.categoria, props.precio, props.precioTotal]);
 
+  if(props.error){
+    return (
+      <div className="card">
+        <div className="card__img">
+          <img src={plan.image} alt={plan.plan} />
+        </div>
+        <div className="card__body">
+          <div className="card__body-superior">
+            <h3 className="card__body-title mb-0">{plan.plan}</h3>
+            <p className="card__body-descripcion">{plan.descripcion}</p>
+          </div>
+          <div className="card__body-inferior">
+            <div className="d-flex align-items-center justify-content-center">
+              <p className="card__body-precio mb-0 me-2">$ </p>
+              <Skeleton variant="text" width="30%" height="60px" />
+            </div>
+            <div className="d-flex align-items-center justify-content-center mb-4">
+              <p className="card__body-precio-final mb-0 px-1"> *durante un mes, luego $ </p>
+              <Skeleton variant="text" width="50px" height="30px" />
+            </div>
+            <div className="card__body-boton mb-4">
+              <Link to="/planes">+ info</Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="card">
       <div className="card__img">

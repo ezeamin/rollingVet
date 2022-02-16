@@ -160,8 +160,8 @@ class FormularioCita extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        dni: this.props.paciente.dni,
         paciente: {
-          dni: this.props.paciente.dni,
           nombre: this.props.paciente.nombre,
           apellido: this.props.paciente.apellido,
           avatar: this.props.paciente.avatar,

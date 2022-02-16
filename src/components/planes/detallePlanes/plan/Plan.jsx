@@ -2,6 +2,7 @@ import React from "react";
 import "./plan.css";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Skeleton } from "@mui/material";
 
 const Plan = (props) => {
   const [plan, setPlan] = React.useState({});
@@ -51,6 +52,33 @@ const Plan = (props) => {
     });
   };
 
+  if(props.error){
+    return (
+      <section className="plan__seccion">
+        <div className="plan__descripcion">
+          <div className="plan__titulo">
+            <h3 className="h3__bold mb-0">{plan.titulo}</h3>
+            <p className="p__descripciones">{plan.descripcion}</p>
+          </div>
+          <div>
+            <div className="d-flex align-items-center preciosSkeleton">
+              <h4 className="plan__precio me-2 mb-0">$ </h4>
+              <Skeleton variant="text" width="30%" height="60px" />
+            </div>
+            <div className="d-flex align-items-center preciosSkeleton">
+              <p className="p__descripciones p__precioFinal me-2 mb-0">*durante un mes, luego $ </p>
+              <Skeleton variant="text" width="50px" height="30px" />
+            </div>
+          </div>
+        </div>
+        <div className="plan__boton">
+          <button className="p__descripciones" onClick={handleClick}>
+            Quiero este plan
+          </button>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="plan__seccion">
       <div className="plan__descripcion">
