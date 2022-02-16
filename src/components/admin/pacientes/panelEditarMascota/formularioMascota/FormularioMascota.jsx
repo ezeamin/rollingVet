@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Carga from "../../../carga/Carga";
+import generarCodigo from "../../../../../js/generarCodigo";
 
 class FormularioMascota extends Component {
   state = {
@@ -22,6 +23,7 @@ class FormularioMascota extends Component {
     cargando: true,
     titulo: this.props.titulo,
     isUser: window.location.href.includes("user"),
+    isNew: true,
   };
 
   handleChange = (e) => {
@@ -120,6 +122,10 @@ class FormularioMascota extends Component {
   };
 
   guardarMascota = async () => {
+    let codigoMascota;
+    if(this.state.isNew) codigoMascota = generarCodigo();
+    else codigoMascota = "";
+
     const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/mascota/${this.props.dni}`, {
       method: "PUT",
       credentials: "include",
@@ -132,7 +138,7 @@ class FormularioMascota extends Component {
         raza: this.state.raza,
         fechaNac: this.state.fechaNac,
         sexo: this.state.sexo,
-        codigoMascota: this.props.codigoMascota, //cambiar si no es nuevo
+        codigoMascota: codigoMascota,
         plan: this.state.plan,
       }),
     });
@@ -174,7 +180,7 @@ class FormularioMascota extends Component {
           sexo: this.props.info.sexo,
           plan: this.props.info.plan,
         });
-        this.setState({ cargando: false });
+        this.setState({ cargando: false, isNew: false });
       }
     }
     if (prevProps.titulo !== this.props.titulo && this.mounted) {

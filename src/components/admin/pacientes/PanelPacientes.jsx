@@ -114,7 +114,7 @@ const PanelPacientes = (props) => {
   if (cargando) return <Carga />;
   else if (error) return <Error />;
   return (
-    <div className="container py-5 admin__panel-content">
+    <div className="container admin__panel-content">
       <div className="admin__panel__pacientes">
         <Tabla
           titulo="Pacientes registrados"

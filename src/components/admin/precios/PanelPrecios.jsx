@@ -62,7 +62,7 @@ const PanelPrecios = () => {
   if (cargando) return <Carga />;
   else if (error) return <Error />;
   return (
-    <div className="container py-5 admin__panel-content">
+    <div className="container admin__panel-content">
       <h1 className="mb-3 h3__bold">Precios de planes</h1>
       <div className="row">
         {planes.map((plan, index) => {

@@ -118,7 +118,7 @@ const PanelMascotas = (props) => {
   if (cargando) return <Carga />;
   else if (error) return <Error />;
   return (
-    <div className="admin__panel-content container py-5">
+    <div className="admin__panel-content container">
       <Tabla
         titulo={titulo}
         ID="tablaMascotas"

@@ -54,24 +54,8 @@ const PanelCitas = (props) => {
     const fetchCitasProgramadas = async () => {
       try {
         if (!isUser) {
-          const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/citasProgramadas", {
-            method: "GET",
-            signal: abortCont.signal,
-            credentials: "include",
-          });
-
-          if (!response.ok) {
-            setCargando(false);
-            setError(true);
-            return;
-          }
-
-          const data = await response.json();
-          const citas = data.citas.sort((a, b) => comparar(a, b));
-          setCitasProgramadas(citas);
-        } else {
           const response = await fetch(
-            `/api/citasProgramadas/${props.user.dni}`,
+            process.env.REACT_APP_SERVER_URL + "/api/citasProgramadas",
             {
               method: "GET",
               signal: abortCont.signal,
@@ -88,6 +72,28 @@ const PanelCitas = (props) => {
           const data = await response.json();
           const citas = data.citas.sort((a, b) => comparar(a, b));
           setCitasProgramadas(citas);
+        } else {
+          const response = await fetch(
+            process.env.REACT_APP_SERVER_URL +
+              `/api/citasProgramadas/${props.user.dni}`,
+            {
+              method: "GET",
+              signal: abortCont.signal,
+              credentials: "include",
+            }
+          );
+
+          if (!response.ok) {
+            setCargando(false);
+            setError(true);
+            return;
+          }
+
+          console.log(response);
+          const data = await response.json();
+          console.log(data);
+          const citas = data.citas.sort((a, b) => comparar(a, b));
+          setCitasProgramadas(citas);
         }
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -99,11 +105,14 @@ const PanelCitas = (props) => {
     const fetchCitasRegistro = async () => {
       try {
         if (!isUser) {
-          const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/citasRegistro", {
-            method: "GET",
-            signal: abortCont.signal,
-            credentials: "include",
-          });
+          const response = await fetch(
+            process.env.REACT_APP_SERVER_URL + "/api/citasRegistro",
+            {
+              method: "GET",
+              signal: abortCont.signal,
+              credentials: "include",
+            }
+          );
 
           if (!response.ok) {
             setCargando(false);
@@ -114,11 +123,15 @@ const PanelCitas = (props) => {
           const data = await response.json();
           setCitasRegistro(data.citas.reverse());
         } else {
-          const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citasRegistro/${props.user.dni}`, {
-            method: "GET",
-            credentials: "include",
-            signal: abortCont.signal,
-          });
+          const response = await fetch(
+            process.env.REACT_APP_SERVER_URL +
+              `/api/citasRegistro/${props.user.dni}`,
+            {
+              method: "GET",
+              credentials: "include",
+              signal: abortCont.signal,
+            }
+          );
           const data = await response.json();
           setCitasRegistro(data.citas.reverse());
         }
@@ -132,7 +145,7 @@ const PanelCitas = (props) => {
     if (props.user.dni === 0) {
       setCargando(false);
       setError(true);
-    } else {
+    } else if (props.user.dni) {
       fetchCitasProgramadas();
       fetchCitasRegistro();
     }
@@ -143,10 +156,13 @@ const PanelCitas = (props) => {
   }, [isUser, props.user.dni]);
 
   const eliminarCita = async (codigoCita) => {
-    const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citas/${codigoCita}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    const response = await fetch(
+      process.env.REACT_APP_SERVER_URL + `/api/citas/${codigoCita}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
     const data = await response.json();
     if (data.ok) {
       Swal.fire({
@@ -158,15 +174,19 @@ const PanelCitas = (props) => {
         timer: 2000,
       }).then(async () => {
         if (!isUser) {
-          const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/citasProgramadas", {
-            method: "GET",
-            credentials: "include",
-          });
+          const response = await fetch(
+            process.env.REACT_APP_SERVER_URL + "/api/citasProgramadas",
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          );
           const data = await response.json();
           setCitasProgramadas(data.citas);
         } else {
           const response = await fetch(
-            process.env.REACT_APP_SERVER_URL+`/api/citasProgramadas/${props.user.dni}`,
+            process.env.REACT_APP_SERVER_URL +
+              `/api/citasProgramadas/${props.user.dni}`,
             {
               method: "GET",
               credentials: "include",

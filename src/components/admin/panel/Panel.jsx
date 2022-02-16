@@ -71,7 +71,7 @@ const Panel = (props) => {
   if (cargando) return <Carga />;
   if (error) return <Error />;
   return (
-    <div className="container py-5 admin__panel-content">
+    <div className="container admin__panel-content">
       <h1 className="mb-3 h3__bold">Panel de administracion</h1>
       <div className="row justify-content-center">
         {info.map((info, index) => (

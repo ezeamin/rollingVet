@@ -86,7 +86,6 @@ const PanelNuevaCita = (props) => {
               (h) => h.split(":")[0] > hora
             );
 
-            console.log(horariosFiltrados);
             setHorarios(horariosFiltrados);
             return;
           }
