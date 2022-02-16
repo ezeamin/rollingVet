@@ -29,11 +29,14 @@ const PanelMascotas = (props) => {
 
     const fetchPaciente = async () => {
       try {
-        const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/${props.dni}`, {
-          method: "GET",
-          signal: abortCont.signal,
-          credentials: "include",
-        });
+        const response = await fetch(
+          process.env.REACT_APP_SERVER_URL + `/api/pacientes/${props.dni}`,
+          {
+            method: "GET",
+            signal: abortCont.signal,
+            credentials: "include",
+          }
+        );
 
         if (!response.ok) {
           setCargando(false);
@@ -52,16 +55,15 @@ const PanelMascotas = (props) => {
       }
     };
 
-    if(props.user.dni === 0){
+    if (props.user.dni === 0) {
       setCargando(false);
       setError(true);
-    }
-    else fetchPaciente();
+    } else fetchPaciente();
 
     return () => {
       abortCont.abort();
     };
-  }, [props.dni,props.user.dni]);
+  }, [props.dni, props.user.dni]);
 
   React.useEffect(() => {
     if (info.nombre !== undefined) {
@@ -69,32 +71,42 @@ const PanelMascotas = (props) => {
     }
   }, [info]);
 
-  const eliminar = (codigoMascota) => {
-    fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/${props.dni}/${codigoMascota}`, {
-      method: "DELETE",
-      credentials: "include",
-    }).then(() => {
+  const eliminar = async (codigoMascota) => {
+    const res = await fetch(
+      process.env.REACT_APP_SERVER_URL +
+        `/api/pacientes/${props.dni}/${codigoMascota}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
+    const data = await res.json();
+
+    if (data.ok) {
       Swal.fire({
         title: "Mascota eliminada",
         text: " ",
         icon: "success",
         showCancelButton: false,
         showConfirmButton: false,
-        timer: 1500  
+        timer: 1500,
       }).then(() => {
         const fetchPaciente = async () => {
-            const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/${props.dni}`, {
+          const response = await fetch(
+            process.env.REACT_APP_SERVER_URL + `/api/pacientes/${props.dni}`,
+            {
               method: "GET",
               credentials: "include",
-            });
-            const data = await response.json();
+            }
+          );
+          const data = await response.json();
 
-            setInfo(data.paciente);
+          setInfo(data.paciente);
         };
-    
+
         fetchPaciente();
       });
-    });
+    }
   };
 
   const handleClick = () => {
