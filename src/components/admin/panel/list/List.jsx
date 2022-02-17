@@ -21,6 +21,20 @@ const comparar = (a, b) => {
   }
 };
 
+const compararPacientes = (a, b) => {
+  let fechaA = a.incorporacion.split("-");
+  let fechaB = b.incorporacion.split("-");
+
+  let fechaADate = new Date(fechaA[2], fechaA[1] - 1, fechaA[0]);
+  let fechaBDate = new Date(fechaB[2], fechaB[1] - 1, fechaB[0]);
+
+  if (fechaADate.getTime() >= fechaBDate.getTime()) {
+    return 1;
+  } else if (fechaADate.getTime() < fechaBDate.getTime()) {
+    return -1;
+  }
+};
+
 const List = (props) => {
   const [datos, setDatos] = React.useState([]);
   const [content, setContent] = React.useState("loading");
@@ -47,6 +61,7 @@ const List = (props) => {
 
         let datos = [];
 
+        data.pacientes.sort((a, b) => compararPacientes(a, b));
         data.pacientes.reverse();
         data.pacientes = data.pacientes.slice(0, 3);
 

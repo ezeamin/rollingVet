@@ -1,6 +1,5 @@
 {
   "short_name": "Rolling Vet",
-  "proxy": "https://rollingvet.herokuapp.com",
   "name": "Rolling Vet",
   "description":"Tu veterinaria de confianza",
   "start_url": "/",

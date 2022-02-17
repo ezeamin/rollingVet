@@ -89,9 +89,7 @@ const PanelCitas = (props) => {
             return;
           }
 
-          console.log(response);
           const data = await response.json();
-          console.log(data);
           const citas = data.citas.sort((a, b) => comparar(a, b));
           setCitasProgramadas(citas);
         }

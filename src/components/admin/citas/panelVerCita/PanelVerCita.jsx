@@ -17,7 +17,7 @@ class PanelVerCita extends React.Component {
     info: {},
     cargando: true,
     error: false,
-    // paciente: {},
+    paciente: {},
   };
 
   mounted = true;
@@ -55,9 +55,9 @@ class PanelVerCita extends React.Component {
                 if (res.ok) {
                   res.json().then((data) => {
                     if (this.mounted) {
-                      // this.setState({
-                      //   paciente: data.paciente,
-                      // });
+                      this.setState({
+                        paciente: data.paciente,
+                      });
                     }
                   });
                 }
@@ -134,7 +134,7 @@ class PanelVerCita extends React.Component {
 
     const templateParams = {
       name: this.state.info.paciente.nombre,
-      email: this.state.info.paciente.email,
+      email: this.state.paciente.email,
       fecha: convertir(this.state.info.fecha),
       hora: this.state.info.hora,
       veterinario: this.state.veterinario,
