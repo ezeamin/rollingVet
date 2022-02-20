@@ -340,10 +340,10 @@ class FormularioRegistro extends Component {
   displayPassword() {
     if (!this.state.showPassword) {
       document.getElementById("contraseña").type = "text";
-      document.getElementById("eye").className = "fas fa-eye-slash";
+      document.getElementById("eye").className = "fas fa-eye";
     } else {
       document.getElementById("contraseña").type = "password";
-      document.getElementById("eye").className = "fas fa-eye";
+      document.getElementById("eye").className = "fas fa-eye-slash";
     }
 
     this.setState({ showPassword: !this.state.showPassword });
@@ -457,7 +457,7 @@ class FormularioRegistro extends Component {
             type="button"
             onClick={() => this.displayPassword()}
           >
-            <i className="fas fa-eye" id="eye"></i>
+            <i className="fas fa-eye-slash" id="eye"></i>
           </button>
           <Form.Control.Feedback className="feedback" type="invalid">
             La contraseña debe tener al menos 6 caracteres, una mayuscula, una

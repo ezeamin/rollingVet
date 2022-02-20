@@ -150,10 +150,10 @@ class FormularioLogin extends Component {
   displayPassword() {
     if (!this.state.showPassword) {
       document.getElementById("contraseña").type = "text";
-      document.getElementById("eye").className = "fas fa-eye-slash";
+      document.getElementById("eye").className = "fas fa-eye";
     } else {
       document.getElementById("contraseña").type = "password";
-      document.getElementById("eye").className = "fas fa-eye";
+      document.getElementById("eye").className = "fas fa-eye-slash";
     }
 
     this.setState({ showPassword: !this.state.showPassword });
@@ -179,13 +179,6 @@ class FormularioLogin extends Component {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mt-2 position-relative">
-        <button
-            className="btnContraseña"
-            type="button"
-            onClick={() => this.displayPassword()}
-          >
-            <i className="fas fa-eye" id="eye"></i>
-          </button>
           <Form.Control
             type="password"
             placeholder="Contraseña"
@@ -198,6 +191,13 @@ class FormularioLogin extends Component {
             onBlur={(e) => this.handleBlur(e)}
             maxLength="20"
           />
+        <button
+            className="btnContraseña"
+            type="button"
+            onClick={() => this.displayPassword()}
+          >
+            <i className="fas fa-eye-slash" id="eye"></i>
+          </button>
           <Form.Control.Feedback className="feedback" type="invalid">
             Ingrese una contraseña
           </Form.Control.Feedback>
