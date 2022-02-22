@@ -32,7 +32,7 @@ class FormularioRegistro extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
-    if (e.target.name === "genero") this.props.changeAvatar(e.target.value);
+    if (e.target.name === "genero") this.props.changeAvatar(e.target.value,false);
   };
 
   error = (errores, name) => {
@@ -436,6 +436,7 @@ class FormularioRegistro extends Component {
             <button
               type="button"
               className="mt-2 w-100 btnForm btnFormAvatar"
+              onClick={() => this.props.changeAvatar(this.state.genero,true)}
             >
               Cambiar <i className="fas fa-user-astronaut text-light ms-1"></i>
             </button>

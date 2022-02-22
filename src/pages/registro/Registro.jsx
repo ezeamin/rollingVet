@@ -19,12 +19,12 @@ const Registro = (props) => {
   if ((randomSeed % 10) % 2 === 0) gen = "male";
   else gen = "female";
   const [genero, setGenero] = React.useState(gen);
-  
+
   React.useEffect(() => {
     props.testAuth(false);
-    
+
     const generateAvatar = () => {
-      const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg?mood=happy`;//skinColor=variant01
+      const url = `https://avatars.dicebear.com/api/${genero}/${randomSeed}.svg?mood=happy`; //skinColor=variant01
 
       setAvatarUrl(url);
     };
@@ -32,12 +32,16 @@ const Registro = (props) => {
     generateAvatar();
   }, []); //randomSeed, genero
 
-  const changeAvatar = (nuevoGenero) => {
+  const changeAvatar = (nuevoGenero, cambiar) => {
     if (nuevoGenero === "Masculino") nuevoGenero = "male";
     else if (nuevoGenero === "Femenino") nuevoGenero = "female";
-    else return;
+    else if (!cambiar) return;
+    else {
+      if ((randomSeed*123 % 10) % 2 === 0) nuevoGenero = "male";
+      else nuevoGenero = "female";
+    }
 
-    if (nuevoGenero === genero) return;
+    if (nuevoGenero === genero && !cambiar) return;
 
     const url = `https://avatars.dicebear.com/api/${nuevoGenero}/${randomSeed}.svg`;
     setGenero(nuevoGenero);
@@ -52,7 +56,12 @@ const Registro = (props) => {
     <div className="registro__container">
       <Header />
       <main className="main__registro">
-        <button className="btnVolver btnVolver-left" onClick={()=>navigate(-1)}><i className="fas fa-chevron-left"></i></button>
+        <button
+          className="btnVolver btnVolver-left"
+          onClick={() => navigate(-1)}
+        >
+          <i className="fas fa-chevron-left"></i>
+        </button>
         <div className="main__registro-content">
           <div className="titulos__registro">
             <div>
