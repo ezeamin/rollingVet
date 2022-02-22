@@ -6,6 +6,8 @@ import BotonCrear from "../botonCrear/BotonCrear";
 import Carga from "../carga/Carga";
 import Swal from "sweetalert2";
 import Error from "../error/Error";
+import BotonCargarMas from "../botonCargarMas/BotonCargarMas";
+import restablecerPos from "../../../js/restablecerPos";
 
 const opciones = [
   "Avatar",
@@ -17,24 +19,6 @@ const opciones = [
   "Acciones",
 ];
 
-const comparar = (a, b) => {
-  let fechaA = a.fecha.split("-");
-  let fechaB = b.fecha.split("-");
-
-  let fechaADate = new Date(fechaA[2], fechaA[1] - 1, fechaA[0]);
-  let fechaBDate = new Date(fechaB[2], fechaB[1] - 1, fechaB[0]);
-
-  if (fechaADate.getTime() > fechaBDate.getTime()) {
-    return 1;
-  } else if (fechaADate.getTime() < fechaBDate.getTime()) {
-    return -1;
-  } else {
-    if (a.hora.split(":")[0] > b.hora.split(":")[0]) {
-      return 1;
-    } else return -1;
-  }
-};
-
 const PanelCitas = (props) => {
   const navigate = useNavigate();
   const [citasProgramadas, setCitasProgramadas] = React.useState([]);
@@ -42,11 +26,78 @@ const PanelCitas = (props) => {
   const [cargando, setCargando] = React.useState(true);
   const [error, setError] = React.useState(false);
   const isUser = window.location.href.includes("user");
+  const [minProg, setMinProg] = React.useState(0);
+  const [minReg, setMinReg] = React.useState(0);
 
   const handleClick = () => {
     if (!isUser) navigate("/admin/citas/new");
     else navigate("/user/citas/new");
   };
+
+  const cargarMas = async (categoria) => {
+    let response;
+    if (isUser) {
+      response = await fetch(
+        process.env.REACT_APP_SERVER_URL +
+          `/api/${categoria}/user/dni/${props.user.dni}/${minProg}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+    } else {
+      response = await fetch(
+        process.env.REACT_APP_SERVER_URL + `/api/${categoria}/${minProg}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+    }
+
+    const data = await response.json();
+    const citas = data.citas;
+    if (categoria === "citasProgramadas") {
+      if (citas.length !== 0)
+        setCitasProgramadas([...citasProgramadas, ...citas]);
+
+      if (citas.length < 5) {
+        let boton = document.getElementById("botonCargarMasProgramadas");
+
+        boton.disabled = true;
+        boton.onclick = null;
+      } else {
+        setMinProg(minProg + 3);
+      }
+    } else {
+      if (citas.length !== 0) setCitasRegistro([...citasRegistro, ...citas]);
+
+      if (citas.length < 5) {
+        let boton = document.getElementById("botonCargarMasRegistro");
+
+        boton.disabled = true;
+        boton.onclick = null;
+      } else {
+        setMinReg(minReg + 3);
+      }
+    }
+
+    if (minProg >= 6 || minReg >= 6) restablecerPos();
+  };
+
+  React.useEffect(() => {
+    try {
+      if (citasProgramadas.length === 0) {
+        let boton = document.getElementById("botonCargarMasProgramadas");
+        boton.style.display = "none";
+      }
+
+      if (citasRegistro.length === 0) {
+        let boton = document.getElementById("botonCargarMasRegistro");
+        boton.style.display = "none";
+      }
+    } catch (err) {}
+  }, [minProg, minReg]);
 
   React.useEffect(() => {
     const abortCont = new AbortController();
@@ -55,7 +106,8 @@ const PanelCitas = (props) => {
       try {
         if (!isUser) {
           const response = await fetch(
-            process.env.REACT_APP_SERVER_URL + "/api/citasProgramadas",
+            process.env.REACT_APP_SERVER_URL +
+              `/api/citasProgramadas/${minProg}`,
             {
               method: "GET",
               signal: abortCont.signal,
@@ -70,12 +122,12 @@ const PanelCitas = (props) => {
           }
 
           const data = await response.json();
-          const citas = data.citas.sort((a, b) => comparar(a, b));
-          setCitasProgramadas(citas);
+          setCitasProgramadas(data.citas);
+          setMinProg(minProg + 3);
         } else {
           const response = await fetch(
             process.env.REACT_APP_SERVER_URL +
-              `/api/citasProgramadas/${props.user.dni}`,
+              `/api/citasProgramadas/user/dni/${props.user.dni}/${minProg}`,
             {
               method: "GET",
               signal: abortCont.signal,
@@ -90,8 +142,8 @@ const PanelCitas = (props) => {
           }
 
           const data = await response.json();
-          const citas = data.citas.sort((a, b) => comparar(a, b));
-          setCitasProgramadas(citas);
+          setCitasProgramadas(data.citas);
+          setMinProg(minProg + 3);
         }
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -104,7 +156,7 @@ const PanelCitas = (props) => {
       try {
         if (!isUser) {
           const response = await fetch(
-            process.env.REACT_APP_SERVER_URL + "/api/citasRegistro",
+            process.env.REACT_APP_SERVER_URL + `/api/citasRegistro/${minReg}`,
             {
               method: "GET",
               signal: abortCont.signal,
@@ -119,11 +171,12 @@ const PanelCitas = (props) => {
           }
 
           const data = await response.json();
-          setCitasRegistro(data.citas.reverse());
+          setCitasRegistro(data.citas);
+          setMinReg(minReg + 3);
         } else {
           const response = await fetch(
             process.env.REACT_APP_SERVER_URL +
-              `/api/citasRegistro/${props.user.dni}`,
+              `/api/citasRegistro/user/dni/${props.user.dni}/${minReg}`,
             {
               method: "GET",
               credentials: "include",
@@ -131,7 +184,8 @@ const PanelCitas = (props) => {
             }
           );
           const data = await response.json();
-          setCitasRegistro(data.citas.reverse());
+          setCitasRegistro(data.citas);
+          setMinReg(minReg + 3);
         }
         setCargando(false);
       } catch (err) {
@@ -200,7 +254,10 @@ const PanelCitas = (props) => {
   if (cargando) return <Carga />;
   else if (error) return <Error />;
   return (
-    <div className="container py-5 admin__panel-content">
+    <div
+      className="container py-5 admin__panel-content"
+      id="admin__panel-content-list"
+    >
       <div className="admin__panel__citas-prog">
         <Tabla
           titulo="Citas programadas"
@@ -212,7 +269,13 @@ const PanelCitas = (props) => {
           isUser={isUser}
         />
       </div>
-      <BotonCrear titulo="Agregar cita" accion={handleClick} />
+      <div className="d-flex justify-content-end">
+        <BotonCargarMas
+          accion={() => cargarMas("citasProgramadas")}
+          tipo={"programadas"}
+        />
+        <BotonCrear titulo="Agregar cita" accion={handleClick} />
+      </div>
       <div className="admin__panel__citas-registro mt-4">
         <Tabla
           titulo="Registro de citas"
@@ -222,6 +285,10 @@ const PanelCitas = (props) => {
           type="citasRegistro"
           eliminar={() => {}}
           isUser={isUser}
+        />
+        <BotonCargarMas
+          accion={() => cargarMas("citasRegistro")}
+          tipo={"registro"}
         />
       </div>
     </div>

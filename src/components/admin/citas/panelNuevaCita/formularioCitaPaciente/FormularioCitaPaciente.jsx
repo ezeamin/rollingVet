@@ -34,7 +34,7 @@ class FormularioCitaPaciente extends Component {
   };
 
   buscarPaciente = async () => {
-    const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/${this.state.dni}`,{
+    const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/paciente/${this.state.dni}`,{
       method: "GET",
       credentials: "include",
     });

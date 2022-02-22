@@ -5,16 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Carga from "../carga/Carga";
 import Error from "../error/Error";
-
-const comparar = (a, b) => {
-  if (a.apellido === b.apellido) {
-    return a.nombre > b.nombre ? 1 : -1;
-  } else if (a.apellido > b.apellido) {
-    return 1;
-  } else if (a.apellido < b.apellido) {
-    return -1;
-  }
-};
+import BotonCargarMas from "../botonCargarMas/BotonCargarMas";
+import restablecerPos from "../../../js/restablecerPos";
 
 const opciones = [
   "Avatar",
@@ -32,25 +24,56 @@ const PanelPacientes = (props) => {
   const [cargando, setCargando] = React.useState(true);
   const [pacientes, setPacientes] = React.useState([]);
   const [error, setError] = React.useState(false);
+  const [min, setMin] = React.useState(0);
 
   const handleClick = () => {
     navigate("/admin/pacientes/new");
   };
 
+  const cargarMas = async () => {
+    const response = await fetch(
+      process.env.REACT_APP_SERVER_URL + `/api/pacientes/${min}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const data = await response.json();
+    setPacientes([...pacientes, ...data.pacientes]);
+
+    if (data.pacientes.length < 5) {
+      let boton = document.getElementById("botonCargarMas");
+
+      boton.disabled = true;
+      boton.onclick = null;
+    } else{
+      setMin(min + 5);
+    }
+
+    if (min > 10) restablecerPos();
+  };
+
   const eliminar = async (dni) => {
-    const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/pacientes/${dni}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    const response = await fetch(
+      process.env.REACT_APP_SERVER_URL + `/api/pacientes/${dni}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
     const data = await response.json();
 
     if (data.ok) {
       setPacientes(pacientes.filter((paciente) => paciente.dni !== dni));
 
-      const res = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citas/paciente/${dni}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      await fetch(
+        process.env.REACT_APP_SERVER_URL + `/api/citas/paciente/${dni}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
 
       Swal.fire({
         title: "Paciente eliminado",
@@ -77,11 +100,14 @@ const PanelPacientes = (props) => {
 
     const fetchPacientes = async () => {
       try {
-        const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/pacientes", {
-          method: "GET",
-          signal: abortCont.signal,
-          credentials: "include",
-        });
+        const response = await fetch(
+          process.env.REACT_APP_SERVER_URL + `/api/pacientes/${min}`,
+          {
+            method: "GET",
+            signal: abortCont.signal,
+            credentials: "include",
+          }
+        );
 
         if (!response.ok) {
           setCargando(false);
@@ -90,9 +116,9 @@ const PanelPacientes = (props) => {
         }
 
         const data = await response.json();
-
-        setPacientes(data.pacientes.sort((a, b) => comparar(a, b)));
+        setPacientes(data.pacientes);
         setCargando(false);
+        setMin(min + 5);
       } catch (err) {
         if (err.name !== "AbortError") {
           console.log(err);
@@ -100,11 +126,10 @@ const PanelPacientes = (props) => {
       }
     };
 
-    if(props.user.dni === 0){
+    if (props.user.dni === 0) {
       setCargando(false);
       setError(true);
-    }
-    else fetchPacientes();
+    } else fetchPacientes();
 
     return () => {
       abortCont.abort();
@@ -114,7 +139,10 @@ const PanelPacientes = (props) => {
   if (cargando) return <Carga />;
   else if (error) return <Error />;
   return (
-    <div className="container admin__panel-content">
+    <div
+      className="container admin__panel-content"
+      id="admin__panel-content-list"
+    >
       <div className="admin__panel__pacientes">
         <Tabla
           titulo="Pacientes registrados"
@@ -124,7 +152,10 @@ const PanelPacientes = (props) => {
           type="pacientes"
           eliminar={eliminar}
         />
-        <BotonCrear titulo="Agregar paciente" accion={handleClick} />
+        <div className="d-flex justify-content-end">
+          <BotonCargarMas accion={cargarMas} />
+          <BotonCrear titulo="Agregar paciente" accion={handleClick} />
+        </div>
       </div>
     </div>
   );

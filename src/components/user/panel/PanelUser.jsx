@@ -110,7 +110,7 @@ const PanelUser = (props) => {
         <div className="col-sm-12 col-lg-6 col-xl-8">
           <div className="row admin__panel-content-cards">
             <List
-              titulo="Lista de citas"
+              titulo="Citas programadas"
               content="citasPropias"
               handleClick={btnCitas}
               dni={props.user.dni}

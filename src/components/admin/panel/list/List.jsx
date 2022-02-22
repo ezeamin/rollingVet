@@ -45,7 +45,7 @@ const List = (props) => {
 
     const fetchPacientes = async () => {
       try {
-        const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/pacientes", {
+        const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/pacientes/-1", {
           method: "GET",
           signal: abortCont.signal,
           credentials: "include",
@@ -88,14 +88,14 @@ const List = (props) => {
       try {
         let data;
         if (modo === "todas") {
-          const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/citasProgramadas", {
+          const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/citasProgramadas/0", {
             method: "GET",
             signal: abortCont.signal,
             credentials: "include",
           });
           data = await response.json();
         } else {
-          const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citasProgramadas/${props.dni}`, {
+          const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citasProgramadas/user/dni/${props.dni}/0`, {
             method: "GET",
             signal: abortCont.signal,
             credentials: "include",

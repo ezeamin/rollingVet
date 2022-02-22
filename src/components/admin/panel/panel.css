@@ -7,6 +7,10 @@
     height: 100%;
 }
 
+.admin__panel-content-list{
+    height: auto !important;
+}
+
 @media screen and (max-width: 1200px) {
     .admin__panel-content{
         text-align: center;

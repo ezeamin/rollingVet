@@ -30,7 +30,7 @@ const PanelMascotas = (props) => {
     const fetchPaciente = async () => {
       try {
         const response = await fetch(
-          process.env.REACT_APP_SERVER_URL + `/api/pacientes/${props.dni}`,
+          process.env.REACT_APP_SERVER_URL + `/api/paciente/${props.dni}`,
           {
             method: "GET",
             signal: abortCont.signal,
@@ -93,7 +93,7 @@ const PanelMascotas = (props) => {
       }).then(() => {
         const fetchPaciente = async () => {
           const response = await fetch(
-            process.env.REACT_APP_SERVER_URL + `/api/pacientes/${props.dni}`,
+            process.env.REACT_APP_SERVER_URL + `/api/paciente/${props.dni}`,
             {
               method: "GET",
               credentials: "include",
