@@ -25,3 +25,34 @@
 .btnContraseña:hover{
     background-color: #ccc;
 }
+
+.btnFormAvatar{
+    max-height: 42px;
+}
+
+#dniInput{
+    padding-right: 0.25rem !important;
+}
+
+#generoInput{
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+}
+
+#avatarInput{
+    padding-left: 0.25rem !important;
+}
+
+@media screen and (max-width: 768px){
+    .triInput{
+        width: 50% !important;
+    }
+
+    #dniInput{
+        padding-right: calc(var(--bs-gutter-x) * .5) !important;    
+    }
+
+    #generoInput{
+        padding-left: calc(var(--bs-gutter-x) * .5) !important;
+    }
+}

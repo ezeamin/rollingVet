@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import "./formularioLogin.css";
 import Swal from "sweetalert2";
+import changeEyePosition from "../../js/changeEyePosition";
 
 class FormularioLogin extends Component {
   state = {
@@ -28,6 +29,7 @@ class FormularioLogin extends Component {
       this.setState({
         errores: errores,
       });
+      if(name === "contraseña") changeEyePosition(false);
       return true;
     } else {
       if (name === "email") {
@@ -48,6 +50,7 @@ class FormularioLogin extends Component {
       this.setState({
         errores: errores,
       });
+      changeEyePosition(true);
     }
 
     return false;
@@ -193,6 +196,7 @@ class FormularioLogin extends Component {
           />
         <button
             className="btnContraseña"
+            id="eyeBtn"
             type="button"
             onClick={() => this.displayPassword()}
           >

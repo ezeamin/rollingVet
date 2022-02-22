@@ -77,7 +77,7 @@ const Registro = (props) => {
           />
           <p className="mt-3 fs-6 tyc__p">
             Al registrarte, aceptas los{" "}
-            <Link to="#" className="tyc">
+            <Link to="/tyc" className="tyc">
               terminos y condiciones
             </Link>{" "}
             del sitio.

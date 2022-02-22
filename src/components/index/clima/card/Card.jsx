@@ -26,7 +26,7 @@ const Card = () => {
           datos.weather[0].description.substring(1);
 
         const iconUrl =
-          "http://openweathermap.org/img/wn/" +
+          "https://openweathermap.org/img/wn/" +
           datos.weather[0].icon +
           "@2x.png";
 

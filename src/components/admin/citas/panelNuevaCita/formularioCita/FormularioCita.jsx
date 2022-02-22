@@ -80,7 +80,10 @@ class FormularioCita extends Component {
       return this.error(errores, name);
     } else {
       switch(name){
-        case "hora":
+        case "hora":{
+          if(value === "0") return this.error(errores, name);
+          break;
+        }
         case "mascota":{
           if(value === "0") return this.error(errores, name);
 
@@ -91,7 +94,7 @@ class FormularioCita extends Component {
           if(planMascota==="Sin plan") this.setState({precio: 1000});
           else this.setState({precio: 0});
 
-          //cambiar precios si se hacen mas de 5 citas al mes
+          //se deberia agregar que cambien los precios si se hacen mas de 5 citas al mes
 
           break;
         }

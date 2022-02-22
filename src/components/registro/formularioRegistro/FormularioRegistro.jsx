@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import "./formularioRegistro.css";
 import Swal from "sweetalert2";
 import { init, send } from "@emailjs/browser";
+import changeEyePosition from "../../../js/changeEyePosition";
 
 class FormularioRegistro extends Component {
   state = {
@@ -54,6 +55,7 @@ class FormularioRegistro extends Component {
     const errores = this.state.errores;
 
     if (value.trim() === "") {
+      if (name === "contraseña") changeEyePosition(false);
       return this.error(errores, name);
     } else {
       switch (name) {
@@ -79,8 +81,10 @@ class FormularioRegistro extends Component {
             value.length > 20 ||
             !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(value)
           ) {
+            changeEyePosition(false);
             return this.error(errores, name);
           }
+          changeEyePosition(true);
           break;
         case "contraseña2":
           if (this.state.contraseña !== value) {
@@ -170,7 +174,8 @@ class FormularioRegistro extends Component {
 
   async registrar(boton) {
     let fecha = new Date();
-    let fechaString = fecha.getFullYear() + "-" + fecha.getMonth() + "-" + fecha.getDate();
+    let fechaString =
+      fecha.getFullYear() + "-" + fecha.getMonth() + "-" + fecha.getDate();
 
     const res = await fetch(process.env.REACT_APP_SERVER_URL + "/api/signup", {
       method: "POST",
@@ -386,42 +391,55 @@ class FormularioRegistro extends Component {
             </Form.Control.Feedback>
           </Form.Group>
         </div>
-        <div className="nombre-y-apellido">
-          <Form.Group className="form__nombre">
-            <Form.Control
-              type="text"
-              placeholder="DNI"
-              name="dni"
-              className="input"
-              isInvalid={this.state.errores.dni}
-              value={this.state.dni}
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
-              maxLength="8"
-            />
-            <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese un DNI valido (solo numeros)
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group className="mt-2 w-100">
-            <Form.Select
-              type="select"
-              placeholder="Genero"
-              name="genero"
-              className="input"
-              isInvalid={this.state.errores.genero}
-              value={this.state.genero}
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
+        {/*<div className="nombre-y-apellido">*/}
+        <div className="row">
+          <div className="col-sm-12 col-md-4" id="dniInput">
+            <Form.Group className="form__nombre w-100">
+              <Form.Control
+                type="text"
+                placeholder="DNI"
+                name="dni"
+                className="input"
+                isInvalid={this.state.errores.dni}
+                value={this.state.dni}
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+                maxLength="8"
+              />
+              <Form.Control.Feedback className="feedback" type="invalid">
+                Ingrese un DNI valido (solo numeros)
+              </Form.Control.Feedback>
+            </Form.Group>
+          </div>
+          <div className="col-md-4 col-sm-6 triInput" id="generoInput">
+            <Form.Group className="mt-2 w-100">
+              <Form.Select
+                type="select"
+                placeholder="Genero"
+                name="genero"
+                className="input"
+                isInvalid={this.state.errores.genero}
+                value={this.state.genero}
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              >
+                <option value="0">Genero</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+              </Form.Select>
+              <Form.Control.Feedback className="feedback" type="invalid">
+                Seleccione su genero
+              </Form.Control.Feedback>
+            </Form.Group>
+          </div>
+          <div className="col-md-4 col-sm-6 triInput" id="avatarInput">
+            <button
+              type="button"
+              className="mt-2 w-100 btnForm btnFormAvatar"
             >
-              <option value="0">Genero</option>
-              <option value="Masculino">Masculino</option>
-              <option value="Femenino">Femenino</option>
-            </Form.Select>
-            <Form.Control.Feedback className="feedback" type="invalid">
-              Seleccione su genero
-            </Form.Control.Feedback>
-          </Form.Group>
+              Cambiar <i className="fas fa-user-astronaut text-light ms-1"></i>
+            </button>
+          </div>
         </div>
         <Form.Group className="mt-2">
           <Form.Control
@@ -454,6 +472,7 @@ class FormularioRegistro extends Component {
           />
           <button
             className="btnContraseña"
+            id="eyeBtn"
             type="button"
             onClick={() => this.displayPassword()}
           >
