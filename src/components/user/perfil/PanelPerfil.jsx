@@ -28,6 +28,7 @@ const PanelPerfil = (props) => {
       setInfo(data.paciente);
       setCargando(false);
       setNombreCompleto(`${data.paciente.nombre} ${data.paciente.apellido}`);
+      setAvatarUrl(data.paciente.avatar);
     } catch (err) {
       if (err.name !== "AbortError") {
         console.log(err);
@@ -57,7 +58,7 @@ const PanelPerfil = (props) => {
     navigate(`/user/perfil/planes`);
   };
 
-  const changeAvatar = (gen) => {
+  const changeAvatar = (gen,status) => {
     let genero;
     if (gen === "Masculino") {
       genero = "male";
@@ -77,12 +78,18 @@ const PanelPerfil = (props) => {
   return (
     <div className="admin__panel__pacientes-editarUser user__panel__pacientes-editarUser admin__panel__pacientes-content">
       <div className="admin__panel__pacientes-editarUser-form">
-        <h1 className="mb-3 h3__bold">{nombreCompleto}</h1>
+        <div className="user__perfil-panelTitulos">
+          <h1 className="mb-0 h3__bold">{nombreCompleto}</h1>
+          <div className="user__perfil-avatar mb-2">
+            <img src={avatarUrl} alt="avatar del usuario" className="w-100"/>
+          </div>
+        </div>
         <FormularioRegistro
           info={info}
           navigateSuccess={navigateSuccess}
           changeAvatar={changeAvatar}
           titulo={nombreCompleto}
+          avatar={avatarUrl}
         />
       </div>
       <div className="user__panel__editarUser-botones">

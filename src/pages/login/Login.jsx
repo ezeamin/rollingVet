@@ -29,7 +29,7 @@ const Login = (props) => {
   return (
     <div className="registro__container">
       <Header />
-      <main className="main__registro">
+      <main className="main__registro main__login">
         <button className="btnVolver btnVolver-left" onClick={()=>navigate(-1)}><i className="fas fa-chevron-left"></i></button>
         <div className="main__registro-content">
           <div className="titulos__registro">

@@ -17,6 +17,14 @@
     .titulos__registro-img{
         display: none;
     }
+
+    .main__login{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: -102px;
+    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 850px){

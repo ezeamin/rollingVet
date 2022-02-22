@@ -16,11 +16,14 @@ const PanelEditarPaciente = (props) => {
     const fetchPaciente = async () => {
       try {
         if (props.dni !== "new") {
-          const res = await fetch(process.env.REACT_APP_SERVER_URL+`/api/paciente/${props.dni}`, {
-            method: "GET",
-            signal: abortCont.signal,
-            credentials: "include",
-          });
+          const res = await fetch(
+            process.env.REACT_APP_SERVER_URL + `/api/paciente/${props.dni}`,
+            {
+              method: "GET",
+              signal: abortCont.signal,
+              credentials: "include",
+            }
+          );
 
           if (!res.ok) {
             setError(true);
@@ -29,6 +32,7 @@ const PanelEditarPaciente = (props) => {
 
           const data = await res.json();
           setInfo(data.paciente);
+          setAvatarUrl(data.paciente.avatar);
         }
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -36,15 +40,14 @@ const PanelEditarPaciente = (props) => {
         }
       }
     };
-    if(props.user.dni === 0){
+    if (props.user.dni === 0) {
       setError(true);
-    }
-    else fetchPaciente();
+    } else fetchPaciente();
 
     return () => {
       abortCont.abort();
     };
-  }, [props.dni,props.user.dni]);
+  }, [props.dni, props.user.dni]);
 
   const redirectMascotas = () => {
     navigate(`/admin/pacientes/${props.dni}/mascotas`);
@@ -74,7 +77,12 @@ const PanelEditarPaciente = (props) => {
     return (
       <div className="admin__panel__pacientes-editarUser py-5 admin__panel__pacientes-content">
         <div>
-          <h1 className="mb-3 h3__bold">Editar perfil</h1>
+          <div className="user__perfil-panelTitulos">
+            <h1 className="mb-0 h3__bold">Editar perfil</h1>
+            <div className="user__perfil-avatar mb-2">
+              <img src={avatarUrl} alt="avatar del usuario" className="w-100" />
+            </div>
+          </div>
           <div className="admin__panel__pacientes-editarUser-form">
             <FormularioRegistro
               info={info}
