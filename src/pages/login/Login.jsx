@@ -12,8 +12,6 @@ const Login = (props) => {
   }, []);
 
   const navigateSuccess = (isAdmin) => {
-    props.setIsAuthenticated(true);
-
     if(window.location.href.includes("?redirect=")){
       const redirect = window.location.href.split("?redirect=")[1];
       if(!isAdmin) navigate("/"+redirect);

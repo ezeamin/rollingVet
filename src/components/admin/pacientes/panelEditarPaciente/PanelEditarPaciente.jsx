@@ -104,6 +104,7 @@ const PanelEditarPaciente = (props) => {
               navigateSuccess={navigateSuccess}
               changeAvatar={changeAvatar}
               avatar={avatarUrl}
+              navigatePass={(link)=>navigate(link)}
             />
           </div>
         </div>
@@ -135,6 +136,7 @@ const PanelEditarPaciente = (props) => {
             navigateSuccess={navigateSuccess}
             setIsAuthenticated={() => {}}
             isAdmin={true}
+            navigatePass={()=>{}}
           />
         </div>
       </div>

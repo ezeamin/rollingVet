@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Carga from "../../admin/carga/Carga";
-import './panelPerfil.css';
+import "./panelPerfil.css";
 import Error from "../../admin/error/Error";
 import FormularioRegistro from "../../registro/formularioRegistro/FormularioRegistro";
 
@@ -18,28 +18,30 @@ const PanelPerfil = (props) => {
 
     const traerInfo = async () => {
       try {
-      const res = await fetch(process.env.REACT_APP_SERVER_URL+`/api/paciente/${props.user.dni}`, {
-        method: "GET",
-        signal: abortCont.signal,
-        credentials: "include",
-      });
-      const data = await res.json();
+        const res = await fetch(
+          process.env.REACT_APP_SERVER_URL + `/api/paciente/${props.user.dni}`,
+          {
+            method: "GET",
+            signal: abortCont.signal,
+            credentials: "include",
+          }
+        );
+        const data = await res.json();
 
-      setInfo(data.paciente);
-      setCargando(false);
-      setNombreCompleto(`${data.paciente.nombre} ${data.paciente.apellido}`);
-      setAvatarUrl(data.paciente.avatar);
-    } catch (err) {
-      if (err.name !== "AbortError") {
-        console.log(err);
+        setInfo(data.paciente);
+        setCargando(false);
+        setNombreCompleto(`${data.paciente.nombre} ${data.paciente.apellido}`);
+        setAvatarUrl(data.paciente.avatar);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
       }
-    }
     };
-    if(props.user.dni === 0){
+    if (props.user.dni === 0) {
       setCargando(false);
       setError(true);
-    }
-    else if (props.user.dni) traerInfo();
+    } else if (props.user.dni) traerInfo();
 
     return () => {
       abortCont.abort();
@@ -58,7 +60,7 @@ const PanelPerfil = (props) => {
     navigate(`/user/perfil/planes`);
   };
 
-  const changeAvatar = (gen,status) => {
+  const changeAvatar = (gen, status) => {
     let genero;
     if (gen === "Masculino") {
       genero = "male";
@@ -74,14 +76,14 @@ const PanelPerfil = (props) => {
   };
 
   if (cargando) return <Carga />;
-  else if(error) return <Error />;
+  else if (error) return <Error />;
   return (
     <div className="admin__panel__pacientes-editarUser user__panel__pacientes-editarUser admin__panel__pacientes-content">
       <div className="admin__panel__pacientes-editarUser-form">
         <div className="user__perfil-panelTitulos">
           <h1 className="mb-0 h3__bold">{nombreCompleto}</h1>
           <div className="user__perfil-avatar mb-2">
-            <img src={avatarUrl} alt="avatar del usuario" className="w-100"/>
+            <img src={avatarUrl} alt="avatar del usuario" className="w-100" />
           </div>
         </div>
         <FormularioRegistro
@@ -90,6 +92,7 @@ const PanelPerfil = (props) => {
           changeAvatar={changeAvatar}
           titulo={nombreCompleto}
           avatar={avatarUrl}
+          navigatePass={(link)=>navigate(link)}
         />
       </div>
       <div className="user__panel__editarUser-botones">

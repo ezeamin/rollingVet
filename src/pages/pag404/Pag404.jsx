@@ -9,7 +9,7 @@ const Pag404 = (props) => {
     
     return (
         <div>
-            <HeaderRegistro isAuthenticated={props.isAuthenticated} setIsAuthenticated={props.setIsAuthenticated}/>
+            <HeaderRegistro/>
             <article className="pagina404">
                 <button className="btnVolver btnVolver-left" onClick={()=>navigate(-1)}><i className="fas fa-chevron-left"></i></button>
                 <h1 className='main__title main__title-404'>404</h1>

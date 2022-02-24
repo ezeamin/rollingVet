@@ -76,6 +76,15 @@
     .admin__panel__pacientes-editarUser{
         height: 100%;
     }
+    
+    .admin__panel__pacientes-editarUser{
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .admin__panel__pacientes-editarUser-btnMascotas{
+        margin-top: 2rem;
+    }
 }
 
 @media screen and (max-width: 992px) {
@@ -88,17 +97,14 @@
         text-align: center;
     }
 
-    .admin__panel__pacientes-editarUser{
-        flex-direction: column;
-        justify-content: flex-start;
-    }
-
-    .admin__panel__pacientes-editarUser-btnMascotas{
-        margin-top: 2rem;
-    }
-
     .admin__panel__pacientes-editarUser-mascotas{
         padding: 0;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 900px){
+    .admin__panel__pacientes-newUser,.admin__panel__pacientes-editarUser{
+        padding: 0 10rem;
     }
 }
 

@@ -19,7 +19,6 @@ const User = (props) => {
     <div className="row admin">
       <div className="col-xl-2 admin__nav">
         <Navegacion
-          setIsAuthenticated={props.setIsAuthenticated}
           setIsAdmin={props.setIsAdmin}
           user={props.user}
           isAdmin={false}

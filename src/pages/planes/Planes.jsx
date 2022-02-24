@@ -24,10 +24,7 @@ const Planes = (props) => {
       </a>
       <div className="gradient__bg-planes">
         <div className="container">
-          <Header
-            isAuthenticated={props.isAuthenticated}
-            setIsAuthenticated={props.setIsAuthenticated}
-          />
+          <Header/>
           <Main />
           <DetallePlanes />
           <Footer titulo="¿Aún tienes dudas?" color="secondary" />

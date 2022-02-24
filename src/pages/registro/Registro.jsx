@@ -83,6 +83,7 @@ const Registro = (props) => {
             navigateSuccess={navigateSuccess}
             setIsAuthenticated={props.setIsAuthenticated}
             isAdmin={false}
+            navigatePass={()=>{}}
           />
           <p className="mt-3 fs-6 tyc__p">
             Al registrarte, aceptas los{" "}

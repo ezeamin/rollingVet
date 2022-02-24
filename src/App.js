@@ -21,11 +21,11 @@ import EditarMascota from "./pages/admin/pacientes/crudMascotas/editarMascota/Ed
 import User from "./pages/user/User";
 import Perfil from "./pages/user/perfil/Perfil";
 import PlanesUser from "./pages/user/planes/PlanesUser";
+import EditarPassword from "./pages/admin/pacientes/crudPacientes/editarPassword/EditarPassword";
 
 scrollDetection();
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [user, setUser] = React.useState({});
   const [isAdmin, setIsAdmin] = React.useState(false);
 
@@ -44,7 +44,6 @@ function App() {
       const data = await res.json();
 
       if (data.code === 200) {
-        setIsAuthenticated(true);
         setUser(data.user);
         if(data.user.dni==="1") setIsAdmin(true);
 
@@ -60,7 +59,6 @@ function App() {
           window.location.href="/admin";
         }
       } else {
-        setIsAuthenticated(false);
         setIsAdmin(false);
 
         if(isProtected && window.location.href!=="/") window.location.href="/";
@@ -82,8 +80,6 @@ function App() {
             element={
               <Index
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -96,8 +92,6 @@ function App() {
             element={
               <Planes
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -110,8 +104,6 @@ function App() {
             element={
               <Registro
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -124,8 +116,6 @@ function App() {
             element={
               <Login
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -138,8 +128,6 @@ function App() {
             element={
               <Admin
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -152,8 +140,6 @@ function App() {
             element={
               <Citas
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -166,8 +152,6 @@ function App() {
             element={
               <VerCitas
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -180,8 +164,6 @@ function App() {
             element={
               <NuevaCita
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -194,8 +176,6 @@ function App() {
             element={
               <Pacientes
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -208,8 +188,18 @@ function App() {
             element={
               <CrudPacientes
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
+                setIsAdmin={setIsAdmin}
+                isAdmin={isAdmin}
+                setUser={setUser}
+                user={user}
+              />
+            }
+          />
+          <Route
+            path="/admin/pacientes/:id/password"
+            element={
+              <EditarPassword
+                testAuth={testAuth}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -222,8 +212,6 @@ function App() {
             element={
               <CrudMascotas
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -236,8 +224,6 @@ function App() {
             element={
               <EditarMascota
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -250,8 +236,6 @@ function App() {
             element={
               <Veterinarios
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -264,8 +248,6 @@ function App() {
             element={
               <Precios
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -278,8 +260,6 @@ function App() {
             element={
               <User
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -292,8 +272,6 @@ function App() {
             element={
               <Perfil
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -306,8 +284,6 @@ function App() {
             element={
               <PlanesUser
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -320,8 +296,18 @@ function App() {
             element={
               <CrudMascotas
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
+                setIsAdmin={setIsAdmin}
+                isAdmin={isAdmin}
+                setUser={setUser}
+                user={user}
+              />
+            }
+          />
+          <Route
+            path="/user/perfil/password"
+            element={
+              <EditarPassword
+                testAuth={testAuth}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -334,8 +320,6 @@ function App() {
             element={
               <EditarMascota
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -348,8 +332,6 @@ function App() {
             element={
               <Citas
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -362,8 +344,6 @@ function App() {
             element={
               <NuevaCita
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -376,8 +356,6 @@ function App() {
             element={
               <VerCitas
                 testAuth={testAuth}
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}
@@ -389,8 +367,6 @@ function App() {
             path="*"
             element={
               <Pag404
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
                 setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
                 setUser={setUser}

@@ -32,10 +32,7 @@ const Index = (props) => {
       <div className="gradient__bg">
         <div className="container">
           <div className="landing">
-            <Header
-              isAuthenticated={props.isAuthenticated}
-              setIsAuthenticated={props.setIsAuthenticated}
-            />
+            <Header/>
             <Main />
           </div>
           <Info />
