@@ -96,9 +96,7 @@ const PanelCitas = (props) => {
         let boton = document.getElementById("botonCargarMasRegistro");
         boton.style.display = "none";
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   }, [minProg, minReg, citasProgramadas, citasRegistro]);
 
   React.useEffect(() => {

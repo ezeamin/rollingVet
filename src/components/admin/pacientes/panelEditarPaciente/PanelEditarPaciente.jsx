@@ -6,7 +6,7 @@ import Error from "../../error/Error";
 const PanelEditarPaciente = (props) => {
   const navigate = useNavigate();
 
-  const [avatarUrl, setAvatarUrl] = React.useState("");
+  const [avatarUrl, setAvatarUrl] = React.useState("https://mulder-onions.com/wp-content/uploads/2017/02/White-square.jpg");
   const [info, setInfo] = React.useState({});
   const [error, setError] = React.useState(false);
 
@@ -57,6 +57,21 @@ const PanelEditarPaciente = (props) => {
     navigate("/admin/pacientes");
   };
 
+  React.useEffect(() => {
+    const generateAvatar = () => {
+      let gen;
+      const randomSeed = Math.floor(Math.random() * 99999) + 2;
+      if ((randomSeed % 10) % 2 === 0) gen = "male";
+      else gen = "female";
+
+      const url = `https://avatars.dicebear.com/api/${gen}/${randomSeed}.svg?mood=happy`; //skinColor=variant01
+
+      setAvatarUrl(url);
+    };
+
+    if (props.dni === "new") generateAvatar();
+  }, [props.dni]);
+
   const changeAvatar = (gen) => {
     let genero;
     if (gen === "Masculino") {
@@ -88,7 +103,7 @@ const PanelEditarPaciente = (props) => {
               info={info}
               navigateSuccess={navigateSuccess}
               changeAvatar={changeAvatar}
-              avatar={info.avatar}
+              avatar={avatarUrl}
             />
           </div>
         </div>
@@ -107,7 +122,12 @@ const PanelEditarPaciente = (props) => {
   } else {
     return (
       <div className="admin__panel__pacientes-newUser py-5 admin__panel__pacientes-content">
-        <h1 className="mb-3 h3__bold">Agregar paciente</h1>
+        <div className="user__perfil-panelTitulos">
+          <h1 className="mb-0 h3__bold">Nuevo paciente</h1>
+          <div className="user__perfil-avatar mb-2">
+            <img src={avatarUrl} alt="avatar del usuario" className="w-100" />
+          </div>
+        </div>
         <div className="admin__panel__pacientes-newUser-form">
           <FormularioRegistro
             avatar={avatarUrl}

@@ -354,6 +354,45 @@ class FormularioRegistro extends Component {
     this.setState({ showPassword: !this.state.showPassword });
   }
 
+  async handleAvatarSubmit(){
+    const res = await fetch(
+      process.env.REACT_APP_SERVER_URL + "/api/pacientes/editarAvatar",
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          dni: this.state.dni,
+          avatar: this.props.avatar,
+        }),
+      }
+    );
+    const data = await res.json();
+
+    if (data.ok) {
+      Swal.fire({
+        title: "Edicion exitosa",
+        text: " ",
+        timer: 2000,
+        showCancelButton: false,
+        showConfirmButton: false,
+      }).then(() => {
+        this.props.navigateSuccess();
+      });
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "Vuelve a intentarlo mas tarde",
+        icon: "error",
+        timer: 2500,
+        showCancelButton: false,
+        showConfirmButton: false,
+      });
+    }
+  }
+
   render() {
     return (
       <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -500,9 +539,12 @@ class FormularioRegistro extends Component {
             Las contraseñas no coinciden
           </Form.Control.Feedback>
         </Form.Group>
-        <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">
-          Guardar
-        </button>
+        <div className="d-flex">
+          <button id="btnRegistro" type="submit" className="my-2 w-100 btnForm">
+            Guardar
+          </button>
+          {!this.state.isNew ? <button type="button" onClick={()=>this.handleAvatarSubmit()} className="my-2 w-100 btnFormAvatar-guardar btn-success">Guardar <i className="fas fa-user-astronaut text-light ms-1"></i></button> : null}
+        </div>
       </Form>
     );
   }

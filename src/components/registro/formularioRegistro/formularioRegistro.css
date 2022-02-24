@@ -31,6 +31,15 @@
     height: 42px;
 }
 
+.btnFormAvatar-guardar{
+    border-radius: 23px;
+    border: 0;
+    transition: background-color 0.25s ease;
+    padding: 0.5rem;
+    color: #fff;
+    margin-left: 0.5rem;
+}
+
 #dniInput{
     padding-right: 0.25rem !important;
 }

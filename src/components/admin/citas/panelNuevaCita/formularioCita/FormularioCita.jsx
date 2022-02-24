@@ -157,6 +157,8 @@ class FormularioCita extends Component {
       (mascota) => mascota.nombre === this.state.mascota
     ).codigoMascota;
 
+    console.log(codigoMascota);
+
     const response = await fetch(process.env.REACT_APP_SERVER_URL+`/api/citas`, {
       method: "POST",
       credentials: "include",
