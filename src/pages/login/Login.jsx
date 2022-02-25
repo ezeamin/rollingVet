@@ -2,7 +2,7 @@ import React from "react";
 import FormularioLogin from "../../components/login/FormularioLogin";
 import Header from "../../components/registro/header/HeaderRegistro";
 import "./login.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = (props) => {
   const navigate = useNavigate();

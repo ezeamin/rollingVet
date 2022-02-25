@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import "./formularioLogin.css";
 import Swal from "sweetalert2";
 import changeEyePosition from "../../js/changeEyePosition";
+import { Link } from "react-router-dom";
 
 class FormularioLogin extends Component {
   state = {
@@ -216,6 +217,7 @@ class FormularioLogin extends Component {
         <button id="btnLogin" type="submit" className="mt-2 w-100 btnForm">
           Ingresar
         </button>
+        <p className="mt-5 textRegistro">¿No tienes cuenta? <Link to="/registro" className="text-dark">Registrate</Link></p>
       </Form>
     );
   }

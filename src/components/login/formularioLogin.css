@@ -13,3 +13,18 @@
 .login__olvidasteContraseña p{
     margin: 0.5rem 0;
 }
+
+.textRegistro{
+    text-align: end;
+}
+
+@media screen and (max-width: 768px){
+    .login__olvidasteContraseña{
+        text-align: center;
+        width: 100%;
+    }
+
+    .textRegistro{
+        text-align: center;
+    }
+}

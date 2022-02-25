@@ -172,8 +172,8 @@ class FormularioRegistro extends Component {
         password: this.state.contraseña,
       }),
     });
-    this.props.setIsAuthenticated(true);
 
+    setTimeout(() => {},500);
     this.props.navigateSuccess();
   }
 
