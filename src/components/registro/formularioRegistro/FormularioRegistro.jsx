@@ -133,7 +133,6 @@ class FormularioRegistro extends Component {
       });
     } else {
       let error = [false, false, false, false, false];
-      let errorGeneral = false;
 
       error[0] = this.verificar("nombre", this.state.nombre);
       error[1] = this.verificar("apellido", this.state.apellido);
