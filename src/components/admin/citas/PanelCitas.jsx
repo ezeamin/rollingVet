@@ -36,23 +36,45 @@ const PanelCitas = (props) => {
 
   const cargarMas = async (categoria) => {
     let response;
+
     if (isUser) {
-      response = await fetch(
-        process.env.REACT_APP_SERVER_URL +
-          `/api/${categoria}/user/dni/${props.user.dni}/${minProg}`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
+      if (categoria === "citasProgramadas") {
+        response = await fetch(
+          process.env.REACT_APP_SERVER_URL +
+            `/api/${categoria}/user/dni/${props.user.dni}/${minProg}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+      } else {
+        response = await fetch(
+          process.env.REACT_APP_SERVER_URL +
+            `/api/${categoria}/user/dni/${props.user.dni}/${minReg}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+      }
     } else {
-      response = await fetch(
-        process.env.REACT_APP_SERVER_URL + `/api/${categoria}/${minProg}`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
+      if (categoria === "citasProgramadas") {
+        response = await fetch(
+          process.env.REACT_APP_SERVER_URL + `/api/${categoria}/${minProg}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+      } else {
+        response = await fetch(
+          process.env.REACT_APP_SERVER_URL + `/api/${categoria}/${minReg}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+      }
     }
 
     const data = await response.json();
@@ -61,7 +83,7 @@ const PanelCitas = (props) => {
       if (citas.length !== 0)
         setCitasProgramadas([...citasProgramadas, ...citas]);
 
-      if (citas.length < 5) {
+      if (citas.length < 3) {
         let boton = document.getElementById("botonCargarMasProgramadas");
 
         boton.disabled = true;
@@ -72,7 +94,7 @@ const PanelCitas = (props) => {
     } else {
       if (citas.length !== 0) setCitasRegistro([...citasRegistro, ...citas]);
 
-      if (citas.length < 5) {
+      if (citas.length < 3) {
         let boton = document.getElementById("botonCargarMasRegistro");
 
         boton.disabled = true;
@@ -81,8 +103,6 @@ const PanelCitas = (props) => {
         setMinReg(minReg + 3);
       }
     }
-
-    if (minProg >= 6 || minReg >= 6) restablecerPos();
   };
 
   React.useEffect(() => {
@@ -97,6 +117,8 @@ const PanelCitas = (props) => {
         boton.style.display = "none";
       }
     } catch (err) {}
+
+    if (minProg > 3 || minReg > 3) restablecerPos();
   }, [minProg, minReg, citasProgramadas, citasRegistro]);
 
   React.useEffect(() => {

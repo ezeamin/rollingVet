@@ -58,7 +58,7 @@ class FormularioMascota extends Component {
         case "nombre":
         case "especie":
         case "raza":
-          if (value.length < 2) {
+          if (value.length < 2 || value.length > 30) {
             return this.error(errores, name);
           }
           break;
@@ -116,7 +116,6 @@ class FormularioMascota extends Component {
     });
 
     if (!errorGeneral) {
-      //guardar
       this.guardarMascota();
     }
   };
@@ -250,7 +249,7 @@ class FormularioMascota extends Component {
                 value={this.state.raza}
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
-                maxLength="20"
+                maxLength="30"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 Ingrese una raza

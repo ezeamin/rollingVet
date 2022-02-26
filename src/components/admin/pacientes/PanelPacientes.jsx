@@ -47,11 +47,11 @@ const PanelPacientes = (props) => {
 
       boton.disabled = true;
       boton.onclick = null;
-    } else{
+    } else {
       setMin(min + 5);
     }
 
-    if (min > 10) restablecerPos();
+    if (min === 10) restablecerPos();
   };
 
   const eliminar = async (dni) => {
