@@ -249,7 +249,7 @@ const PanelCitas = (props) => {
       }).then(async () => {
         if (!isUser) {
           const response = await fetch(
-            process.env.REACT_APP_SERVER_URL + "/api/citasProgramadas",
+            process.env.REACT_APP_SERVER_URL + "/api/citasProgramadas/0",
             {
               method: "GET",
               credentials: "include",
@@ -260,7 +260,7 @@ const PanelCitas = (props) => {
         } else {
           const response = await fetch(
             process.env.REACT_APP_SERVER_URL +
-              `/api/citasProgramadas/${props.user.dni}`,
+              `/api/citasProgramadas/${props.user.dni}/0`,
             {
               method: "GET",
               credentials: "include",
@@ -269,6 +269,8 @@ const PanelCitas = (props) => {
           const data = await response.json();
           setCitasProgramadas(data.citas);
         }
+
+        setMinProg(0);
       });
     }
   };

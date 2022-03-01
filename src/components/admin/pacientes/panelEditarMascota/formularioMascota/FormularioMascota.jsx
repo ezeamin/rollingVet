@@ -128,9 +128,9 @@ class FormularioMascota extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        nombre: this.state.nombre,
+        nombre: this.capitalizeAndTrim(this.state.nombre),
         especie: this.state.especie,
-        raza: this.state.raza,
+        raza: this.capitalizeAndTrim(this.state.raza),
         fechaNac: this.state.fechaNac,
         sexo: this.state.sexo,
         codigoMascota: this.state.codigoMascota,
@@ -190,6 +190,10 @@ class FormularioMascota extends Component {
   componentWillUnmount() {
     this.mounted = false;
   }
+
+  capitalizeAndTrim = (s) => {
+    return (s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).trim();
+  };
 
   render() {
     if (this.state.cargando) return <Carga />;
