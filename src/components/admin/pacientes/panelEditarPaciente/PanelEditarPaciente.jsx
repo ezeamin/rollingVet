@@ -2,6 +2,7 @@ import React from "react";
 import FormularioRegistro from "../../../registro/formularioRegistro/FormularioRegistro";
 import { useNavigate } from "react-router-dom";
 import Error from "../../error/Error";
+import Carga from "../../carga/Carga";
 
 const PanelEditarPaciente = (props) => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const PanelEditarPaciente = (props) => {
   const [avatarUrl, setAvatarUrl] = React.useState("https://mulder-onions.com/wp-content/uploads/2017/02/White-square.jpg");
   const [info, setInfo] = React.useState({});
   const [error, setError] = React.useState(false);
+  const [cargando, setCargando] = React.useState(true);
 
   React.useEffect(() => {
     const abortCont = new AbortController();
@@ -33,6 +35,7 @@ const PanelEditarPaciente = (props) => {
           const data = await res.json();
           setInfo(data.paciente);
           setAvatarUrl(data.paciente.avatar);
+          setCargando(false);
         }
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -42,6 +45,7 @@ const PanelEditarPaciente = (props) => {
     };
     if (props.user.dni === 0) {
       setError(true);
+      setCargando(false);
     } else fetchPaciente();
 
     return () => {
@@ -87,7 +91,8 @@ const PanelEditarPaciente = (props) => {
     );
   };
 
-  if (error) return <Error />;
+  if (cargando) return <Carga />;
+  else if (error) return <Error />;
   else if (props.dni !== "new") {
     return (
       <div className="admin__panel__pacientes-editarUser py-5 admin__panel__pacientes-content">
