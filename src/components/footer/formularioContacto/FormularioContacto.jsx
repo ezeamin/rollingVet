@@ -156,7 +156,7 @@ class FormularioContacto extends Component {
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Control
-            type="text"
+            type="email"
             placeholder="E-mail"
             name="email"
             className="input"

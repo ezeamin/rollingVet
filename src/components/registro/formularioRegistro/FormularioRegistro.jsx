@@ -173,7 +173,7 @@ class FormularioRegistro extends Component {
       }),
     });
 
-    setTimeout(() => {},500);
+    setTimeout(() => {}, 500);
     this.props.navigateSuccess();
   }
 
@@ -231,6 +231,15 @@ class FormularioRegistro extends Component {
       if (data.code === 1) {
         Swal.fire({
           title: "Email en uso",
+          text: " ",
+          icon: "error",
+          timer: 2500,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+      } else if (data.code === 2) {
+        Swal.fire({
+          title: "DNI en uso",
           text: " ",
           icon: "error",
           timer: 2500,
@@ -297,6 +306,7 @@ class FormularioRegistro extends Component {
           genero: this.state.genero,
           email: this.state.email,
           avatar: this.props.avatar,
+          dniOriginal: this.props.info.dni,
         }),
       }
     );
@@ -372,8 +382,12 @@ class FormularioRegistro extends Component {
   }
 
   async cambiarContraseña() {
-    if(window.location.href.includes("user")) this.props.navigatePass(`/user/perfil/password`);
-    else this.props.navigatePass(`/admin/pacientes/${this.props.info.dni}/password`);
+    if (window.location.href.includes("user"))
+      this.props.navigatePass(`/user/perfil/password`);
+    else
+      this.props.navigatePass(
+        `/admin/pacientes/${this.props.info.dni}/password`
+      );
   }
 
   render() {
@@ -418,7 +432,7 @@ class FormularioRegistro extends Component {
           <div className="col-sm-12 col-md-4" id="dniInput">
             <Form.Group className="form__nombre w-100">
               <Form.Control
-                type="text"
+                type="number"
                 placeholder="DNI"
                 name="dni"
                 className="input"
@@ -466,7 +480,7 @@ class FormularioRegistro extends Component {
         </div>
         <Form.Group className="mt-2">
           <Form.Control
-            type="text"
+            type="email"
             placeholder="E-mail"
             name="email"
             className="input"

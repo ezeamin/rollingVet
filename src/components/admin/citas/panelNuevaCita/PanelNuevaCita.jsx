@@ -75,9 +75,9 @@ const PanelNuevaCita = (props) => {
         //mismo dia
         const fechaActual = new Date();
         if (
-          fechaActual.getDate().toString() === fecha.split("-")[2] &&
-          fechaActual.getMonth() === fecha.split("-")[1] - 1 &&
-          fechaActual.getFullYear().toString() === fecha.split("-")[0]
+          Number.parseInt(fechaActual.getDate().toString()) === Number.parseInt(fecha.split("-")[2]) &&
+          Number.parseInt(fechaActual.getMonth()) === Number.parseInt(fecha.split("-")[1] - 1) &&
+          Number.parseInt(fechaActual.getFullYear().toString()) === Number.parseInt(fecha.split("-")[0])
         ) {
           if (fechaActual.getHours() >= 17) setHorarios([]);
           else {

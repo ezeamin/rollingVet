@@ -168,7 +168,7 @@ class FormularioLogin extends Component {
       <Form onSubmit={(e) => this.handleSubmit(e)}>
         <Form.Group className="mt-2">
           <Form.Control
-            type="text"
+            type="email"
             placeholder="E-mail"
             name="email"
             className="input"
