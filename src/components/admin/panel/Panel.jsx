@@ -33,11 +33,14 @@ const Panel = (props) => {
 
     const traerInfo = async () => {
       try {
-        const response = await fetch(process.env.REACT_APP_SERVER_URL+"/api/qty", {
-          method: "GET",
-          signal: abortCont.signal,
-          credentials: "include",
-        });
+        const response = await fetch(
+          process.env.REACT_APP_SERVER_URL + "/api/qty",
+          {
+            method: "GET",
+            signal: abortCont.signal,
+            credentials: "include",
+          }
+        );
         const info = await response.json();
 
         setPacientes(info.pacientes);
@@ -49,11 +52,10 @@ const Panel = (props) => {
         }
       }
     };
-    if(props.user.dni === 0){
+    if (props.user.dni === 0) {
       setCargando(false);
       setError(true);
-    }
-    else traerInfo();
+    } else traerInfo();
 
     return () => {
       abortCont.abort();

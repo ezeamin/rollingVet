@@ -2,7 +2,7 @@ import React from "react";
 import FormularioLogin from "../../components/login/FormularioLogin";
 import Header from "../../components/registro/header/HeaderRegistro";
 import "./login.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -16,10 +16,8 @@ const Login = (props) => {
       const redirect = window.location.href.split("?redirect=")[1];
       if(!isAdmin) navigate("/"+redirect);
     } else if (isAdmin) {
-      props.setIsAdmin(true);
       navigate("/admin");
     } else {
-      props.setIsAdmin(false);
       navigate("/user");
     }
   };

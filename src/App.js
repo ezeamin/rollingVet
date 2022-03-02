@@ -66,10 +66,6 @@ function App() {
     } catch (err) {}
   };
 
-  const volver = () => {
-    window.location.href="/";
-  };
-
   return (
     <div className="App">
       <Router>
@@ -80,9 +76,7 @@ function App() {
             element={
               <Index
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -92,9 +86,7 @@ function App() {
             element={
               <Planes
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -104,9 +96,7 @@ function App() {
             element={
               <Registro
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -116,9 +106,7 @@ function App() {
             element={
               <Login
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -128,9 +116,7 @@ function App() {
             element={
               <Admin
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -140,9 +126,7 @@ function App() {
             element={
               <Citas
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -152,9 +136,7 @@ function App() {
             element={
               <VerCitas
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -164,9 +146,7 @@ function App() {
             element={
               <NuevaCita
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -176,9 +156,7 @@ function App() {
             element={
               <Pacientes
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -188,9 +166,7 @@ function App() {
             element={
               <CrudPacientes
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -200,9 +176,7 @@ function App() {
             element={
               <EditarPassword
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -212,9 +186,7 @@ function App() {
             element={
               <CrudMascotas
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -224,9 +196,7 @@ function App() {
             element={
               <EditarMascota
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -236,9 +206,7 @@ function App() {
             element={
               <Veterinarios
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -248,9 +216,7 @@ function App() {
             element={
               <Precios
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -260,9 +226,7 @@ function App() {
             element={
               <User
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -272,9 +236,7 @@ function App() {
             element={
               <Perfil
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -284,9 +246,7 @@ function App() {
             element={
               <PlanesUser
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -296,9 +256,7 @@ function App() {
             element={
               <CrudMascotas
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -308,9 +266,7 @@ function App() {
             element={
               <EditarPassword
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -320,9 +276,7 @@ function App() {
             element={
               <EditarMascota
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -332,9 +286,7 @@ function App() {
             element={
               <Citas
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -344,9 +296,7 @@ function App() {
             element={
               <NuevaCita
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -356,9 +306,7 @@ function App() {
             element={
               <VerCitas
                 testAuth={testAuth}
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }
@@ -367,9 +315,7 @@ function App() {
             path="*"
             element={
               <Pag404
-                setIsAdmin={setIsAdmin}
                 isAdmin={isAdmin}
-                setUser={setUser}
                 user={user}
               />
             }

@@ -120,7 +120,6 @@ const Navegacion = (props) => {
         method: "DELETE",
         credentials: "include",
       });
-      props.setIsAdmin(false);
       navigate("/");
     });
   };
