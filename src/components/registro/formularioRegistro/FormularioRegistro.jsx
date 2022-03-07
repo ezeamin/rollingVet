@@ -228,34 +228,15 @@ class FormularioRegistro extends Component {
         else this.props.navigateSuccess();
       });
     } else {
-      if (data.code === 1) {
-        Swal.fire({
-          title: "Email en uso",
-          text: " ",
-          icon: "error",
-          timer: 2500,
-          showCancelButton: false,
-          showConfirmButton: false,
-        });
-      } else if (data.code === 2) {
-        Swal.fire({
-          title: "DNI en uso",
-          text: " ",
-          icon: "error",
-          timer: 2500,
-          showCancelButton: false,
-          showConfirmButton: false,
-        });
-      } else {
-        Swal.fire({
-          title: "Error inesperado",
-          text: "Vuelve a intentarlo mas tarde",
-          icon: "error",
-          timer: 2500,
-          showCancelButton: false,
-          showConfirmButton: false,
-        });
-      }
+      Swal.fire({
+        title: data.message,
+        text: " ",
+        icon: "error",
+        timer: 2500,
+        showCancelButton: false,
+        showConfirmButton: false,
+      });
+
       boton.disabled = false;
 
       let estilo = window.getComputedStyle(document.body);
