@@ -18,7 +18,7 @@ class ItemPrecios extends Component {
   };
 
   verificar(value) {
-    if (isNaN(value) || value.trim() === "" || Number.parseFloat(value) < 0) {
+    if (isNaN(value) || value.trim() === "" || Number.parseFloat(value) < 0 || Number.parseFloat(value) > 100000) {
       this.setState({ error: true });
       document.getElementById(this.state.id).className =
         "admin__precios-item-input admin__precios-item-input-invalid";
