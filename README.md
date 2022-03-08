@@ -1,6 +1,8 @@
 # Rolling Vet
 
-Rolling Vet es un sitio web de veterinaria que ofrece planes para tus mascotas. Posee panel de admin y de usuarios.
+Rolling Vet es un sitio web de veterinaria que ofrece planes para tus mascotas. Posee panel de admin y de usuarios. 
+
+Posee rutas con verificacion de autenticacion.
 
 ### Aclaracion importante
 
@@ -38,7 +40,7 @@ Las dependencias se instalarán automáticamente.
 ## Demo
 [Rolling Vet](https://rollingvet.netlify.app)
 
-Como aclarado, no funciona correctamente. Ingresar al sitio de Back End ([Rolling Vet Server]https://rollingvet.herokuapp.com/)
+Como aclarado, no funciona correctamente. Ingresar al sitio de Back End ([Rolling Vet Server](https://rollingvet.herokuapp.com/))
 
 ### Administrador
 
