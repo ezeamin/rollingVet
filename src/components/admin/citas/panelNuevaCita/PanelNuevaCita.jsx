@@ -121,6 +121,7 @@ const PanelNuevaCita = (props) => {
     return (
       <div className="container py-5 admin__panel-content">
         <h1 className="h3__bold">Nueva cita</h1>
+        <p><i className="fas fa-exclamation me-2"></i>El paciente debe tener mascotas ya cargadas</p>
         <div className="admin__panel__nuevaCita row">
           <div className="admin__panel__nuevaCita-forms col-sm-12 col-md-8">
             <p className="mb-0 p__descripciones">Buscar paciente por DNI</p>
@@ -157,6 +158,7 @@ const PanelNuevaCita = (props) => {
     return (
       <div className="container py-5 admin__panel-content">
         <h1 className="h3__bold">Nueva cita</h1>
+        <p><i className="fas fa-exclamation me-2"></i>Debes tener mascotas ya cargadas</p>
         <div className="admin__panel__nuevaCita row">
           <div className="admin__panel__nuevaCita-forms col-sm-12 col-md-8">
             <div className="admin__panel__nuevaCita-forms-cita">

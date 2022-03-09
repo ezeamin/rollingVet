@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Carga from "../../../carga/Carga";
+import validateString from "../../../../../js/validateString";
 
 class FormularioMascota extends Component {
   state = {
@@ -56,9 +57,8 @@ class FormularioMascota extends Component {
     } else {
       switch (name) {
         case "nombre":
-        case "especie":
         case "raza":
-          if (value.length < 2 || value.length > 30) {
+          if (!validateString(value) || value.length < 2 || value.length > 30) {
             return this.error(errores, name);
           }
           break;
@@ -76,6 +76,7 @@ class FormularioMascota extends Component {
           break;
         case "plan":
         case "sexo":
+        case "especie":
           if (value === "0") {
             return this.error(errores, name);
           }
@@ -215,7 +216,7 @@ class FormularioMascota extends Component {
                 maxLength="15"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
-                Ingrese un nombre
+                Ingrese un nombre valido
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mt-2 w-100">

@@ -260,7 +260,7 @@ const PanelCitas = (props) => {
         } else {
           const response = await fetch(
             process.env.REACT_APP_SERVER_URL +
-              `/api/citasProgramadas/${props.user.dni}/0`,
+              `/api/citasProgramadas/user/dni/${props.user.dni}/0`,
             {
               method: "GET",
               credentials: "include",
@@ -271,6 +271,15 @@ const PanelCitas = (props) => {
         }
 
         setMinProg(0);
+      });
+    } else{
+      Swal.fire({
+        title: "Error",
+        text: data.message,
+        icon: "error",
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 2000,
       });
     }
   };

@@ -4,6 +4,7 @@ import "./formularioRegistro.css";
 import Swal from "sweetalert2";
 import { init, send } from "@emailjs/browser";
 import changeEyePosition from "../../../js/changeEyePosition";
+import validateString from "../../../js/validateString";
 
 class FormularioRegistro extends Component {
   state = {
@@ -62,12 +63,12 @@ class FormularioRegistro extends Component {
       switch (name) {
         case "nombre":
         case "apellido":
-          if (value.length < 2) {
+          if (!validateString(value) || value.length > 20 || value.length < 2) {
             return this.error(errores, name);
           }
           break;
         case "dni":
-          if (!/^\d{7,8}$/i.test(this.state.dni)) {
+          if (!/^\d{7,8}$/i.test(this.state.dni) || this.state.dni<=0) {
             return this.error(errores, name);
           }
           break;
@@ -305,8 +306,8 @@ class FormularioRegistro extends Component {
       });
     } else {
       Swal.fire({
-        title: "Error",
-        text: "Vuelve a intentarlo mas tarde",
+        title: data.message,
+        text: " ",
         icon: "error",
         timer: 2500,
         showCancelButton: false,
@@ -388,7 +389,7 @@ class FormularioRegistro extends Component {
               maxLength="20"
             />
             <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese un nombre
+              Ingrese un nombre valido
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mt-2 w-100">
@@ -404,7 +405,7 @@ class FormularioRegistro extends Component {
               maxLength="20"
             />
             <Form.Control.Feedback className="feedback" type="invalid">
-              Ingrese un apellido
+              Ingrese un apellido valido
             </Form.Control.Feedback>
           </Form.Group>
         </div>

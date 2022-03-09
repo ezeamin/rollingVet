@@ -37,6 +37,9 @@ const PanelEditarPaciente = (props) => {
           setAvatarUrl(data.paciente.avatar);
           setCargando(false);
         }
+        else{
+          setCargando(false);
+        }
       } catch (err) {
         if (err.name !== "AbortError") {
           console.log(err);
