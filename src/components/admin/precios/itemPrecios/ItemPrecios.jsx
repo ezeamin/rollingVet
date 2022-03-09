@@ -18,7 +18,7 @@ class ItemPrecios extends Component {
   };
 
   verificar(value) {
-    if (isNaN(value) || value.trim() === "" || Number.parseFloat(value) < 0 || Number.parseFloat(value) > 100000) {
+    if (!/^[0-9]{1,6}$/i.test(value) || Number.parseFloat(value) === 0) {
       this.setState({ error: true });
       document.getElementById(this.state.id).className =
         "admin__precios-item-input admin__precios-item-input-invalid";
@@ -47,7 +47,7 @@ class ItemPrecios extends Component {
   };
 
   savePrecio = async () => {
-    const precioTotal = Math.round(this.state.precio * 1.5);
+    const precioTotal = Math.round(Number.parseInt(this.state.precio) * 1.5);
 
     const response = await fetch(
       process.env.REACT_APP_SERVER_URL + `/api/precios`,
@@ -59,7 +59,7 @@ class ItemPrecios extends Component {
         },
         body: JSON.stringify({
           plan: this.props.datos.plan,
-          precio: this.state.precio,
+          precio: Number.parseInt(this.state.precio),
           precioTotal: precioTotal,
         }),
       }
@@ -69,7 +69,7 @@ class ItemPrecios extends Component {
 
     if (data.ok) {
       this.setState({ 
-        actual: this.state.precio, 
+        actual: Number.parseInt(this.state.precio), 
         precio: "", 
         error: false 
       });
@@ -79,6 +79,14 @@ class ItemPrecios extends Component {
         icon: "success",
         showConfirmButton: false,
         timer: 1500,
+      });
+    } else{
+      Swal.fire({
+        title: "Error",
+        text: data.message,
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000,
       });
     }
   };
